@@ -24,21 +24,18 @@ import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
 
-    FirebaseDatabase database;
-    DatabaseReference medicineRef;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //insertToMedicine();
+        insertToMedicine();
     }
 
     private void insertToMedicine() {
 
-        database = FirebaseDatabase.getInstance();
-        medicineRef = database.getReference("Medicine");
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference medicineRef = database.getReference("Medicine");
 
         try {
             InputStream inputStream = getAssets().open("_medName.txt");
@@ -49,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
             String medName = new String(bytes);
 
             String[] name = medName.split("\n");
-            for (int i = 1150; i < name.length; i++) {
+            for (int i = 1200; i < name.length; i++) {
                 InputStream medFile = getAssets().open(name[i] + ".txt");
                 int rsMed = medFile.available();
                 byte[] bytesMed = new byte[rsMed];
@@ -57,14 +54,21 @@ public class MainActivity extends AppCompatActivity {
                 medFile.close();
                 String medInfo = new String(bytesMed);
 
+
                 HashMap<String, String> hmMedInfo = new HashMap<String, String>();
                 String topic = new String();
                 boolean checkText = false;
                 String[] medSplit = medInfo.split(" ///// ");
                 for (int j = 0; j < medSplit.length; j++) {
                     if(j == 0){
+                        medSplit[j] = medSplit[j].replaceAll("\r\n", "");
                         hmMedInfo.put("Med_name", medSplit[j]);
                     } else if (j == 2) {
+                        if (medSplit[j].contains("\n \n")){
+                            medSplit[j] = medSplit[j].substring(1, medSplit[j].length()-4);
+                        } else {
+                            medSplit[j] = medSplit[j].substring(1, medSplit[j].length()-2);
+                        }
                         hmMedInfo.put("Med_intro", medSplit[j]);
                     }
                     else {
@@ -78,6 +82,11 @@ public class MainActivity extends AppCompatActivity {
                             }
                         } else {
                             if (checkText) {
+                                if (medSplit[j].contains("\n \n")){
+                                    medSplit[j] = medSplit[j].substring(1, medSplit[j].length()-4);
+                                } else {
+                                    medSplit[j] = medSplit[j].substring(1, medSplit[j].length()-2);
+                                }
                                 hmMedInfo.put(topic, medSplit[j]);
                                 checkText = false;
                             }
@@ -87,10 +96,10 @@ public class MainActivity extends AppCompatActivity {
 
                 DecimalFormat idFormat = new DecimalFormat("0000");
                 String med_id = "med" + idFormat.format(i+1);
-                Log.e("insert medicine", med_id);
                 for (Map.Entry hm:hmMedInfo.entrySet()){
                     medicineRef.child(med_id).child((String) hm.getKey()).setValue(hm.getValue());
                 }
+                Log.e("insert medicine", med_id);
             }
         } catch (FileNotFoundException e) {
             e.printStackTrace();
