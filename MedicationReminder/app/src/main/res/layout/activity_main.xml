@@ -26,7 +26,7 @@
             android:text="ผู้ใช้รายใหม่กดปุ่มเพื่อลงทะเบียนก่อน"
             android:layout_gravity="center"
             style="@style/TextBold24"
-            android:layout_marginTop="40dp"
+            android:layout_marginTop="70dp"
             android:layout_marginBottom="10dp"/>
 
         <mehdi.sakout.fancybuttons.FancyButton
