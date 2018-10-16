@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:fancy="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity"
+    android:background="@drawable/bg_screen">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+
+        <ImageView
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:src="@drawable/logo"
+            android:layout_gravity="center"
+            android:layout_marginTop="70dp" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ผู้ใช้รายใหม่กดปุ่มเพื่อลงทะเบียนก่อน"
+            android:layout_gravity="center"
+            style="@style/TextBold24"
+            android:layout_marginTop="40dp"
+            android:layout_marginBottom="10dp"/>
+
+        <mehdi.sakout.fancybuttons.FancyButton
+            android:layout_width="175dp"
+            android:layout_height="wrap_content"
+            android:paddingBottom="10dp"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:paddingTop="10dp"
+            style="@style/TextBold30"
+            fancy:fb_defaultColor="@color/colorBtnRed"
+            fancy:fb_radius="30dp"
+            fancy:fb_text="ลงทะเบียน"
+            android:layout_gravity="center"
+            android:onClick="register"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="หากลงทะเบียนแล้วกดปุ่มเพื่อเข้าสู่ระบบ"
+            style="@style/TextBold24"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="10dp"/>
+
+        <mehdi.sakout.fancybuttons.FancyButton
+            android:layout_width="175dp"
+            android:layout_height="wrap_content"
+            android:paddingBottom="10dp"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:paddingTop="10dp"
+            style="@style/TextBold30"
+            fancy:fb_defaultColor="@color/colorBtnBlue"
+            fancy:fb_radius="30dp"
+            fancy:fb_text="เข้าสู่ระบบ"
+            android:layout_gravity="center"
+            />
+
+    </LinearLayout>
+
+</RelativeLayout>

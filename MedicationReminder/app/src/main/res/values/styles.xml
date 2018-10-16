@@ -1,0 +1,40 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="textFont">
+        <item name="android:fontFamily" tools:targetApi="jelly_bean">@font/thsarabun</item>
+    </style>
+
+    <style name="TextBold24" parent="textFont">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">24sp</item>
+        <item name="android:textColor">#FFFFFF</item>
+    </style>
+
+    <style name="TextBold30" parent="textFont">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">30sp</item>
+        <item name="android:textColor">#FFFFFF</item>
+    </style>
+
+    <style name="BtnTopic" parent="textFont">
+        <item name="android:textSize">31sp</item>
+        <item name="android:background">#ffffff</item>
+        <item name="android:textColor">@color/colorPrimaryDark</item>
+    </style>
+    <style name="TextRegular26" parent="textFont">
+        <item name="android:textSize">26sp</item>
+        <item name="android:textColor">#888888</item>
+
+    </style>
+
+
+
+</resources>
