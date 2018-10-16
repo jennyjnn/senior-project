@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        insertToMedicine();
+        //insertToMedicine();
     }
 
     private void insertToMedicine() {
@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
             String medName = new String(bytes);
 
             String[] name = medName.split("\n");
-            for (int i = 1200; i < name.length; i++) {
+            for (int i = 0; i < name.length; i++) {
                 InputStream medFile = getAssets().open(name[i] + ".txt");
                 int rsMed = medFile.available();
                 byte[] bytesMed = new byte[rsMed];
