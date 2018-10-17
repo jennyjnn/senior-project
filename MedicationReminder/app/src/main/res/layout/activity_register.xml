@@ -172,15 +172,17 @@
                             style="@style/TextRegular26"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:hint="ชื่อผู้ใช้งาน"
-                            android:inputType="text" />
+                            android:hint=" ชื่อผู้ใช้งาน"
+                            android:inputType="text"
+                            android:drawableLeft="@drawable/ic_person_black_24dp" />
 
                         <EditText
                             android:id="@+id/password"
                             style="@style/TextRegular26"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:hint="รหัสผ่าน"
+                            android:hint=" รหัสผ่าน"
+                            android:drawableLeft="@drawable/ic_lock_black_24dp"
                             android:inputType="textPassword" />
 
                         <EditText
@@ -188,7 +190,8 @@
                             style="@style/TextRegular26"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:hint="เบอร์โทรศัพท์"
+                            android:drawableLeft="@drawable/ic_phone_black_24dp"
+                            android:hint=" เบอร์โทรศัพท์"
                             android:inputType="phone" />
 
                         <LinearLayout
@@ -199,6 +202,7 @@
 
                             <mehdi.sakout.fancybuttons.FancyButton
                                 style="@style/TextBold30"
+                                android:id="@+id/btnCancel"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
