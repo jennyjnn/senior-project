@@ -4,361 +4,261 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@drawable/bg_screen"
-    tools:context=".MainActivity"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:context=".RegisterActivity">
     <!-- A CardView that contains a TextView -->
-    <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/card_view"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        card_view:cardCornerRadius="5dp"
-        android:layout_marginTop="20dp"
-        card_view:cardElevation="8dp">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:padding="10dp">
-            <TextView
+            android:orientation="vertical">
+
+            <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/card_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Test 1" />
+                android:layout_gravity="center"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="40dp"
+                android:layout_marginRight="30dp"
+                card_view:cardCornerRadius="5dp"
+                card_view:cardElevation="8dp">
+
+                <TextView
+                    style="@style/BtnTopic"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:padding="10dp"
+                    android:text="ลงทะเบียนผู้ป่วย" />
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="-10dp"
+                android:layout_marginRight="30dp"
+                android:layout_marginBottom="40dp"
+                card_view:cardCornerRadius="5dp"
+                card_view:cardElevation="4dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <android.support.v7.widget.CardView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="30dp"
+                        card_view:cardBackgroundColor="@color/colorPrimaryDark"
+                        card_view:cardCornerRadius="5dp"
+                        card_view:cardElevation="8dp">
+
+                        <TextView
+                            style="@style/textFont"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:paddingLeft="20dp"
+                            android:paddingTop="5dp"
+                            android:paddingRight="20dp"
+                            android:paddingBottom="5dp"
+                            android:text="ข้อมูลส่วนตัว"
+                            android:textColor="#ffffff"
+                            android:textSize="24sp" />
+
+                    </android.support.v7.widget.CardView>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:padding="20dp">
+
+                        <EditText
+                            android:id="@+id/name"
+                            style="@style/TextRegular26"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="ชื่อ"
+                            android:inputType="textPersonName" />
+
+                        <EditText
+                            android:id="@+id/surname"
+                            style="@style/TextRegular26"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="นามสกุล"
+                            android:inputType="textPersonName" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="horizontal">
+
+                            <EditText
+                                android:id="@+id/age"
+                                style="@style/TextRegular26"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:hint="อายุ (ปี)"
+                                android:inputType="number" />
+
+                            <EditText
+                                android:id="@+id/weight"
+                                style="@style/TextRegular26"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:hint="น้ำหนัก (กก.)"
+                                android:inputType="number" />
+                        </LinearLayout>
+
+
+                        <EditText
+                            android:id="@+id/disease"
+                            style="@style/TextRegular26"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="โรคประจำตัว"
+                            android:inputType="text" />
+
+                        <EditText
+                            android:id="@+id/allergic"
+                            style="@style/TextRegular26"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="ประวัติแพ้ยา"
+                            android:inputType="text" />
+                    </LinearLayout>
+
+                    <android.support.v7.widget.CardView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        card_view:cardBackgroundColor="@color/colorPrimaryDark"
+                        card_view:cardCornerRadius="5dp"
+                        card_view:cardElevation="8dp">
+
+                        <TextView
+                            style="@style/textFont"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:paddingLeft="20dp"
+                            android:paddingTop="5dp"
+                            android:paddingRight="20dp"
+                            android:paddingBottom="5dp"
+                            android:text="ข้อมูลเข้าสู่ระบบ"
+                            android:textColor="#ffffff"
+                            android:textSize="24sp" />
+
+                    </android.support.v7.widget.CardView>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:padding="20dp">
+
+                        <EditText
+                            android:id="@+id/username"
+                            style="@style/TextRegular26"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="ชื่อผู้ใช้งาน"
+                            android:inputType="text" />
+
+                        <EditText
+                            android:id="@+id/password"
+                            style="@style/TextRegular26"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="รหัสผ่าน"
+                            android:inputType="textPassword" />
+
+                        <EditText
+                            android:id="@+id/tel"
+                            style="@style/TextRegular26"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="เบอร์โทรศัพท์"
+                            android:inputType="phone" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginTop="15dp"
+                            android:orientation="horizontal">
+
+                            <mehdi.sakout.fancybuttons.FancyButton
+                                style="@style/TextBold30"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_margin="5dp"
+                                android:layout_weight="1"
+                                android:paddingTop="8dp"
+                                android:paddingBottom="8dp"
+                                fancy:fb_defaultColor="@color/colorBtnRed"
+                                fancy:fb_radius="5dp"
+                                fancy:fb_text="ยกเลิก"
+                                android:elevation="2dp" />
+
+                            <mehdi.sakout.fancybuttons.FancyButton
+                                style="@style/TextBold30"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_margin="5dp"
+                                android:layout_weight="1"
+                                android:paddingTop="8dp"
+                                android:paddingBottom="8dp"
+                                fancy:fb_defaultColor="@color/colorBtnBlue"
+                                fancy:fb_radius="5dp"
+                                fancy:fb_text="ยืนยัน"
+                                android:elevation="2dp"/>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="15dp">
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                style="@style/textFont"
+                                android:textSize="22sp"
+                                android:text="หากเป็นสมาชิกอยู่แล้ว "/>
+                            <com.libRG.CustomTextView
+                                android:id="@+id/c6"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                style="@style/textFont"
+                                android:textSize="22sp"
+                                android:text="เข้าสู่ระบบที่นี่"
+                                android:textColor="@color/colorBtnBlue"
+                                android:visibility="visible"
+                                app:lib_setUnderLineText="true" />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+
+
         </LinearLayout>
-    </android.support.v7.widget.CardView>
-    <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        card_view:cardCornerRadius="5dp"
-        android:layout_marginTop="-10dp"
-        card_view:cardElevation="4dp">
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:padding="20dp">
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Test 1" />
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Test 2" />
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="textPersonName"
-                android:hint="Test edittext"/>
-        </LinearLayout>
-    </android.support.v7.widget.CardView>
+    </ScrollView>
+
 </LinearLayout>
-<!--<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
-    <!--xmlns:app="http://schemas.android.com/apk/res-auto"-->
-    <!--xmlns:fancy="http://schemas.android.com/apk/res-auto"-->
-    <!--xmlns:tools="http://schemas.android.com/tools"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="match_parent"-->
-    <!--android:background="@drawable/bg_screen"-->
-    <!--tools:context=".MainActivity">-->
-
-    <!--&lt;!&ndash;<FrameLayout&ndash;&gt;-->
-    <!--&lt;!&ndash;android:layout_width="300dp"&ndash;&gt;-->
-    <!--&lt;!&ndash;android:layout_height="wrap_content"&ndash;&gt;-->
-    <!--&lt;!&ndash;android:layout_centerHorizontal="true"&ndash;&gt;-->
-    <!--&lt;!&ndash;android:paddingTop="30dp">&ndash;&gt;-->
-
-    <!--&lt;!&ndash; A CardView that contains a TextView &ndash;&gt;-->
-    <!--<android.support.v7.widget.CardView-->
-        <!--xmlns:card_view="http://schemas.android.com/apk/res-auto"-->
-        <!--android:id="@+id/card_view"-->
-        <!--android:layout_gravity="center"-->
-        <!--android:layout_width="200dp"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--card_view:cardCornerRadius="4dp">-->
-
-        <!--<TextView-->
-            <!--android:id="@+id/info_text"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="match_parent"-->
-            <!--android:text="TEST"/>-->
-        <!--<TextView-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="match_parent"-->
-            <!--android:text="TEST2"/>-->
-    <!--</android.support.v7.widget.CardView>-->
-
-    <!--&lt;!&ndash;<ScrollView&ndash;&gt;-->
-        <!--&lt;!&ndash;android:layout_width="match_parent"&ndash;&gt;-->
-        <!--&lt;!&ndash;android:layout_height="match_parent">&ndash;&gt;-->
-
-        <!--&lt;!&ndash;<android.support.constraint.ConstraintLayout&ndash;&gt;-->
-            <!--&lt;!&ndash;android:layout_width="match_parent"&ndash;&gt;-->
-            <!--&lt;!&ndash;android:layout_height="match_parent">&ndash;&gt;-->
-
-            <!--&lt;!&ndash;<Button&ndash;&gt;-->
-                <!--&lt;!&ndash;android:id="@+id/topic"&ndash;&gt;-->
-                <!--&lt;!&ndash;style="@style/BtnTopic"&ndash;&gt;-->
-                <!--&lt;!&ndash;android:layout_width="300dp"&ndash;&gt;-->
-                <!--&lt;!&ndash;android:layout_height="wrap_content"&ndash;&gt;-->
-                <!--&lt;!&ndash;android:layout_marginStart="8dp"&ndash;&gt;-->
-                <!--&lt;!&ndash;android:layout_marginLeft="8dp"&ndash;&gt;-->
-                <!--&lt;!&ndash;android:layout_marginTop="8dp"&ndash;&gt;-->
-                <!--&lt;!&ndash;android:layout_marginEnd="8dp"&ndash;&gt;-->
-                <!--&lt;!&ndash;android:layout_marginRight="8dp"&ndash;&gt;-->
-                <!--&lt;!&ndash;android:layout_marginBottom="8dp"&ndash;&gt;-->
-                <!--&lt;!&ndash;android:text="ลงทะเบียนผู้ป่วย"&ndash;&gt;-->
-                <!--&lt;!&ndash;app:layout_constraintBottom_toBottomOf="parent"&ndash;&gt;-->
-                <!--&lt;!&ndash;app:layout_constraintEnd_toEndOf="parent"&ndash;&gt;-->
-                <!--&lt;!&ndash;app:layout_constraintStart_toStartOf="parent"&ndash;&gt;-->
-                <!--&lt;!&ndash;app:layout_constraintTop_toTopOf="parent"&ndash;&gt;-->
-                <!--&lt;!&ndash;app:layout_constraintVertical_bias="0.069" />&ndash;&gt;-->
-
-            <!--&lt;!&ndash;&lt;!&ndash;<mehdi.sakout.fancybuttons.FancyButton&ndash;&gt;&ndash;&gt;-->
-            <!--&lt;!&ndash;&lt;!&ndash;android:id="@+id/topic"&ndash;&gt;&ndash;&gt;-->
-            <!--&lt;!&ndash;&lt;!&ndash;style="@style/BtnTopic"&ndash;&gt;&ndash;&gt;-->
-            <!--&lt;!&ndash;&lt;!&ndash;android:layout_width="300dp"&ndash;&gt;&ndash;&gt;-->
-            <!--&lt;!&ndash;&lt;!&ndash;android:layout_height="wrap_content"&ndash;&gt;&ndash;&gt;-->
-            <!--&lt;!&ndash;&lt;!&ndash;android:layout_alignParentTop="true"&ndash;&gt;&ndash;&gt;-->
-            <!--&lt;!&ndash;&lt;!&ndash;android:layout_centerHorizontal="true"&ndash;&gt;&ndash;&gt;-->
-            <!--&lt;!&ndash;&lt;!&ndash;android:layout_gravity="center"&ndash;&gt;&ndash;&gt;-->
-            <!--&lt;!&ndash;&lt;!&ndash;android:layout_marginTop="44dp"&ndash;&gt;&ndash;&gt;-->
-            <!--&lt;!&ndash;&lt;!&ndash;android:paddingLeft="20dp"&ndash;&gt;&ndash;&gt;-->
-            <!--&lt;!&ndash;&lt;!&ndash;android:paddingTop="10dp"&ndash;&gt;&ndash;&gt;-->
-            <!--&lt;!&ndash;&lt;!&ndash;android:paddingRight="20dp"&ndash;&gt;&ndash;&gt;-->
-            <!--&lt;!&ndash;&lt;!&ndash;android:paddingBottom="10dp"&ndash;&gt;&ndash;&gt;-->
-
-            <!--&lt;!&ndash;&lt;!&ndash;fancy:fb_defaultColor="@color/colorBtnTopic"&ndash;&gt;&ndash;&gt;-->
-            <!--&lt;!&ndash;&lt;!&ndash;fancy:fb_radius="10dp"&ndash;&gt;&ndash;&gt;-->
-            <!--&lt;!&ndash;&lt;!&ndash;fancy:fb_text="ลงทะเบียนผู้ป่วย"&ndash;&gt;&ndash;&gt;-->
-            <!--&lt;!&ndash;&lt;!&ndash;fancy:fb_textColor="@color/colorPrimaryDark" />&ndash;&gt;&ndash;&gt;-->
-
-            <!--&lt;!&ndash;<View&ndash;&gt;-->
-                <!--&lt;!&ndash;android:id="@+id/bg"&ndash;&gt;-->
-                <!--&lt;!&ndash;android:layout_width="300dp"&ndash;&gt;-->
-                <!--&lt;!&ndash;android:layout_height="680dp"&ndash;&gt;-->
-                <!--&lt;!&ndash;android:layout_marginStart="8dp"&ndash;&gt;-->
-                <!--&lt;!&ndash;android:layout_marginLeft="8dp"&ndash;&gt;-->
-                <!--&lt;!&ndash;android:layout_marginEnd="8dp"&ndash;&gt;-->
-                <!--&lt;!&ndash;android:layout_marginRight="8dp"&ndash;&gt;-->
-                <!--&lt;!&ndash;android:background="#ffffff"&ndash;&gt;-->
-                <!--&lt;!&ndash;app:layout_constraintEnd_toEndOf="parent"&ndash;&gt;-->
-                <!--&lt;!&ndash;app:layout_constraintStart_toStartOf="parent"&ndash;&gt;-->
-                <!--&lt;!&ndash;app:layout_constraintTop_toBottomOf="@+id/topic" />&ndash;&gt;-->
-
-            <!--&lt;!&ndash;&lt;!&ndash;</FrameLayout>&ndash;&gt;&ndash;&gt;-->
-
-
-            <!--&lt;!&ndash;<mehdi.sakout.fancybuttons.FancyButton&ndash;&gt;-->
-                <!--&lt;!&ndash;android:id="@+id/fancyButton"&ndash;&gt;-->
-                <!--&lt;!&ndash;style="@style/textFont"&ndash;&gt;-->
-                <!--&lt;!&ndash;android:layout_width="wrap_content"&ndash;&gt;-->
-                <!--&lt;!&ndash;android:layout_height="wrap_content"&ndash;&gt;-->
-                <!--&lt;!&ndash;android:layout_gravity="center"&ndash;&gt;-->
-                <!--&lt;!&ndash;android:layout_marginTop="20dp"&ndash;&gt;-->
-                <!--&lt;!&ndash;android:paddingLeft="15dp"&ndash;&gt;-->
-                <!--&lt;!&ndash;android:paddingTop="8dp"&ndash;&gt;-->
-                <!--&lt;!&ndash;android:paddingRight="15dp"&ndash;&gt;-->
-                <!--&lt;!&ndash;android:paddingBottom="8dp"&ndash;&gt;-->
-                <!--&lt;!&ndash;android:textSize="22sp"&ndash;&gt;-->
-                <!--&lt;!&ndash;app:layout_constraintStart_toStartOf="@+id/bg"&ndash;&gt;-->
-                <!--&lt;!&ndash;app:layout_constraintTop_toTopOf="@+id/bg"&ndash;&gt;-->
-                <!--&lt;!&ndash;fancy:fb_defaultColor="@color/colorPrimaryDark"&ndash;&gt;-->
-                <!--&lt;!&ndash;fancy:fb_radius="5dp"&ndash;&gt;-->
-                <!--&lt;!&ndash;fancy:fb_text="ข้อมูลส่วนตัว" />&ndash;&gt;-->
-
-
-            <!--&lt;!&ndash;&lt;!&ndash;<LinearLayout&ndash;&gt;&ndash;&gt;-->
-            <!--&lt;!&ndash;&lt;!&ndash;android:id="@+id/linearLayout"&ndash;&gt;&ndash;&gt;-->
-            <!--&lt;!&ndash;&lt;!&ndash;android:layout_width="300dp"&ndash;&gt;&ndash;&gt;-->
-            <!--&lt;!&ndash;&lt;!&ndash;android:layout_height="wrap_content"&ndash;&gt;&ndash;&gt;-->
-            <!--&lt;!&ndash;&lt;!&ndash;android:layout_centerVertical="true"&ndash;&gt;&ndash;&gt;-->
-            <!--&lt;!&ndash;&lt;!&ndash;android:orientation="vertical"&ndash;&gt;&ndash;&gt;-->
-            <!--&lt;!&ndash;&lt;!&ndash;tools:layout_editor_absoluteX="20dp">&ndash;&gt;&ndash;&gt;-->
-
-
-            <!--&lt;!&ndash;<EditText&ndash;&gt;-->
-                <!--&lt;!&ndash;android:id="@+id/name"&ndash;&gt;-->
-                <!--&lt;!&ndash;style="@style/TextRegular26"&ndash;&gt;-->
-                <!--&lt;!&ndash;android:layout_width="280dp"&ndash;&gt;-->
-                <!--&lt;!&ndash;android:layout_height="wrap_content"&ndash;&gt;-->
-                <!--&lt;!&ndash;android:layout_marginLeft="10dp"&ndash;&gt;-->
-                <!--&lt;!&ndash;android:layout_marginRight="10dp"&ndash;&gt;-->
-                <!--&lt;!&ndash;android:hint="ชื่อ"&ndash;&gt;-->
-                <!--&lt;!&ndash;android:inputType="textPersonName"&ndash;&gt;-->
-                <!--&lt;!&ndash;app:layout_constraintStart_toStartOf="@id/fancyButton"&ndash;&gt;-->
-                <!--&lt;!&ndash;app:layout_constraintTop_toBottomOf="@id/fancyButton" />&ndash;&gt;-->
-
-            <!--&lt;!&ndash;<EditText&ndash;&gt;-->
-                <!--&lt;!&ndash;android:id="@+id/surname"&ndash;&gt;-->
-                <!--&lt;!&ndash;style="@style/TextRegular26"&ndash;&gt;-->
-                <!--&lt;!&ndash;android:layout_width="280dp"&ndash;&gt;-->
-                <!--&lt;!&ndash;android:layout_height="wrap_content"&ndash;&gt;-->
-                <!--&lt;!&ndash;android:hint="นามสกุล"&ndash;&gt;-->
-                <!--&lt;!&ndash;android:inputType="textPersonName"&ndash;&gt;-->
-                <!--&lt;!&ndash;app:layout_constraintStart_toStartOf="@id/name"&ndash;&gt;-->
-                <!--&lt;!&ndash;app:layout_constraintTop_toBottomOf="@id/name" />&ndash;&gt;-->
-
-            <!--&lt;!&ndash;<EditText&ndash;&gt;-->
-                <!--&lt;!&ndash;android:id="@+id/age"&ndash;&gt;-->
-                <!--&lt;!&ndash;style="@style/TextRegular26"&ndash;&gt;-->
-                <!--&lt;!&ndash;android:layout_width="280dp"&ndash;&gt;-->
-                <!--&lt;!&ndash;android:layout_height="wrap_content"&ndash;&gt;-->
-                <!--&lt;!&ndash;android:hint="อายุ (ปี)"&ndash;&gt;-->
-                <!--&lt;!&ndash;android:inputType="number"&ndash;&gt;-->
-                <!--&lt;!&ndash;app:layout_constraintStart_toStartOf="@id/surname"&ndash;&gt;-->
-                <!--&lt;!&ndash;app:layout_constraintTop_toBottomOf="@id/surname" />&ndash;&gt;-->
-
-            <!--&lt;!&ndash;<EditText&ndash;&gt;-->
-                <!--&lt;!&ndash;android:id="@+id/weight"&ndash;&gt;-->
-                <!--&lt;!&ndash;style="@style/TextRegular26"&ndash;&gt;-->
-                <!--&lt;!&ndash;android:layout_width="280dp"&ndash;&gt;-->
-                <!--&lt;!&ndash;android:layout_height="wrap_content"&ndash;&gt;-->
-                <!--&lt;!&ndash;android:hint="น้ำหนัก (กก.)"&ndash;&gt;-->
-                <!--&lt;!&ndash;android:inputType="number"&ndash;&gt;-->
-                <!--&lt;!&ndash;app:layout_constraintStart_toStartOf="@id/age"&ndash;&gt;-->
-                <!--&lt;!&ndash;app:layout_constraintTop_toBottomOf="@id/age" />&ndash;&gt;-->
-
-            <!--&lt;!&ndash;<EditText&ndash;&gt;-->
-                <!--&lt;!&ndash;android:id="@+id/disease"&ndash;&gt;-->
-                <!--&lt;!&ndash;style="@style/TextRegular26"&ndash;&gt;-->
-                <!--&lt;!&ndash;android:layout_width="280dp"&ndash;&gt;-->
-                <!--&lt;!&ndash;android:layout_height="wrap_content"&ndash;&gt;-->
-                <!--&lt;!&ndash;android:hint="โรคประจำตัว"&ndash;&gt;-->
-                <!--&lt;!&ndash;android:inputType="text"&ndash;&gt;-->
-                <!--&lt;!&ndash;app:layout_constraintStart_toStartOf="@id/weight"&ndash;&gt;-->
-                <!--&lt;!&ndash;app:layout_constraintTop_toBottomOf="@id/weight" />&ndash;&gt;-->
-
-            <!--&lt;!&ndash;<EditText&ndash;&gt;-->
-                <!--&lt;!&ndash;android:id="@+id/allergic"&ndash;&gt;-->
-                <!--&lt;!&ndash;style="@style/TextRegular26"&ndash;&gt;-->
-                <!--&lt;!&ndash;android:layout_width="280dp"&ndash;&gt;-->
-                <!--&lt;!&ndash;android:layout_height="wrap_content"&ndash;&gt;-->
-                <!--&lt;!&ndash;android:hint="ประวัติแพ้ยา"&ndash;&gt;-->
-                <!--&lt;!&ndash;android:inputType="text"&ndash;&gt;-->
-                <!--&lt;!&ndash;app:layout_constraintStart_toStartOf="@id/disease"&ndash;&gt;-->
-                <!--&lt;!&ndash;app:layout_constraintTop_toBottomOf="@id/disease" />&ndash;&gt;-->
-
-            <!--&lt;!&ndash;<EditText&ndash;&gt;-->
-                <!--&lt;!&ndash;android:id="@+id/tel"&ndash;&gt;-->
-                <!--&lt;!&ndash;style="@style/TextRegular26"&ndash;&gt;-->
-                <!--&lt;!&ndash;android:layout_width="280dp"&ndash;&gt;-->
-                <!--&lt;!&ndash;android:layout_height="wrap_content"&ndash;&gt;-->
-                <!--&lt;!&ndash;android:hint="เบอร์โทรศัพท์"&ndash;&gt;-->
-                <!--&lt;!&ndash;android:inputType="phone"&ndash;&gt;-->
-                <!--&lt;!&ndash;app:layout_constraintStart_toStartOf="@id/allergic"&ndash;&gt;-->
-                <!--&lt;!&ndash;app:layout_constraintTop_toBottomOf="@id/allergic" />&ndash;&gt;-->
-
-            <!--&lt;!&ndash;<mehdi.sakout.fancybuttons.FancyButton&ndash;&gt;-->
-                <!--&lt;!&ndash;android:id="@+id/fancyButton2"&ndash;&gt;-->
-                <!--&lt;!&ndash;style="@style/textFont"&ndash;&gt;-->
-                <!--&lt;!&ndash;android:layout_width="wrap_content"&ndash;&gt;-->
-                <!--&lt;!&ndash;android:layout_height="wrap_content"&ndash;&gt;-->
-                <!--&lt;!&ndash;android:layout_gravity="center"&ndash;&gt;-->
-                <!--&lt;!&ndash;android:layout_marginTop="20dp"&ndash;&gt;-->
-                <!--&lt;!&ndash;android:paddingLeft="15dp"&ndash;&gt;-->
-                <!--&lt;!&ndash;android:paddingTop="8dp"&ndash;&gt;-->
-                <!--&lt;!&ndash;android:paddingRight="15dp"&ndash;&gt;-->
-                <!--&lt;!&ndash;android:paddingBottom="8dp"&ndash;&gt;-->
-                <!--&lt;!&ndash;android:textSize="22sp"&ndash;&gt;-->
-                <!--&lt;!&ndash;app:layout_constraintStart_toStartOf="@+id/bg"&ndash;&gt;-->
-                <!--&lt;!&ndash;app:layout_constraintTop_toBottomOf="@id/tel"&ndash;&gt;-->
-                <!--&lt;!&ndash;fancy:fb_defaultColor="@color/colorPrimaryDark"&ndash;&gt;-->
-                <!--&lt;!&ndash;fancy:fb_radius="5dp"&ndash;&gt;-->
-                <!--&lt;!&ndash;fancy:fb_text="ข้อมูลเข้าสู่ระบบ" />&ndash;&gt;-->
-
-            <!--&lt;!&ndash;<EditText&ndash;&gt;-->
-                <!--&lt;!&ndash;android:id="@+id/username"&ndash;&gt;-->
-                <!--&lt;!&ndash;style="@style/TextRegular26"&ndash;&gt;-->
-                <!--&lt;!&ndash;android:layout_width="280dp"&ndash;&gt;-->
-                <!--&lt;!&ndash;android:layout_height="wrap_content"&ndash;&gt;-->
-                <!--&lt;!&ndash;android:layout_marginStart="12dp"&ndash;&gt;-->
-                <!--&lt;!&ndash;android:layout_marginLeft="12dp"&ndash;&gt;-->
-                <!--&lt;!&ndash;android:hint="ชื่อผู้ใช้งาน"&ndash;&gt;-->
-                <!--&lt;!&ndash;android:inputType="text"&ndash;&gt;-->
-                <!--&lt;!&ndash;app:layout_constraintStart_toStartOf="@id/fancyButton2"&ndash;&gt;-->
-                <!--&lt;!&ndash;app:layout_constraintTop_toBottomOf="@id/fancyButton2" />&ndash;&gt;-->
-            <!--&lt;!&ndash;<EditText&ndash;&gt;-->
-                <!--&lt;!&ndash;android:id="@+id/password"&ndash;&gt;-->
-                <!--&lt;!&ndash;style="@style/TextRegular26"&ndash;&gt;-->
-                <!--&lt;!&ndash;android:layout_width="280dp"&ndash;&gt;-->
-                <!--&lt;!&ndash;android:layout_height="wrap_content"&ndash;&gt;-->
-                <!--&lt;!&ndash;android:hint="รหัสผ่าน"&ndash;&gt;-->
-                <!--&lt;!&ndash;android:inputType="textPassword"&ndash;&gt;-->
-                <!--&lt;!&ndash;app:layout_constraintStart_toStartOf="@id/username"&ndash;&gt;-->
-                <!--&lt;!&ndash;app:layout_constraintTop_toBottomOf="@id/username" />&ndash;&gt;-->
-
-            <!--&lt;!&ndash;<mehdi.sakout.fancybuttons.FancyButton&ndash;&gt;-->
-                <!--&lt;!&ndash;android:id="@+id/btnCancel"&ndash;&gt;-->
-                <!--&lt;!&ndash;style="@style/TextBold30"&ndash;&gt;-->
-                <!--&lt;!&ndash;android:layout_width="100dp"&ndash;&gt;-->
-                <!--&lt;!&ndash;android:layout_height="wrap_content"&ndash;&gt;-->
-                <!--&lt;!&ndash;android:layout_gravity="center"&ndash;&gt;-->
-                <!--&lt;!&ndash;android:layout_marginStart="12dp"&ndash;&gt;-->
-                <!--&lt;!&ndash;android:layout_marginLeft="12dp"&ndash;&gt;-->
-                <!--&lt;!&ndash;android:layout_marginTop="20dp"&ndash;&gt;-->
-                <!--&lt;!&ndash;android:paddingLeft="15dp"&ndash;&gt;-->
-                <!--&lt;!&ndash;android:paddingTop="8dp"&ndash;&gt;-->
-                <!--&lt;!&ndash;android:paddingRight="15dp"&ndash;&gt;-->
-                <!--&lt;!&ndash;android:paddingBottom="8dp"&ndash;&gt;-->
-                <!--&lt;!&ndash;app:layout_constraintStart_toStartOf="@id/password"&ndash;&gt;-->
-                <!--&lt;!&ndash;app:layout_constraintTop_toBottomOf="@id/password"&ndash;&gt;-->
-                <!--&lt;!&ndash;fancy:fb_defaultColor="@color/colorBtnRed"&ndash;&gt;-->
-                <!--&lt;!&ndash;fancy:fb_radius="5dp"&ndash;&gt;-->
-                <!--&lt;!&ndash;fancy:fb_text="ยกเลิก" />&ndash;&gt;-->
-
-            <!--&lt;!&ndash;<mehdi.sakout.fancybuttons.FancyButton&ndash;&gt;-->
-                <!--&lt;!&ndash;android:id="@+id/btnConfirm"&ndash;&gt;-->
-                <!--&lt;!&ndash;style="@style/TextBold30"&ndash;&gt;-->
-                <!--&lt;!&ndash;android:layout_width="100dp"&ndash;&gt;-->
-                <!--&lt;!&ndash;android:layout_height="wrap_content"&ndash;&gt;-->
-                <!--&lt;!&ndash;android:layout_gravity="center"&ndash;&gt;-->
-                <!--&lt;!&ndash;android:layout_marginStart="36dp"&ndash;&gt;-->
-                <!--&lt;!&ndash;android:layout_marginLeft="36dp"&ndash;&gt;-->
-                <!--&lt;!&ndash;android:layout_marginTop="20dp"&ndash;&gt;-->
-                <!--&lt;!&ndash;android:paddingLeft="15dp"&ndash;&gt;-->
-                <!--&lt;!&ndash;android:paddingTop="8dp"&ndash;&gt;-->
-                <!--&lt;!&ndash;android:paddingRight="15dp"&ndash;&gt;-->
-                <!--&lt;!&ndash;android:paddingBottom="8dp"&ndash;&gt;-->
-                <!--&lt;!&ndash;app:layout_constraintStart_toEndOf="@+id/btnCancel"&ndash;&gt;-->
-                <!--&lt;!&ndash;app:layout_constraintTop_toBottomOf="@id/password"&ndash;&gt;-->
-                <!--&lt;!&ndash;fancy:fb_defaultColor="@color/colorBtnBlue"&ndash;&gt;-->
-                <!--&lt;!&ndash;fancy:fb_radius="5dp"&ndash;&gt;-->
-                <!--&lt;!&ndash;fancy:fb_text="ยืนยัน" />&ndash;&gt;-->
-
-            <!--&lt;!&ndash;<TextView&ndash;&gt;-->
-                <!--&lt;!&ndash;android:id="@+id/haveAccount"&ndash;&gt;-->
-                <!--&lt;!&ndash;style="@style/textFont"&ndash;&gt;-->
-                <!--&lt;!&ndash;android:layout_width="wrap_content"&ndash;&gt;-->
-                <!--&lt;!&ndash;android:layout_height="wrap_content"&ndash;&gt;-->
-                <!--&lt;!&ndash;android:paddingTop="20dp"&ndash;&gt;-->
-                <!--&lt;!&ndash;android:paddingRight="10dp"&ndash;&gt;-->
-                <!--&lt;!&ndash;android:text="หากเป็นสมาชิกอยู่แล้ว"&ndash;&gt;-->
-                <!--&lt;!&ndash;android:textColor="@color/colorAccent"&ndash;&gt;-->
-                <!--&lt;!&ndash;android:textSize="24sp"&ndash;&gt;-->
-                <!--&lt;!&ndash;app:layout_constraintStart_toStartOf="@id/btnCancel"&ndash;&gt;-->
-                <!--&lt;!&ndash;app:layout_constraintTop_toBottomOf="@id/btnCancel"&ndash;&gt;-->
-
-            <!--&lt;!&ndash;/>&ndash;&gt;-->
-
-            <!--&lt;!&ndash;<TextView&ndash;&gt;-->
-                <!--&lt;!&ndash;android:id="@+id/login"&ndash;&gt;-->
-                <!--&lt;!&ndash;style="@style/textFont"&ndash;&gt;-->
-                <!--&lt;!&ndash;android:layout_width="wrap_content"&ndash;&gt;-->
-                <!--&lt;!&ndash;android:layout_height="wrap_content"&ndash;&gt;-->
-                <!--&lt;!&ndash;android:text="เข้าสู่ระบบที่นี่"&ndash;&gt;-->
-
-                <!--&lt;!&ndash;android:textColor="@color/colorBtnBlue"&ndash;&gt;-->
-                <!--&lt;!&ndash;android:textSize="24sp"&ndash;&gt;-->
-                <!--&lt;!&ndash;app:layout_constraintStart_toEndOf="@id/haveAccount"&ndash;&gt;-->
-                <!--&lt;!&ndash;app:layout_constraintBaseline_toBaselineOf="@id/haveAccount"&ndash;&gt;-->
-                <!--&lt;!&ndash;/>&ndash;&gt;-->
-
-        <!--&lt;!&ndash;</android.support.constraint.ConstraintLayout>&ndash;&gt;-->
-
-
-        <!--&lt;!&ndash;&lt;!&ndash;</LinearLayout>&ndash;&gt;&ndash;&gt;-->
-    <!--&lt;!&ndash;</ScrollView>&ndash;&gt;-->
-<!--</android.support.constraint.ConstraintLayout>-->
