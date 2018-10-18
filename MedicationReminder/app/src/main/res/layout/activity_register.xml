@@ -83,7 +83,7 @@
                         android:padding="20dp">
 
                         <EditText
-                            android:id="@+id/name"
+                            android:id="@+id/etName"
                             style="@style/TextRegular26"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -91,7 +91,7 @@
                             android:inputType="textPersonName" />
 
                         <EditText
-                            android:id="@+id/surname"
+                            android:id="@+id/etSurname"
                             style="@style/TextRegular26"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -104,7 +104,7 @@
                             android:orientation="horizontal">
 
                             <EditText
-                                android:id="@+id/age"
+                                android:id="@+id/etAge"
                                 style="@style/TextRegular26"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
@@ -113,7 +113,7 @@
                                 android:inputType="number" />
 
                             <EditText
-                                android:id="@+id/weight"
+                                android:id="@+id/etWeight"
                                 style="@style/TextRegular26"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
@@ -124,15 +124,16 @@
 
 
                         <EditText
-                            android:id="@+id/disease"
+                            android:id="@+id/etDisease"
                             style="@style/TextRegular26"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="โรคประจำตัว"
-                            android:inputType="text" />
+                            android:drawableRight="@drawable/ic_expand_more_black_24dp"
+                            android:inputType="none" />
 
                         <EditText
-                            android:id="@+id/allergic"
+                            android:id="@+id/etAllergic"
                             style="@style/TextRegular26"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -148,7 +149,6 @@
                         card_view:cardElevation="8dp">
 
                         <TextView
-                            style="@style/textFont"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:paddingLeft="20dp"
@@ -168,30 +168,33 @@
                         android:padding="20dp">
 
                         <EditText
-                            android:id="@+id/username"
+                            android:id="@+id/etUsername"
                             style="@style/TextRegular26"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:hint=" ชื่อผู้ใช้งาน"
+                            android:hint="ชื่อผู้ใช้งาน"
                             android:inputType="text"
+                            android:drawablePadding="8dp"
                             android:drawableLeft="@drawable/ic_person_black_24dp" />
 
                         <EditText
-                            android:id="@+id/password"
+                            android:id="@+id/etPassword"
                             style="@style/TextRegular26"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:hint=" รหัสผ่าน"
+                            android:hint="รหัสผ่าน"
+                            android:drawablePadding="8dp"
                             android:drawableLeft="@drawable/ic_lock_black_24dp"
                             android:inputType="textPassword" />
 
                         <EditText
-                            android:id="@+id/tel"
+                            android:id="@+id/etTel"
                             style="@style/TextRegular26"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:drawablePadding="8dp"
                             android:drawableLeft="@drawable/ic_phone_black_24dp"
-                            android:hint=" เบอร์โทรศัพท์"
+                            android:hint="เบอร์โทรศัพท์"
                             android:inputType="phone" />
 
                         <LinearLayout
