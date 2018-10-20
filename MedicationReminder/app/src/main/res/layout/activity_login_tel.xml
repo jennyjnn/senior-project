@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:fancy="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="@drawable/bg_screen"
+    tools:context=".LoginTelActivity">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="70dp"
+                android:src="@drawable/logo" />
+
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="40dp"
+                android:layout_marginRight="30dp"
+                app:cardElevation="8dp"
+                card_view:cardCornerRadius="5dp">
+
+                <TextView
+                    style="@style/BtnTopic"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:padding="10dp"
+                    android:text="เข้าสู่ระบบด้วยเบอร์โทรศัพท์" />
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="-10dp"
+                android:layout_marginRight="30dp"
+                android:layout_marginBottom="40dp"
+                card_view:cardCornerRadius="5dp"
+                card_view:cardElevation="4dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:padding="20dp">
+
+                    <EditText
+                        android:id="@+id/etTel"
+                        style="@style/TextRegular26"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:drawablePadding="8dp"
+                        android:drawableLeft="@drawable/ic_phone_black_24dp"
+                        android:hint="เบอร์โทรศัพท์"
+                        android:inputType="phone" />
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="15dp"
+                        android:orientation="horizontal">
+
+                        <mehdi.sakout.fancybuttons.FancyButton
+                            android:id="@+id/btnCancel"
+                            style="@style/TextBold30"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_margin="5dp"
+                            android:layout_weight="1"
+                            android:elevation="2dp"
+                            android:paddingTop="8dp"
+                            android:paddingBottom="8dp"
+                            fancy:fb_defaultColor="@color/colorBtnRed"
+                            fancy:fb_radius="5dp"
+                            fancy:fb_text="ยกเลิก" />
+
+                        <mehdi.sakout.fancybuttons.FancyButton
+                            style="@style/TextBold30"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_margin="5dp"
+                            android:layout_weight="1"
+                            android:elevation="2dp"
+                            android:paddingTop="8dp"
+                            android:paddingBottom="8dp"
+                            fancy:fb_defaultColor="@color/colorBtnBlue"
+                            fancy:fb_radius="5dp"
+                            fancy:fb_text="ยืนยัน" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="15dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            style="@style/textFont"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="หากยังไม่ได้เป็นสมาชิก "
+                            android:textSize="22sp" />
+
+                        <com.libRG.CustomTextView
+                            android:id="@+id/c6"
+                            style="@style/textFont"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="ลงทะเบียนที่นี่"
+                            android:textColor="@color/colorBtnBlue"
+                            android:textSize="22sp"
+                            android:visibility="visible"
+                            app:lib_setUnderLineText="true" />
+
+                    </LinearLayout>
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
+
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>
