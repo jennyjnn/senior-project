@@ -232,6 +232,7 @@
                                 fancy:fb_defaultColor="@color/colorBtnBlue"
                                 fancy:fb_radius="5dp"
                                 fancy:fb_text="ยืนยัน"
+                                android:onClick="registerUser"
                                 android:elevation="2dp"/>
 
                         </LinearLayout>

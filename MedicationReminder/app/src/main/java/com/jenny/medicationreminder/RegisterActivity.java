@@ -1,14 +1,20 @@
 package com.jenny.medicationreminder;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.lang.reflect.Array;
 import java.util.Arrays;
@@ -20,6 +26,17 @@ public class RegisterActivity extends AppCompatActivity {
 
     TextView etDisease;
     FancyButton btnCancel;
+    EditText etName;
+    EditText etSurname;
+    EditText etAge;
+    EditText etWeight;
+    EditText etAllergic;
+    EditText etUsername;
+    EditText etPassword;
+    EditText etTel;
+
+    FirebaseDatabase database;
+    DatabaseReference regisRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,5 +91,45 @@ public class RegisterActivity extends AppCompatActivity {
                 dialog.show();
             }
         });
+    }
+
+    public void registerUser(View view) {
+        etName = findViewById(R.id.etName);
+        etSurname = findViewById(R.id.etSurname);
+        etAge = findViewById(R.id.etAge);
+        etWeight = findViewById(R.id.etWeight);
+        etDisease = findViewById(R.id.etDisease);
+        etAllergic = findViewById(R.id.etAllergic);
+        etUsername = findViewById(R.id.etUsername);
+        etPassword = findViewById(R.id.etPassword);
+        etTel = findViewById(R.id.etTel);
+
+        String name = String.valueOf(etName.getText());
+        String surname = String.valueOf(etSurname.getText());
+        String age = String.valueOf(etAge.getText());
+        String weight = String.valueOf(etWeight.getText());
+        String disease = String.valueOf(etDisease.getText());
+        String allergy = String.valueOf(etAllergic.getText());
+        String username = String.valueOf(etUsername.getText());
+        String password = String.valueOf(etPassword.getText());
+        String tel = String.valueOf(etTel.getText());
+
+        database = FirebaseDatabase.getInstance();
+        regisRef = database.getReference("User");
+
+        regisRef.child("user0001").child("User_fname").setValue(name);
+        regisRef.child("user0001").child("User_lname").setValue(surname);
+        regisRef.child("user0001").child("User_age").setValue(age);
+        regisRef.child("user0001").child("User_weight").setValue(weight);
+        regisRef.child("user0001").child("User_disease").setValue(disease);
+        regisRef.child("user0001").child("User_allergy").setValue(allergy);
+        regisRef.child("user0001").child("username").setValue(username);
+        regisRef.child("user0001").child("password").setValue(password);
+        regisRef.child("user0001").child("User_phone").setValue(tel);
+
+        Context context = getApplicationContext();
+        Toast.makeText(context, "Register User success !", Toast.LENGTH_LONG).show();
+
+
     }
 }
