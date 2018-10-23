@@ -18,7 +18,7 @@ import mehdi.sakout.fancybuttons.FancyButton;
 
 public class RegisterActivity extends AppCompatActivity {
 
-    EditText etDisease;
+    TextView etDisease;
     FancyButton btnCancel;
 
     @Override
@@ -62,7 +62,10 @@ public class RegisterActivity extends AppCompatActivity {
                                 disease += diseaseList.get(i) + ", ";
                             }
                         }
-                        etDisease.setText(disease.substring(0, disease.length()-2));
+                        if (disease.length() > 0){
+                            disease = disease.substring(0, disease.length()-2);
+                        }
+                        etDisease.setText(disease);
 
                     }
                 });
