@@ -134,4 +134,8 @@ public class RegisterActivity extends AppCompatActivity {
 
 
     }
+
+    public void cancelRegister(View view) {
+        finish();
+    }
 }

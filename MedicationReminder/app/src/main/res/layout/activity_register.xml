@@ -219,6 +219,7 @@
                                 fancy:fb_defaultColor="@color/colorBtnRed"
                                 fancy:fb_radius="5dp"
                                 fancy:fb_text="ยกเลิก"
+                                android:onClick="cancelRegister"
                                 android:elevation="2dp" />
 
                             <mehdi.sakout.fancybuttons.FancyButton
