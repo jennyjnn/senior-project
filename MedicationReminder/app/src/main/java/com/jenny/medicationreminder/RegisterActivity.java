@@ -25,7 +25,6 @@ import mehdi.sakout.fancybuttons.FancyButton;
 public class RegisterActivity extends AppCompatActivity {
 
     TextView etDisease;
-    FancyButton btnCancel;
     EditText etName;
     EditText etSurname;
     EditText etAge;
@@ -48,15 +47,15 @@ public class RegisterActivity extends AppCompatActivity {
 
     private void initInstances() {
         etDisease = findViewById(R.id.etDisease);
-        btnCancel = findViewById(R.id.btnCancel);
 
+        final String [] diseaseArr = {"โรคเกาต์", "โรคเบาหวาน", "โรคไขมันในเลือดสูง", "โรคความดันโลหิตสูง", "โรคมะเร็งต่อมลูกหมาก", "โรคไต", "โรคหัวใจขาดเลือด", "โรคจอประสาทตาเสื่อม", "โรคอัลไซเมอร์"};
+
+        final boolean[] checkedDisease = new boolean[9];
         etDisease.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 final AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this);
-                final String [] diseaseArr = {"โรคเกาต์", "โรคเบาหวาน", "โรคไขมันในเลือดสูง", "โรคความดันโลหิตสูง", "โรคมะเร็งต่อมลูกหมาก", "โรคไต", "โรคหัวใจขาดเลือด", "โรคจอประสาทตาเสื่อม", "โรคอัลไซเมอร์"};
 
-                final boolean[] checkedDisease = new boolean[9];
                 final List<String> diseaseList = Arrays.asList(diseaseArr);
 
                 builder.setTitle("โรคประจำตัว");
@@ -83,7 +82,6 @@ public class RegisterActivity extends AppCompatActivity {
                             disease = disease.substring(0, disease.length()-2);
                         }
                         etDisease.setText(disease);
-
                     }
                 });
 
