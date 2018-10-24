@@ -117,6 +117,8 @@ public class RegisterActivity extends AppCompatActivity {
         database = FirebaseDatabase.getInstance();
         regisRef = database.getReference("User");
 
+
+
         regisRef.child("user0001").child("User_fname").setValue(name);
         regisRef.child("user0001").child("User_lname").setValue(surname);
         regisRef.child("user0001").child("User_age").setValue(age);
