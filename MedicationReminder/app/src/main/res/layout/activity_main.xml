@@ -65,6 +65,7 @@
             android:paddingBottom="10dp"
             fancy:fb_defaultColor="@color/colorBtnBlue"
             fancy:fb_radius="30dp"
+            android:onClick="showDialogLogin"
             fancy:fb_text="เข้าสู่ระบบ" />
 
     </LinearLayout>

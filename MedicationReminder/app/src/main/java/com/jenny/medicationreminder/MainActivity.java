@@ -1,10 +1,12 @@
 package com.jenny.medicationreminder;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 
 import com.google.android.gms.common.util.IOUtils;
 import com.google.firebase.database.DatabaseReference;
@@ -21,6 +23,8 @@ import java.text.Format;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+
+import mehdi.sakout.fancybuttons.FancyButton;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -115,4 +119,39 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void showDialogLogin(View view) {
+        final Dialog dialog = new Dialog(MainActivity.this);
+        dialog.setContentView(R.layout.dialog_login);
+
+        FancyButton btnUserLogin = dialog.findViewById(R.id.btnUserLogin);
+        FancyButton btnTelLogin = dialog.findViewById(R.id.btnTelLogin);
+        ImageView btnClose = dialog.findViewById(R.id.btnClose);
+
+        btnClose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+
+        btnUserLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, LoginUserActivity.class);
+                startActivity(intent);
+                dialog.dismiss();
+            }
+        });
+
+        btnTelLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, LoginTelActivity.class);
+                startActivity(intent);
+                dialog.dismiss();
+            }
+        });
+
+        dialog.show();
+    }
 }
