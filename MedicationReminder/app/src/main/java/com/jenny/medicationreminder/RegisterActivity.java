@@ -141,9 +141,9 @@ public class RegisterActivity extends AppCompatActivity {
                 regisRef.child(user_id).child("password").setValue(password);
                 regisRef.child(user_id).child("User_phone").setValue(tel);
 
-                //Toast
-                Context context = getApplicationContext();
-                Toast.makeText(context, "Register User success !", Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(RegisterActivity.this, MenuActivity.class);
+                startActivity(intent);
+                finish();
             }
 
             @Override
