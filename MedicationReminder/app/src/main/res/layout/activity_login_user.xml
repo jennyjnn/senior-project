@@ -99,6 +99,7 @@
                             android:paddingBottom="8dp"
                             fancy:fb_defaultColor="@color/colorBtnRed"
                             fancy:fb_radius="5dp"
+                            android:onClick="cancelLoginUser"
                             fancy:fb_text="ยกเลิก" />
 
                         <mehdi.sakout.fancybuttons.FancyButton
