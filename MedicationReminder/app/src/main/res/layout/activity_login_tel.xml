@@ -134,7 +134,8 @@
                             android:textColor="@color/colorBtnBlue"
                             android:textSize="22sp"
                             android:visibility="visible"
-                            app:lib_setUnderLineText="true" />
+                            app:lib_setUnderLineText="true"
+                            android:onClick="goToRegister"/>
 
                     </LinearLayout>
                 </LinearLayout>

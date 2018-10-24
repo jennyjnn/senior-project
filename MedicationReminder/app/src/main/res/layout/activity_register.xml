@@ -260,7 +260,8 @@
                                 android:text="เข้าสู่ระบบที่นี่"
                                 android:textColor="@color/colorBtnBlue"
                                 android:visibility="visible"
-                                app:lib_setUnderLineText="true" />
+                                app:lib_setUnderLineText="true"
+                                android:onClick="cancelRegister"/>
 
                         </LinearLayout>
 
