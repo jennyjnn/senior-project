@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Typeface;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -13,10 +14,14 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.lang.reflect.Array;
+import java.text.DecimalFormat;
 import java.util.Arrays;
 import java.util.List;
 
@@ -33,6 +38,8 @@ public class RegisterActivity extends AppCompatActivity {
     EditText etUsername;
     EditText etPassword;
     EditText etTel;
+    long countUser = 0;
+    String user_id;
 
     FirebaseDatabase database;
     DatabaseReference regisRef;
@@ -102,35 +109,48 @@ public class RegisterActivity extends AppCompatActivity {
         etPassword = findViewById(R.id.etPassword);
         etTel = findViewById(R.id.etTel);
 
-        String name = String.valueOf(etName.getText());
-        String surname = String.valueOf(etSurname.getText());
-        String age = String.valueOf(etAge.getText());
-        String weight = String.valueOf(etWeight.getText());
-        String disease = String.valueOf(etDisease.getText());
-        String allergy = String.valueOf(etAllergic.getText());
-        String username = String.valueOf(etUsername.getText());
-        String password = String.valueOf(etPassword.getText());
-        String tel = String.valueOf(etTel.getText());
-
         database = FirebaseDatabase.getInstance();
         regisRef = database.getReference("User");
 
+        regisRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
+                String name = String.valueOf(etName.getText());
+                String surname = String.valueOf(etSurname.getText());
+                String age = String.valueOf(etAge.getText());
+                String weight = String.valueOf(etWeight.getText());
+                String disease = String.valueOf(etDisease.getText());
+                String allergy = String.valueOf(etAllergic.getText());
+                String username = String.valueOf(etUsername.getText());
+                String password = String.valueOf(etPassword.getText());
+                String tel = String.valueOf(etTel.getText());
 
-        regisRef.child("user0001").child("User_fname").setValue(name);
-        regisRef.child("user0001").child("User_lname").setValue(surname);
-        regisRef.child("user0001").child("User_age").setValue(age);
-        regisRef.child("user0001").child("User_weight").setValue(weight);
-        regisRef.child("user0001").child("User_disease").setValue(disease);
-        regisRef.child("user0001").child("User_allergy").setValue(allergy);
-        regisRef.child("user0001").child("username").setValue(username);
-        regisRef.child("user0001").child("password").setValue(password);
-        regisRef.child("user0001").child("User_phone").setValue(tel);
+                countUser = dataSnapshot.getChildrenCount();
+                DecimalFormat idFormat = new DecimalFormat("0000");
+                user_id = "user" + idFormat.format(countUser+1);
+                Log.e("countUser", String.valueOf(countUser));
+                Log.e("userid", user_id);
+                regisRef.child(user_id).child("User_fname").setValue(name);
+                regisRef.child(user_id).child("User_lname").setValue(surname);
+                regisRef.child(user_id).child("User_age").setValue(age);
+                regisRef.child(user_id).child("User_weight").setValue(weight);
+                regisRef.child(user_id).child("User_disease").setValue(disease);
+                regisRef.child(user_id).child("User_allergy").setValue(allergy);
+                regisRef.child(user_id).child("username").setValue(username);
+                regisRef.child(user_id).child("password").setValue(password);
+                regisRef.child(user_id).child("User_phone").setValue(tel);
 
-        Context context = getApplicationContext();
-        Toast.makeText(context, "Register User success !", Toast.LENGTH_LONG).show();
+                //Toast
+                Context context = getApplicationContext();
+                Toast.makeText(context, "Register User success !", Toast.LENGTH_LONG).show();
+            }
 
-
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Log.e("Error", databaseError.getMessage());
+            }
+        });
     }
 
     public void cancelRegister(View view) {
