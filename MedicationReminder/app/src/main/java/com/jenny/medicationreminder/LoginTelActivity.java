@@ -15,6 +15,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.jenny.medicationreminder.Model.User;
 
 public class LoginTelActivity extends AppCompatActivity {
 
@@ -45,23 +46,31 @@ public class LoginTelActivity extends AppCompatActivity {
         database = FirebaseDatabase.getInstance();
         loginTelRef = database.getReference("User");
 
-//        loginTelRef.orderByChild("User_phone").equalTo(String.valueOf(etLoginTel)).addListenerForSingleValueEvent(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-//                String data = dataSnapshot.getValue(String.class);
-//                if (count == 0) {
-//                    Toast.makeText(LoginTelActivity.this, "Error: incorrect phone number.", Toast.LENGTH_LONG).show();
-//                } else {
-//                    Toast.makeText(LoginTelActivity.this, "Login success", Toast.LENGTH_LONG).show();
-//                }
-//                Log.e("data", data);
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError databaseError) {
-//
-//            }
-//        });
+        Query query = loginTelRef.orderByChild("User_phone").equalTo(String.valueOf(etLoginTel.getText()));
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                        User user = snapshot.getValue(User.class);
+                        Log.e("phone", user.getUser_phone());
+                        Log.e("fname", user.getUser_fname());
+                        Log.e("key", String.valueOf(snapshot.getKey()));
 
+                        Intent intent = new Intent(LoginTelActivity.this, MenuActivity.class);
+                        startActivity(intent);
+                        finish();
+                    }
+                } else {
+                    Toast.makeText(LoginTelActivity.this, "ไม่มีหมายเลขโทรศัพท์นี้", Toast.LENGTH_LONG).show();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+        
     }
 }
