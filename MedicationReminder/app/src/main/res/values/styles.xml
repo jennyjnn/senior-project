@@ -28,6 +28,11 @@
         <item name="android:textSize">34sp</item>
         <item name="android:textColor">#FFFFFF</item>
     </style>
+    <style name="topicMenu" parent="textFont">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">28sp</item>
+        <item name="android:textColor">#FFFFFF</item>
+    </style>
 
     <style name="BtnTopic" parent="textFont">
         <item name="android:textSize">31sp</item>
