@@ -1,5 +1,6 @@
 package com.jenny.medicationreminder;
 
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.annotation.NonNull;
@@ -27,6 +28,8 @@ public class LoginTelActivity extends AppCompatActivity {
     FirebaseDatabase database;
     DatabaseReference loginTelRef;
 
+    ProgressDialog progressDialog;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,6 +52,12 @@ public class LoginTelActivity extends AppCompatActivity {
         database = FirebaseDatabase.getInstance();
         loginTelRef = database.getReference("User");
 
+        // Progress Dialog
+        progressDialog = new ProgressDialog(LoginTelActivity.this);
+        progressDialog.setMessage("กรุณารอสักครู่");
+        progressDialog.show();
+
+        // Alert Dialog
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setCancelable(false);
         builder.setMessage("หมายเลขโทรศัพท์ไม่ถูกต้อง");
@@ -59,10 +68,12 @@ public class LoginTelActivity extends AppCompatActivity {
         });
         final AlertDialog dialog = builder.create();
 
+        // Query database
         Query query = loginTelRef.orderByChild("User_phone").equalTo(String.valueOf(etLoginTel.getText()));
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                progressDialog.dismiss();
                 if (dataSnapshot.exists()) {
                     for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                         User user = snapshot.getValue(User.class);

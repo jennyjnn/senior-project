@@ -1,5 +1,6 @@
 package com.jenny.medicationreminder;
 
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.annotation.NonNull;
@@ -8,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,6 +27,8 @@ public class LoginUserActivity extends AppCompatActivity {
 
     FirebaseDatabase database;
     DatabaseReference loginUserRef;
+
+    ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +53,7 @@ public class LoginUserActivity extends AppCompatActivity {
         database = FirebaseDatabase.getInstance();
         loginUserRef = database.getReference("User");
 
+        // Alert Dialog
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setCancelable(false);
         builder.setMessage("ชื่อผู้ใช้งานหรือรหัสผ่านไม่ถูกต้อง");
@@ -59,10 +64,16 @@ public class LoginUserActivity extends AppCompatActivity {
         });
         final AlertDialog dialog = builder.create();
 
+        // Progress Dialog
+        progressDialog = new ProgressDialog(LoginUserActivity.this);
+        progressDialog.setMessage("กรุณารอสักครู่");
+        progressDialog.show();
 
+        // Query database
         loginUserRef.orderByChild("username").equalTo(etLoginUser.getText().toString()).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                progressDialog.dismiss();
                 if (dataSnapshot.exists()){
                     for (DataSnapshot snapshot : dataSnapshot.getChildren()){
                         User user = snapshot.getValue(User.class);
@@ -72,12 +83,10 @@ public class LoginUserActivity extends AppCompatActivity {
                             finish();
                         } else {
                             dialog.show();
-//                            Toast.makeText(LoginUserActivity.this, "ชื่อผู้ใช้งานหรือรหัสผ่านไม่ถูกต้อง", Toast.LENGTH_LONG).show();
                         }
                     }
                 } else {
                     dialog.show();
-//                    Toast.makeText(LoginUserActivity.this, "ชื่อผู้ใช้งานหรือรหัสผ่านไม่ถูกต้อง", Toast.LENGTH_LONG).show();
                 }
             }
 
