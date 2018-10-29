@@ -63,7 +63,7 @@
                     android:padding="20dp">
 
                     <EditText
-                        android:id="@+id/etTel"
+                        android:id="@+id/etLoginTel"
                         style="@style/TextRegular26"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -107,7 +107,8 @@
                             android:paddingBottom="8dp"
                             fancy:fb_defaultColor="@color/colorBtnBlue"
                             fancy:fb_radius="5dp"
-                            fancy:fb_text="เข้าสู่ระบบ" />
+                            fancy:fb_text="เข้าสู่ระบบ"
+                            android:onClick="loginTel"/>
 
                     </LinearLayout>
 

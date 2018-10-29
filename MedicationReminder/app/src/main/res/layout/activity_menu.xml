@@ -9,7 +9,8 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Menu"
+        android:text="Register Success !!"
+        android:layout_gravity="center"
         android:textSize="30sp"/>
 
 </LinearLayout>

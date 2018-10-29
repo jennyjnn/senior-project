@@ -125,8 +125,10 @@
 
                         <TextView
                             android:id="@+id/etDisease"
-                            style="@style/Widget.AppCompat.EditText"
                             android:textSize="26sp"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginBottom="5dp"
                             android:textColor="#888888"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
