@@ -1,12 +1,15 @@
 package com.jenny.medicationreminder;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
@@ -46,6 +49,16 @@ public class LoginTelActivity extends AppCompatActivity {
         database = FirebaseDatabase.getInstance();
         loginTelRef = database.getReference("User");
 
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setCancelable(false);
+        builder.setMessage("หมายเลขโทรศัพท์ไม่ถูกต้อง");
+        builder.setPositiveButton("ตกลง", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                dialog.dismiss();
+            }
+        });
+        final AlertDialog dialog = builder.create();
+
         Query query = loginTelRef.orderByChild("User_phone").equalTo(String.valueOf(etLoginTel.getText()));
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -62,7 +75,8 @@ public class LoginTelActivity extends AppCompatActivity {
                         finish();
                     }
                 } else {
-                    Toast.makeText(LoginTelActivity.this, "ไม่มีหมายเลขโทรศัพท์นี้", Toast.LENGTH_LONG).show();
+                    dialog.show();
+//                    Toast.makeText(LoginTelActivity.this, "หมายเลขโทรศัพท์ไม่ถูกต้อง", Toast.LENGTH_LONG).show();
                 }
             }
 
@@ -71,6 +85,6 @@ public class LoginTelActivity extends AppCompatActivity {
 
             }
         });
-        
+
     }
 }

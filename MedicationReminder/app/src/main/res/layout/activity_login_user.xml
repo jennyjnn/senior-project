@@ -114,7 +114,8 @@
                             android:paddingBottom="8dp"
                             fancy:fb_defaultColor="@color/colorBtnBlue"
                             fancy:fb_radius="5dp"
-                            fancy:fb_text="เข้าสู่ระบบ" />
+                            fancy:fb_text="เข้าสู่ระบบ"
+                            android:onClick="loginUser"/>
 
                     </LinearLayout>
                     <LinearLayout
