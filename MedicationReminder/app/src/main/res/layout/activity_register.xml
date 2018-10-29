@@ -134,6 +134,7 @@
                             android:layout_height="wrap_content"
                             android:drawableRight="@drawable/ic_expand_more_black_24dp"
                             android:hint="โรคประจำตัว"
+                            style="@style/textFont"
                             android:freezesText="true"
                             android:inputType="none" />
 
@@ -161,6 +162,7 @@
                             android:paddingRight="20dp"
                             android:paddingBottom="5dp"
                             android:text="ข้อมูลเข้าสู่ระบบ"
+                            style="@style/textFont"
                             android:textColor="#ffffff"
                             android:textSize="24sp" />
 
