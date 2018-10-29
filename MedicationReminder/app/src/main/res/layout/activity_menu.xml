@@ -43,6 +43,7 @@
                 android:background="@color/colorBtnRed"
                 android:elevation="8dp"
                 android:padding="5dp"
+                android:onClick="logOut"
                 android:src="@drawable/ic_exit_to_app_white_24dp" />
         </RelativeLayout>
 
