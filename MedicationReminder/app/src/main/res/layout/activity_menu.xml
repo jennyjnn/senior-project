@@ -4,172 +4,197 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MenuActivity"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:context=".MenuActivity">
+
     <android.support.v7.widget.CardView
+        android:id="@+id/cvAppBar"
         android:layout_width="match_parent"
-        android:layout_height="56dp"
-        app:cardBackgroundColor="@color/colorPrimary">
+        android:layout_height="56dp">
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+
             <ImageView
                 android:layout_width="35dp"
                 android:layout_height="35dp"
                 android:layout_centerVertical="true"
-                android:background="@color/colorBtnBlue"
-                android:padding="5dp"
                 android:layout_marginLeft="15dp"
+                android:background="@color/colorBtnBlue"
                 android:elevation="8dp"
-                android:src="@drawable/ic_home_white_24dp"/>
+                android:padding="5dp"
+                android:src="@drawable/ic_home_white_24dp" />
+
             <TextView
+                style="@style/TextAppBar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="เมนู"
-                android:layout_centerVertical="true"
                 android:layout_centerHorizontal="true"
-                style="@style/TextAppBar"/>
+                android:layout_centerVertical="true"
+                android:text="เมนู" />
+
             <ImageView
                 android:layout_width="35dp"
                 android:layout_height="35dp"
-                android:layout_centerVertical="true"
                 android:layout_alignParentRight="true"
-                android:background="@color/colorBtnRed"
-                android:padding="5dp"
+                android:layout_centerVertical="true"
                 android:layout_marginRight="15dp"
+                android:background="@color/colorBtnRed"
                 android:elevation="8dp"
-                android:src="@drawable/ic_exit_to_app_white_24dp"/>
+                android:padding="5dp"
+                android:src="@drawable/ic_exit_to_app_white_24dp" />
         </RelativeLayout>
 
     </android.support.v7.widget.CardView>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_marginTop="10dp"
         android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp">
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="15dp"
+        android:orientation="vertical">
+
         <android.support.v7.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="80dp"
-            app:cardBackgroundColor="@color/colorPrimaryDark"
-            android:layout_marginBottom="10dp">
+            android:layout_marginBottom="10dp"
+            app:cardBackgroundColor="@color/colorPrimaryDark">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="horizontal">
+
                 <ImageView
                     android:layout_width="30dp"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginRight="10dp"
                     android:layout_height="30dp"
                     android:layout_gravity="center_vertical"
-                    android:src="@drawable/ic_add_white_24dp"/>
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="10dp"
+                    android:src="@drawable/ic_add_white_24dp" />
+
                 <TextView
+                    style="@style/topicMenu"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:text="เพิ่มยา"
                     android:layout_weight="1"
-                    style="@style/topicMenu"
-                    android:gravity="center_vertical"/>
+                    android:gravity="center_vertical"
+                    android:text="เพิ่มยา" />
+
                 <ImageView
                     android:layout_width="60dp"
                     android:layout_height="60dp"
                     android:layout_gravity="center_vertical"
                     android:layout_marginRight="20dp"
-                    android:src="@drawable/add_medicine1"/>
+                    android:src="@drawable/add_medicine1" />
             </LinearLayout>
         </android.support.v7.widget.CardView>
+
         <android.support.v7.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="80dp"
             android:layout_marginBottom="10dp">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="horizontal">
+
                 <TextView
                     android:layout_width="15dp"
                     android:layout_height="match_parent"
                     android:layout_marginRight="45dp"
-                    android:elevation="8dp"
-                    android:background="@color/colorTabMenu"/>
+                    android:background="@color/colorTabMenu"
+                    android:elevation="8dp" />
+
                 <TextView
+                    style="@style/topicMenu"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
                     android:text="รายการยา"
-                    android:layout_weight="1"
-                    style="@style/topicMenu"
-                    android:textColor="@color/colorTopicMenu"
-                    android:gravity="center_vertical"/>
+                    android:textColor="@color/colorTopicMenu" />
+
                 <ImageView
                     android:layout_width="60dp"
                     android:layout_height="60dp"
                     android:layout_gravity="center_vertical"
                     android:layout_marginRight="20dp"
-                    android:src="@drawable/menu_med"/>
+                    android:src="@drawable/menu_med" />
             </LinearLayout>
         </android.support.v7.widget.CardView>
+
         <android.support.v7.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="80dp"
             android:layout_marginBottom="10dp">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="horizontal">
+
                 <TextView
                     android:layout_width="15dp"
                     android:layout_height="match_parent"
                     android:layout_marginRight="45dp"
-                    android:background="@color/colorTabMenu"/>
+                    android:background="@color/colorTabMenu" />
+
                 <TextView
+                    style="@style/topicMenu"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
                     android:text="ประวัติบริหารยา"
-                    android:layout_weight="1"
-                    style="@style/topicMenu"
-                    android:textColor="@color/colorTopicMenu"
-                    android:gravity="center_vertical"/>
+                    android:textColor="@color/colorTopicMenu" />
+
                 <ImageView
                     android:layout_width="60dp"
                     android:layout_height="60dp"
                     android:layout_gravity="center_vertical"
                     android:layout_marginRight="20dp"
-                    android:src="@drawable/menu_history"/>
+                    android:src="@drawable/menu_history" />
             </LinearLayout>
         </android.support.v7.widget.CardView>
+
         <android.support.v7.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="80dp"
             android:layout_marginBottom="10dp">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="horizontal">
+
                 <TextView
                     android:layout_width="15dp"
                     android:layout_height="match_parent"
                     android:layout_marginRight="45dp"
-                    android:background="@color/colorTabMenu"/>
+                    android:background="@color/colorTabMenu" />
+
                 <TextView
+                    style="@style/topicMenu"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:text="ข้อมูลส่วนตัว"
                     android:layout_weight="1"
-                    style="@style/topicMenu"
-                    android:textColor="@color/colorTopicMenu"
-                    android:gravity="center_vertical"/>
+                    android:gravity="center_vertical"
+                    android:text="ข้อมูลส่วนตัว"
+                    android:textColor="@color/colorTopicMenu" />
+
                 <ImageView
                     android:layout_width="60dp"
                     android:layout_height="60dp"
                     android:layout_gravity="center_vertical"
                     android:layout_marginRight="20dp"
-                    android:src="@drawable/menu_profile"/>
+                    android:src="@drawable/menu_profile" />
             </LinearLayout>
         </android.support.v7.widget.CardView>
 
     </LinearLayout>
-
 
 </LinearLayout>
