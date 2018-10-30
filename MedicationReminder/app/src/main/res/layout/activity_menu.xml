@@ -89,7 +89,7 @@
                     android:layout_height="60dp"
                     android:layout_gravity="center_vertical"
                     android:layout_marginRight="20dp"
-                    android:src="@drawable/add_medicine1" />
+                    android:src="@drawable/add_med" />
             </LinearLayout>
         </android.support.v7.widget.CardView>
 
@@ -124,7 +124,7 @@
                     android:layout_height="60dp"
                     android:layout_gravity="center_vertical"
                     android:layout_marginRight="20dp"
-                    android:src="@drawable/menu_med" />
+                    android:src="@drawable/med" />
             </LinearLayout>
         </android.support.v7.widget.CardView>
 
@@ -158,7 +158,7 @@
                     android:layout_height="60dp"
                     android:layout_gravity="center_vertical"
                     android:layout_marginRight="20dp"
-                    android:src="@drawable/menu_history" />
+                    android:src="@drawable/history_med" />
             </LinearLayout>
         </android.support.v7.widget.CardView>
 
@@ -192,7 +192,7 @@
                     android:layout_height="60dp"
                     android:layout_gravity="center_vertical"
                     android:layout_marginRight="20dp"
-                    android:src="@drawable/menu_profile" />
+                    android:src="@drawable/profile" />
             </LinearLayout>
         </android.support.v7.widget.CardView>
 
