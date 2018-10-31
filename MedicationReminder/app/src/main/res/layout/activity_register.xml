@@ -176,6 +176,7 @@
 
                         <EditText
                             android:id="@+id/etUsername"
+                            android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890-_."
                             style="@style/TextRegular26"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -187,6 +188,7 @@
                         <EditText
                             android:id="@+id/etPassword"
                             style="@style/TextRegular26"
+                            android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890-_."
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="รหัสผ่าน"
