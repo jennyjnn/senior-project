@@ -1,5 +1,6 @@
 package com.jenny.medicationreminder;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -43,6 +44,11 @@ public class RegisterActivity extends AppCompatActivity {
 
     FirebaseDatabase database;
     DatabaseReference regisRef;
+
+    Boolean checkUsername = false;
+    Boolean checkTel = false;
+
+    ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -167,13 +173,21 @@ public class RegisterActivity extends AppCompatActivity {
             return;
         }
 
+        // Progress Dialog
+        progressDialog = new ProgressDialog(RegisterActivity.this);
+        progressDialog.setMessage("กรุณารอสักครู่");
+        progressDialog.show();
+
         regisRef.orderByChild("username").equalTo(username).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()){
+                    progressDialog.dismiss();
                     etUsername.setError("ชื่อผู้ใช้นี้มีผู้ใช้แล้ว !");
                     etUsername.requestFocus();
                     return;
+                } else {
+                    checkUsername = true;
                 }
             }
 
@@ -186,9 +200,12 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()){
+                    progressDialog.dismiss();
                     etTel.setError("หมายเลขโทรศัพท์นี้มีผู้ใช้แล้ว !");
                     etTel.requestFocus();
                     return;
+                } else {
+                    checkTel = true;
                 }
             }
 
@@ -198,40 +215,39 @@ public class RegisterActivity extends AppCompatActivity {
             }
         });
 
-
-
         // Add information to firebase database
 
-//
-//        regisRef.addListenerForSingleValueEvent(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-//
-//                countUser = dataSnapshot.getChildrenCount();
-//                DecimalFormat idFormat = new DecimalFormat("0000");
-//                user_id = "user" + idFormat.format(countUser+1);
-//                Log.e("countUser", String.valueOf(countUser));
-//                Log.e("userid", user_id);
-//                regisRef.child(user_id).child("User_fname").setValue(name);
-//                regisRef.child(user_id).child("User_lname").setValue(surname);
-//                regisRef.child(user_id).child("User_age").setValue(age);
-//                regisRef.child(user_id).child("User_weight").setValue(weight);
-//                regisRef.child(user_id).child("User_disease").setValue(disease);
-//                regisRef.child(user_id).child("User_allergy").setValue(allergy);
-//                regisRef.child(user_id).child("username").setValue(username);
-//                regisRef.child(user_id).child("password").setValue(password);
-//                regisRef.child(user_id).child("User_phone").setValue(tel);
-//
-//                Intent intent = new Intent(RegisterActivity.this, MenuActivity.class);
-//                startActivity(intent);
-//                finish();
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError databaseError) {
-//                Log.e("Error", databaseError.getMessage());
-//            }
-//        });
+        if (checkUsername == true && checkTel == true) {
+            regisRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    countUser = dataSnapshot.getChildrenCount();
+                    DecimalFormat idFormat = new DecimalFormat("0000");
+                    user_id = "user" + idFormat.format(countUser + 1);
+
+                    regisRef.child(user_id).child("User_fname").setValue(name);
+                    regisRef.child(user_id).child("User_lname").setValue(surname);
+                    regisRef.child(user_id).child("User_age").setValue(age);
+                    regisRef.child(user_id).child("User_weight").setValue(weight);
+                    regisRef.child(user_id).child("User_disease").setValue(disease);
+                    regisRef.child(user_id).child("User_allergy").setValue(allergy);
+                    regisRef.child(user_id).child("username").setValue(username);
+                    regisRef.child(user_id).child("password").setValue(password);
+                    regisRef.child(user_id).child("User_phone").setValue(tel);
+
+                    progressDialog.dismiss();
+
+                    Intent intent = new Intent(RegisterActivity.this, MenuActivity.class);
+                    startActivity(intent);
+                    finish();
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                    Log.e("Error", databaseError.getMessage());
+                }
+            });
+        }
     }
 
     public void cancelRegister(View view) {
