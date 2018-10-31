@@ -1,6 +1,7 @@
 package com.jenny.medicationreminder;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -44,5 +45,10 @@ public class MenuActivity extends AppCompatActivity {
         AlertDialog alertDialog = alertLogout.create();
         alertDialog.show();
 
+    }
+
+    public void addMed(View view) {
+        Intent intent = new Intent(MenuActivity.this, EditMedActivity.class);
+        startActivity(intent);
     }
 }
