@@ -19,7 +19,8 @@
         <activity android:name=".RegisterActivity" />
         <activity android:name=".LoginUserActivity" />
         <activity android:name=".LoginTelActivity" />
-        <activity android:name=".MenuActivity"></activity>
+        <activity android:name=".MenuActivity" />
+        <activity android:name=".EditMedActivity"></activity>
     </application>
 
 </manifest>
