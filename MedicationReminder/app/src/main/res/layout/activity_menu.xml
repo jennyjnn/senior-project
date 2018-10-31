@@ -66,7 +66,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:onClick="addMed">
 
                 <ImageView
                     android:layout_width="30dp"
@@ -117,7 +118,7 @@
                     android:layout_weight="1"
                     android:gravity="center_vertical"
                     android:text="รายการยา"
-                    android:textColor="@color/colorTopicMenu" />
+                    android:textColor="@color/colorTextGray" />
 
                 <ImageView
                     android:layout_width="60dp"
@@ -151,7 +152,7 @@
                     android:layout_weight="1"
                     android:gravity="center_vertical"
                     android:text="ประวัติบริหารยา"
-                    android:textColor="@color/colorTopicMenu" />
+                    android:textColor="@color/colorTextGray" />
 
                 <ImageView
                     android:layout_width="60dp"
@@ -185,7 +186,7 @@
                     android:layout_weight="1"
                     android:gravity="center_vertical"
                     android:text="ข้อมูลส่วนตัว"
-                    android:textColor="@color/colorTopicMenu" />
+                    android:textColor="@color/colorTextGray" />
 
                 <ImageView
                     android:layout_width="60dp"

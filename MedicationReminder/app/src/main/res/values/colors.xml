@@ -6,6 +6,7 @@
     <color name="colorBtnRed">#F53F46</color>
     <color name="colorBtnBlue">#3374E5</color>
     <color name="colorBtnTopic">#FFFFFF</color>
-    <color name="colorTopicMenu">#3C3C3C</color>
+    <color name="colorTextGray">#3C3C3C</color>
     <color name="colorTabMenu">#17A1BE</color>
+    <color name="colorLineDivide">#D4E9FC</color>
 </resources>

@@ -26,7 +26,6 @@ import java.text.DecimalFormat;
 import java.util.Arrays;
 import java.util.List;
 
-import mehdi.sakout.fancybuttons.FancyButton;
 
 public class RegisterActivity extends AppCompatActivity {
 
