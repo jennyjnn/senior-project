@@ -3,10 +3,12 @@ package com.jenny.medicationreminder;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
+import android.widget.CheckBox;
 
 public class EditMedActivity extends AppCompatActivity {
 
     CardView cvAppbar;
+    CheckBox cbMorning, cbLunch, cbEveing, cbBeforeBed;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
