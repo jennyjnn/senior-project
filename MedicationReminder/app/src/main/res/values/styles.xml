@@ -52,6 +52,23 @@
         <item name="android:textStyle">bold</item>
         <item name="android:textColor">@color/colorTextGray</item>
     </style>
+    <style name="BtnListMed" parent="textFont">
+        <item name="android:textSize">22sp</item>
+        <item name="android:textColor">#ffffff</item>
+        <item name="android:paddingLeft">12dp</item>
+        <item name="android:layout_marginRight">10dp</item>
+        <item name="android:layout_marginTop">5dp</item>
+    </style>
+    <style name="ListMedName" parent="textFont">
+        <item name="android:textSize">28sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/colorDarkGreen</item>
+    </style>
+    <style name="ListMedInfo" parent="textFont">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/colorLightGray</item>
+    </style>
 
 
 
