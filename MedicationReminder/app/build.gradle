@@ -31,6 +31,7 @@ dependencies {
     implementation 'com.github.medyo:fancybuttons:1.9.0'
     implementation 'com.android.support:cardview-v7:27.1.1'
     implementation 'com.libRG:customtextview:1.6'
+    implementation 'com.android.support:recyclerview-v7:27.1.1'
 }
 
 apply plugin: 'com.google.gms.google-services'
