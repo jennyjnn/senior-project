@@ -1,13 +1,18 @@
 package com.jenny.medicationreminder.Holder;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
+import com.jenny.medicationreminder.ListMedActivity;
+import com.jenny.medicationreminder.MedInfoActivity;
+import com.jenny.medicationreminder.MenuActivity;
 import com.jenny.medicationreminder.Model.ListMed;
 import com.jenny.medicationreminder.R;
 
@@ -25,12 +30,15 @@ public class ListMedAdapter extends RecyclerView.Adapter<ListMedAdapter.ViewHold
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public TextView tvMedName_list, tvMedProp_list, tvMedDes_list;
+        public Button btnViewMed;
         public ViewHolder(View itemView) {
             super(itemView);
 
             tvMedName_list = itemView.findViewById(R.id.tvMedName_list);
             tvMedProp_list = itemView.findViewById(R.id.tvMedProp_list);
             tvMedDes_list = itemView.findViewById(R.id.tvMedDes_list);
+
+            btnViewMed = itemView.findViewById(R.id.btnViewMed);
         }
     }
 
@@ -50,6 +58,14 @@ public class ListMedAdapter extends RecyclerView.Adapter<ListMedAdapter.ViewHold
         holder.tvMedName_list.setText(med.getNameMed());
         holder.tvMedProp_list.setText(med.getProperties());
         holder.tvMedDes_list.setText(med.getDescriptions());
+
+        holder.btnViewMed.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), MedInfoActivity.class);
+                context.startActivity(intent);
+            }
+        });
 
     }
 

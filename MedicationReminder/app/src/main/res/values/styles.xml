@@ -67,7 +67,7 @@
     <style name="ListMedInfo" parent="textFont">
         <item name="android:textSize">20sp</item>
         <item name="android:textStyle">bold</item>
-        <item name="android:textColor">@color/colorLightGray</item>
+        <item name="android:textColor">@color/colorTextGrayBrown</item>
     </style>
 
 

@@ -45,6 +45,7 @@
             android:orientation="vertical">
 
             <Button
+                android:id="@+id/btnEditMed"
                 style="@style/BtnListMed"
                 android:layout_width="match_parent"
                 android:background="@color/colorBtnBlue"
@@ -52,6 +53,7 @@
                 android:text="แก้ไข"
                 android:layout_height="30dp" />
             <Button
+                android:id="@+id/btnViewMed"
                 style="@style/BtnListMed"
                 android:layout_width="match_parent"
                 android:background="@color/colorDarkGreen"
@@ -60,6 +62,7 @@
                 android:text="ดูข้อมูลยา"
                 android:layout_height="30dp" />
             <Button
+                android:id="@+id/btnDelMed"
                 style="@style/BtnListMed"
                 android:layout_width="match_parent"
                 android:background="@color/colorBtnRed"
