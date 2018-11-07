@@ -118,11 +118,14 @@
                             android:layout_height="wrap_content"
                             android:text="ช่วงเวลา" />
                         <RadioGroup
+                            android:id="@+id/timeTakeMed"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:orientation="horizontal"
+                            android:checkedButton="@id/afterMeal"
                             android:layout_weight="1">
                             <RadioButton
+                                android:id="@+id/beforeMeal"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="ก่อนอาหาร"
@@ -130,10 +133,10 @@
                                 android:layout_marginRight="5dp"
                                 style="@style/TextBoldDarkGray22"/>
                             <RadioButton
+                                android:id="@+id/afterMeal"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="หลังอาหาร"
-                                android:checked="true"
                                 android:enabled="false"
                                 style="@style/TextBoldDarkGray22"/>
                         </RadioGroup>
@@ -166,12 +169,12 @@
                                 android:layout_height="wrap_content"
                                 android:orientation="horizontal">
                                 <CheckBox
+                                    style="@style/TextBoldDarkGray22"
                                     android:id="@+id/cbMorning"
                                     android:layout_width="100dp"
                                     android:layout_height="wrap_content"
                                     android:text="เช้า"
-                                    android:textColor="@color/colorTextGray"
-                                    android:textSize="15sp"
+                                    android:fontFamily="@font/thsarabun"
                                     android:checked="true"
                                     android:enabled="false"/>
                                 <ImageView
@@ -385,37 +388,37 @@
                         android:background="@color/colorLineDivide" />
 
                     <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginLeft="15dp"
-                        android:layout_marginRight="15dp"
-                        android:orientation="horizontal">
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:orientation="horizontal">
 
-                        <TextView
-                            style="@style/TextBoldDarkGray24"
-                            android:layout_width="150dp"
-                            android:layout_height="wrap_content"
-                            android:text="วันที่สิ้นสุดบริหารยา" />
+                    <TextView
+                        style="@style/TextBoldDarkGray24"
+                        android:layout_width="150dp"
+                        android:layout_height="wrap_content"
+                        android:text="วันที่สิ้นสุดบริหารยา" />
 
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:src="@drawable/calendar"
-                            android:layout_gravity="center_vertical"
-                            android:layout_marginLeft="5dp"/>
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/calendar"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="5dp"/>
 
-                        <EditText
-                            style="@style/TextBoldDarkGray22"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:focusable="false"
-                            android:gravity="center"
-                            android:layout_marginLeft="5dp"
-                            android:layout_marginRight="5dp"
-                            android:enabled="false"
-                            android:text="04/08/2561" />
-                    </LinearLayout>
+                    <EditText
+                        style="@style/TextBoldDarkGray22"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:focusable="false"
+                        android:gravity="center"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        android:enabled="false"
+                        android:text="04/08/2561" />
+                </LinearLayout>
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
@@ -435,58 +438,42 @@
                             android:layout_width="120dp"
                             android:layout_height="wrap_content"
                             android:text="วันที่บริหารยา" />
-                        <LinearLayout
+
+                        <RadioGroup
+                            android:id="@+id/optionAlert"
+                            android:checkedButton="@id/customAlert"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+
+                            <RadioButton
+                                android:id="@+id/everyAlert"
+                                style="@style/TextBoldDarkGray22"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="ทุกวัน" />
+
+                            <RadioButton
+                                android:id="@+id/customAlert"
+                                style="@style/TextBoldDarkGray22"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="กำหนดเอง" />
+                        </RadioGroup>
+
+                        <mehdi.sakout.fancybuttons.FancyButton
+                            style="@style/textFont"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:orientation="vertical"
-                            android:layout_weight="1">
-                            <RadioGroup
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content">
-                                <RadioButton
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="ทุกวัน"
-                                    style="@style/TextBoldDarkGray22"/>
-                            </RadioGroup>
-
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:orientation="horizontal">
-
-                                <RadioGroup
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginRight="8dp"
-                                    android:layout_gravity="center_vertical">
-
-                                    <RadioButton
-                                        style="@style/TextBoldDarkGray22"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:checked="true"
-                                        android:text="กำหนดเอง" />
-                                </RadioGroup>
-
-                                <mehdi.sakout.fancybuttons.FancyButton
-                                    style="@style/textFont"
-                                    android:layout_width="0dp"
-                                    android:layout_height="wrap_content"
-                                    android:layout_gravity="center"
-                                    android:layout_margin="5dp"
-                                    android:layout_weight="1"
-                                    android:elevation="2dp"
-                                    android:paddingTop="5dp"
-                                    android:paddingBottom="5dp"
-                                    fancy:fb_defaultColor="@color/colorDarkGreen"
-                                    fancy:fb_radius="5dp"
-                                    fancy:fb_text="แก้ไขวัน"
-                                    fancy:fb_textSize="22sp" />
-
-                            </LinearLayout>
-
-                        </LinearLayout>
+                            android:layout_gravity="bottom"
+                            android:layout_marginLeft="15dp"
+                            android:layout_weight="1"
+                            android:elevation="2dp"
+                            android:paddingTop="5dp"
+                            android:paddingBottom="5dp"
+                            fancy:fb_defaultColor="@color/colorDarkGreen"
+                            fancy:fb_radius="5dp"
+                            fancy:fb_text="แก้ไขวัน"
+                            fancy:fb_textSize="22sp" />
 
                     </LinearLayout>
                     <mehdi.sakout.fancybuttons.FancyButton
