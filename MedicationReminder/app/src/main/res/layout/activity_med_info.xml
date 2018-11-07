@@ -220,10 +220,6 @@
                         android:layout_gravity="center"
                         android:text="ดูคลิปด้านล่าง เพื่อทำความรู้จักกับยาตัวนี้มากขึ้น"
                         android:layout_margin="12dp" />
-                    <VideoView
-                        android:id="@+id/vdMed"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
 
                 </LinearLayout>
             </android.support.v7.widget.CardView>

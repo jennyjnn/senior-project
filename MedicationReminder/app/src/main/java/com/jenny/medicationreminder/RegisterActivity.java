@@ -29,7 +29,7 @@ import java.util.List;
 
 public class RegisterActivity extends AppCompatActivity {
 
-    TextView etDisease;
+    EditText etDisease;
     EditText etName;
     EditText etSurname;
     EditText etAge;

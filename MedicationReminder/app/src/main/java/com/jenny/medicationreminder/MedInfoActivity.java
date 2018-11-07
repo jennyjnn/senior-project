@@ -9,7 +9,7 @@ import android.widget.VideoView;
 public class MedInfoActivity extends AppCompatActivity {
 
     CardView cvAppBarMedInfo;
-    VideoView vdMed;
+//    VideoView vdMed;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,7 +25,7 @@ public class MedInfoActivity extends AppCompatActivity {
         cvAppBarMedInfo.setBackgroundResource(R.drawable.bg_appbar);
 
         //  set url to video
-        vdMed = findViewById(R.id.vdMed);
+//        vdMed = findViewById(R.id.vdMed);
 
         String path = "https://www.youtube.com/watch?v=WgfS1sFO40k";
         Uri uri = Uri.parse(path);
