@@ -6,65 +6,67 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:fontFamily" tools:targetApi="jelly_bean">@font/thsarabun</item>
+        <item name="android:textSize">22sp</item>
     </style>
 
     <style name="textFont">
         <item name="android:fontFamily" tools:targetApi="jelly_bean">@font/thsarabun</item>
     </style>
 
-    <style name="TextBoldWhite24" parent="textFont">
+    <style name="TextBoldWhite24">
         <item name="android:textStyle">bold</item>
         <item name="android:textSize">24sp</item>
         <item name="android:textColor">#FFFFFF</item>
     </style>
 
-    <style name="TextBold30" parent="textFont">
+    <style name="TextBold30">
         <item name="android:textStyle">bold</item>
         <item name="android:textSize">30sp</item>
         <item name="android:textColor">#FFFFFF</item>
     </style>
-    <style name="TextAppBar" parent="textFont">
+    <style name="TextAppBar">
         <item name="android:textStyle">bold</item>
         <item name="android:textSize">34sp</item>
         <item name="android:textColor">#FFFFFF</item>
     </style>
-    <style name="topicMenu" parent="textFont">
+    <style name="topicMenu">
         <item name="android:textStyle">bold</item>
         <item name="android:textSize">28sp</item>
         <item name="android:textColor">#FFFFFF</item>
     </style>
 
-    <style name="BtnTopic" parent="textFont">
+    <style name="BtnTopic">
         <item name="android:textSize">31sp</item>
         <item name="android:textColor">@color/colorPrimaryDark</item>
     </style>
-    <style name="TextRegular26" parent="textFont">
+    <style name="TextRegular26">
         <item name="android:textSize">26sp</item>
         <item name="android:textColor">#888888</item>
     </style>
-    <style name="TextBoldDarkGray24" parent="textFont">
+    <style name="TextBoldDarkGray24">
         <item name="android:textSize">24sp</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textColor">@color/colorTextGray</item>
     </style>
-    <style name="TextBoldDarkGray22" parent="textFont">
+    <style name="TextBoldDarkGray22">
         <item name="android:textSize">22sp</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textColor">@color/colorTextGray</item>
     </style>
-    <style name="BtnListMed" parent="textFont">
+    <style name="BtnListMed">
         <item name="android:textSize">22sp</item>
         <item name="android:textColor">#ffffff</item>
         <item name="android:paddingLeft">12dp</item>
         <item name="android:layout_marginRight">10dp</item>
         <item name="android:layout_marginTop">5dp</item>
     </style>
-    <style name="ListMedName" parent="textFont">
+    <style name="ListMedName">
         <item name="android:textSize">28sp</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textColor">@color/colorDarkGreen</item>
     </style>
-    <style name="ListMedInfo" parent="textFont">
+    <style name="ListMedInfo">
         <item name="android:textSize">20sp</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textColor">@color/colorTextGrayBrown</item>
