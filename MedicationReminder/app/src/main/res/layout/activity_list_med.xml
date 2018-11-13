@@ -23,6 +23,7 @@
                 android:background="@color/colorBtnBlue"
                 android:elevation="8dp"
                 android:padding="5dp"
+                android:onClick="backToHome"
                 android:src="@drawable/ic_home_white_24dp" />
 
             <TextView

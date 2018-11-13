@@ -1,10 +1,12 @@
 package com.jenny.medicationreminder;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 
 import com.jenny.medicationreminder.Holder.ListMedAdapter;
 import com.jenny.medicationreminder.Model.ListMed;
@@ -63,5 +65,11 @@ public class ListMedActivity extends AppCompatActivity {
         dataset.add(testMed5);
 
         return dataset;
+    }
+
+    public void backToHome(View view) {
+        Intent intent = new Intent(ListMedActivity.this, MenuActivity.class);
+        startActivity(intent);
+        finish();
     }
 }

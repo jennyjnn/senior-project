@@ -30,6 +30,7 @@
                         android:layout_marginLeft="15dp"
                         android:elevation="8dp"
                         android:padding="5dp"
+                        android:onClick="backBtn"
                         android:src="@drawable/ic_arrow_back_white_24dp" />
 
                     <TextView
@@ -174,6 +175,7 @@
                                     android:layout_width="100dp"
                                     android:layout_height="wrap_content"
                                     android:text="เช้า"
+                                    android:typeface="normal"
                                     android:fontFamily="@font/thsarabun"
                                     android:checked="true"
                                     android:enabled="false"/>

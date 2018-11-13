@@ -32,6 +32,7 @@
                         android:layout_marginLeft="15dp"
                         android:elevation="8dp"
                         android:padding="5dp"
+                        android:onClick="backBtn"
                         android:src="@drawable/ic_arrow_back_white_24dp" />
 
                     <TextView

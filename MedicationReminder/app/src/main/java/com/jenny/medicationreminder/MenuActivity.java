@@ -55,5 +55,6 @@ public class MenuActivity extends AppCompatActivity {
     public void showListMed(View view) {
         Intent intent = new Intent(MenuActivity.this, ListMedActivity.class);
         startActivity(intent);
+        finish();
     }
 }
