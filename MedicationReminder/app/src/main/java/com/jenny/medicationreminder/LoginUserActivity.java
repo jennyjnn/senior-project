@@ -25,6 +25,8 @@ public class LoginUserActivity extends AppCompatActivity {
     EditText etLoginUser;
     EditText etLoginPass;
 
+    String username, password;
+
     FirebaseDatabase database;
     DatabaseReference loginUserRef;
 
@@ -49,6 +51,21 @@ public class LoginUserActivity extends AppCompatActivity {
     public void loginUser(View view) {
         etLoginUser = findViewById(R.id.etLoginUser);
         etLoginPass = findViewById(R.id.etLoginPass);
+
+        // Validate form
+        username = String.valueOf(etLoginUser.getText());
+        password = String.valueOf(etLoginPass.getText());
+
+        if (username.isEmpty()){
+            etLoginUser.setError("กรุณากรอกชื่อผู้ใช้งาน !");
+            etLoginUser.requestFocus();
+            return;
+        }
+        if (password.isEmpty()){
+            etLoginPass.setError("กรุณากรอกรหัสผ่าน !");
+            etLoginPass.requestFocus();
+            return;
+        }
 
         database = FirebaseDatabase.getInstance();
         loginUserRef = database.getReference("User");

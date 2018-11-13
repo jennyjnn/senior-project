@@ -24,6 +24,7 @@ import com.jenny.medicationreminder.Model.User;
 public class LoginTelActivity extends AppCompatActivity {
 
     EditText etLoginTel;
+    String tel;
 
     FirebaseDatabase database;
     DatabaseReference loginTelRef;
@@ -48,6 +49,14 @@ public class LoginTelActivity extends AppCompatActivity {
 
     public void loginTel(View view) {
         etLoginTel = findViewById(R.id.etLoginTel);
+
+        // Validation form
+        tel = String.valueOf(etLoginTel.getText());
+         if (tel.isEmpty()){
+             etLoginTel.setError("กรุณากรอกเบอร์โทรศัพท์ !");
+             etLoginTel.requestFocus();
+             return;
+         }
 
         database = FirebaseDatabase.getInstance();
         loginTelRef = database.getReference("User");
@@ -87,7 +96,6 @@ public class LoginTelActivity extends AppCompatActivity {
                     }
                 } else {
                     dialog.show();
-//                    Toast.makeText(LoginTelActivity.this, "หมายเลขโทรศัพท์ไม่ถูกต้อง", Toast.LENGTH_LONG).show();
                 }
             }
 

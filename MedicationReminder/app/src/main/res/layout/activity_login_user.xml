@@ -68,6 +68,7 @@
                         android:drawableLeft="@drawable/ic_person_black_24dp"
                         android:drawablePadding="8dp"
                         android:hint="ชื่อผู้ใช้งาน"
+                        android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890-_."
                         android:inputType="text" />
 
                     <EditText
@@ -78,6 +79,7 @@
                         android:drawableLeft="@drawable/ic_lock_black_24dp"
                         android:drawablePadding="8dp"
                         android:hint="รหัสผ่าน"
+                        android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890-_."
                         android:inputType="textPassword" />
 
                     <LinearLayout
