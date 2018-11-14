@@ -129,14 +129,12 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            style="@style/textFont"
                             android:textSize="22sp"
                             android:text="หากยังไม่ได้เป็นสมาชิก "/>
                         <com.libRG.CustomTextView
                             android:id="@+id/c6"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            style="@style/textFont"
                             android:textSize="22sp"
                             android:text="ลงทะเบียนที่นี่"
                             android:textColor="@color/colorBtnBlue"

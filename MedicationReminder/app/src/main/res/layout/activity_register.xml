@@ -63,7 +63,6 @@
                         card_view:cardElevation="8dp">
 
                         <TextView
-                            style="@style/textFont"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:paddingLeft="20dp"
@@ -132,7 +131,6 @@
                             android:layout_height="wrap_content"
                             android:drawableRight="@drawable/ic_expand_more_black_24dp"
                             android:hint="โรคประจำตัว"
-                            style="@style/textFont"
                             android:freezesText="true"
                             android:inputType="none" />
 
@@ -160,7 +158,6 @@
                             android:paddingRight="20dp"
                             android:paddingBottom="5dp"
                             android:text="ข้อมูลเข้าสู่ระบบ"
-                            style="@style/textFont"
                             android:textColor="#ffffff"
                             android:textSize="24sp" />
 
@@ -252,14 +249,12 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                style="@style/textFont"
                                 android:textSize="22sp"
                                 android:text="หากเป็นสมาชิกอยู่แล้ว "/>
                             <com.libRG.CustomTextView
                                 android:id="@+id/c6"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                style="@style/textFont"
                                 android:textSize="22sp"
                                 android:text="เข้าสู่ระบบที่นี่"
                                 android:textColor="@color/colorBtnBlue"

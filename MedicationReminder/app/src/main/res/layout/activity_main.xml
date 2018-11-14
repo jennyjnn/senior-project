@@ -1,73 +1,79 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:fancy="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/bg_screen"
+    android:orientation="vertical"
     tools:context=".MainActivity">
-
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-        <ImageView
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:layout_gravity="center"
-            android:layout_marginTop="70dp"
-            android:src="@drawable/logo" />
+            <ImageView
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="70dp"
+                android:src="@drawable/logo" />
 
-        <TextView
-            style="@style/TextBoldWhite24"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="70dp"
-            android:layout_marginBottom="10dp"
-            android:text="ผู้ใช้รายใหม่กดปุ่มเพื่อลงทะเบียนก่อน" />
+            <TextView
+                style="@style/TextBoldWhite24"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="70dp"
+                android:layout_marginBottom="10dp"
+                android:text="ผู้ใช้รายใหม่กดปุ่มเพื่อลงทะเบียนก่อน" />
 
-        <mehdi.sakout.fancybuttons.FancyButton
-            style="@style/TextBold30"
-            android:layout_width="175dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:elevation="2dp"
-            android:onClick="register"
-            android:paddingLeft="20dp"
-            android:paddingTop="10dp"
-            android:paddingRight="20dp"
-            android:paddingBottom="10dp"
-            fancy:fb_defaultColor="@color/colorBtnRed"
-            fancy:fb_radius="30dp"
-            fancy:fb_text="ลงทะเบียน" />
+            <mehdi.sakout.fancybuttons.FancyButton
+                style="@style/TextBold30"
+                android:layout_width="175dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:elevation="2dp"
+                android:onClick="register"
+                android:paddingLeft="20dp"
+                android:paddingTop="10dp"
+                android:paddingRight="20dp"
+                android:paddingBottom="10dp"
+                fancy:fb_defaultColor="@color/colorBtnRed"
+                fancy:fb_radius="30dp"
+                fancy:fb_text="ลงทะเบียน" />
 
-        <TextView
-            style="@style/TextBoldWhite24"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="10dp"
-            android:text="หากลงทะเบียนแล้วกดปุ่มเพื่อเข้าสู่ระบบ" />
+            <TextView
+                style="@style/TextBoldWhite24"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="10dp"
+                android:text="หากลงทะเบียนแล้วกดปุ่มเพื่อเข้าสู่ระบบ" />
 
-        <mehdi.sakout.fancybuttons.FancyButton
-            style="@style/TextBold30"
-            android:layout_width="175dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:elevation="2dp"
-            android:paddingLeft="20dp"
-            android:paddingTop="10dp"
-            android:paddingRight="20dp"
-            android:paddingBottom="10dp"
-            fancy:fb_defaultColor="@color/colorBtnBlue"
-            fancy:fb_radius="30dp"
-            android:onClick="showDialogLogin"
-            fancy:fb_text="เข้าสู่ระบบ" />
+            <mehdi.sakout.fancybuttons.FancyButton
+                style="@style/TextBold30"
+                android:layout_width="175dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:elevation="2dp"
+                android:paddingLeft="20dp"
+                android:paddingTop="10dp"
+                android:paddingRight="20dp"
+                android:paddingBottom="10dp"
+                android:layout_marginBottom="50dp"
+                fancy:fb_defaultColor="@color/colorBtnBlue"
+                fancy:fb_radius="30dp"
+                android:onClick="showDialogLogin"
+                fancy:fb_text="เข้าสู่ระบบ" />
 
-    </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
 
-</RelativeLayout>
+
+</LinearLayout>

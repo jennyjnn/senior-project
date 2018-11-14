@@ -119,7 +119,6 @@
                         android:orientation="horizontal">
 
                         <TextView
-                            style="@style/textFont"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="หากยังไม่ได้เป็นสมาชิก "
@@ -127,7 +126,6 @@
 
                         <com.libRG.CustomTextView
                             android:id="@+id/c6"
-                            style="@style/textFont"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="ลงทะเบียนที่นี่"

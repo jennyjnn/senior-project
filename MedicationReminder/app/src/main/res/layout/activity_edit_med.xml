@@ -175,8 +175,6 @@
                                     android:layout_width="100dp"
                                     android:layout_height="wrap_content"
                                     android:text="เช้า"
-                                    android:typeface="normal"
-                                    android:fontFamily="@font/thsarabun"
                                     android:checked="true"
                                     android:enabled="false"/>
                                 <ImageView
@@ -208,11 +206,10 @@
                                 android:layout_height="wrap_content"
                                 android:orientation="horizontal">
                                 <CheckBox
+                                    style="@style/TextBoldDarkGray22"
                                     android:id="@+id/cbLunch"
                                     android:layout_width="100dp"
                                     android:layout_height="wrap_content"
-                                    android:textColor="@color/colorTextGray"
-                                    android:textSize="15sp"
                                     android:text="กลางวัน"
                                     android:enabled="false"/>
                                 <ImageView
@@ -243,12 +240,11 @@
                                 android:layout_height="wrap_content"
                                 android:orientation="horizontal">
                                 <CheckBox
+                                    style="@style/TextBoldDarkGray22"
                                     android:layout_width="100dp"
                                     android:layout_height="wrap_content"
                                     android:text="เย็น"
                                     android:id="@+id/cbEveing"
-                                    android:textColor="@color/colorTextGray"
-                                    android:textSize="15sp"
                                     android:enabled="false"/>
                                 <ImageView
                                     android:layout_width="wrap_content"
@@ -278,12 +274,11 @@
                                 android:layout_height="wrap_content"
                                 android:orientation="horizontal">
                                 <CheckBox
+                                    style="@style/TextBoldDarkGray22"
                                     android:id="@+id/cbBeforeBed"
                                     android:layout_width="100dp"
                                     android:layout_height="wrap_content"
                                     android:text="ก่อนนอน"
-                                    android:textColor="@color/colorTextGray"
-                                    android:textSize="15sp"
                                     android:enabled="false"/>
                                 <ImageView
                                     android:layout_width="wrap_content"
@@ -463,7 +458,6 @@
                         </RadioGroup>
 
                         <mehdi.sakout.fancybuttons.FancyButton
-                            style="@style/textFont"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_gravity="bottom"
