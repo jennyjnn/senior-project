@@ -1,8 +1,10 @@
 package com.jenny.medicationreminder;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -30,6 +32,11 @@ public class LoginTelActivity extends AppCompatActivity {
     DatabaseReference loginTelRef;
 
     ProgressDialog progressDialog;
+
+    SharedPreferences prefUser;
+    SharedPreferences.Editor editor;
+
+    private static final String USER_PREFS = "userStatus";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,6 +97,14 @@ public class LoginTelActivity extends AppCompatActivity {
                         Log.e("fname", user.getUser_fname());
                         Log.e("key", String.valueOf(snapshot.getKey()));
 
+                        // Keep user's key and status login in SharedPreferences
+                        prefUser = getSharedPreferences(USER_PREFS, Context.MODE_PRIVATE);
+                        editor = prefUser.edit();
+                        editor.putString("keyUser", String.valueOf(snapshot.getKey()));
+                        editor.putBoolean("statusLogin", true);
+                        editor.commit();
+
+                        // Start Menu Activity
                         Intent intent = new Intent(LoginTelActivity.this, MenuActivity.class);
                         startActivity(intent);
                         finish();

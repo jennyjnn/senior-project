@@ -1,7 +1,9 @@
 package com.jenny.medicationreminder;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -11,6 +13,9 @@ import android.view.View;
 public class MenuActivity extends AppCompatActivity {
 
     CardView cvAppBar;
+    SharedPreferences prefUser;
+    SharedPreferences.Editor editor;
+    private static final String USER_PREFS = "userStatus";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +37,15 @@ public class MenuActivity extends AppCompatActivity {
         alertLogout.setPositiveButton("ใช่", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
+                // Clear user's key and status login in SharedPreferences
+                prefUser = getSharedPreferences(USER_PREFS, Context.MODE_PRIVATE);
+                editor = prefUser.edit();
+                editor.clear();
+                editor.commit();
+
+                // Back to Main Activity
+                Intent intent = new Intent(MenuActivity.this, MainActivity.class);
+                startActivity(intent);
                 finish();
             }
         });

@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
@@ -48,6 +49,11 @@ public class RegisterActivity extends AppCompatActivity {
     Boolean checkTel = false;
 
     ProgressDialog progressDialog;
+
+    SharedPreferences prefUser;
+    SharedPreferences.Editor editor;
+    private static final String USER_PREFS = "userStatus";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -236,6 +242,14 @@ public class RegisterActivity extends AppCompatActivity {
 
                     progressDialog.dismiss();
 
+                    // Keep user's key and status login in SharedPreferences
+                    prefUser = getSharedPreferences(USER_PREFS, Context.MODE_PRIVATE);
+                    editor = prefUser.edit();
+                    editor.putString("keyUser", user_id);
+                    editor.putBoolean("statusLogin", true);
+                    editor.commit();
+
+                    // Start Menu Activity
                     Intent intent = new Intent(RegisterActivity.this, MenuActivity.class);
                     startActivity(intent);
                     finish();

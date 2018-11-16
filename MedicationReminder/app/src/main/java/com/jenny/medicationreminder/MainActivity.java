@@ -1,7 +1,9 @@
 package com.jenny.medicationreminder;
 
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -28,12 +30,27 @@ import mehdi.sakout.fancybuttons.FancyButton;
 
 public class MainActivity extends AppCompatActivity {
 
+    private static final String USER_PREFS = "userStatus";
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         //insertToMedicine();
+        checkLoginStatus();
+    }
+
+    private void checkLoginStatus() {
+        SharedPreferences prefUser = getSharedPreferences(USER_PREFS, Context.MODE_PRIVATE);
+        Boolean isLogin = prefUser.getBoolean("statusLogin", false);
+
+        if (isLogin) {
+            Intent intent = new Intent(MainActivity.this, MenuActivity.class);
+            startActivity(intent);
+            finish();
+        }
     }
 
     private void insertToMedicine() {
@@ -110,8 +127,6 @@ public class MainActivity extends AppCompatActivity {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-
     }
 
     public void register(View view) {
