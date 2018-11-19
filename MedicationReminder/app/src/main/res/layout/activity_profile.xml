@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:fancy="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    tools:context=".ProfileActivity">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <!--App bar-->
+            <android.support.v7.widget.CardView
+                android:id="@+id/cvAppBarProfile"
+                android:layout_width="match_parent"
+                android:layout_height="56dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:layout_width="35dp"
+                        android:layout_height="35dp"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="15dp"
+                        android:elevation="8dp"
+                        android:padding="5dp"
+                        android:onClick="backBtn"
+                        android:src="@drawable/ic_arrow_back_white_24dp" />
+
+                    <TextView
+                        style="@style/TextAppBar"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:layout_centerVertical="true"
+                        android:text="ข้อมูลส่วนตัว" />
+
+                </RelativeLayout>
+
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="12dp">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <!--user information-->
+                    <android.support.v7.widget.CardView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="30dp"
+                        card_view:cardBackgroundColor="@color/colorPrimaryDark"
+                        card_view:cardCornerRadius="5dp"
+                        card_view:cardElevation="8dp">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:paddingLeft="20dp"
+                            android:paddingTop="5dp"
+                            android:paddingRight="20dp"
+                            android:paddingBottom="5dp"
+                            android:text="@string/userInfo"
+                            android:textColor="#ffffff"
+                            android:textSize="24sp" />
+
+                    </android.support.v7.widget.CardView>
+
+                    <!--Name-->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginRight="15dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            style="@style/TextBoldDarkGray26"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="2"
+                            android:text="@string/name" />
+                        <EditText
+                            android:id="@+id/etName"
+                            style="@style/TextRegular26"
+                            android:layout_width="0dp"
+                            android:layout_weight="5"
+                            android:layout_height="wrap_content"
+                            android:inputType="textPersonName" />
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/colorLineDivide" />
+
+                    <!--Lastname-->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginRight="15dp"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:layout_width="0dp"
+                            style="@style/TextBoldDarkGray26"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="2"
+                            android:text="@string/lastname"/>
+                        <EditText
+                            android:id="@+id/etLastName"
+                            style="@style/TextRegular26"
+                            android:layout_width="0dp"
+                            android:layout_weight="5"
+                            android:layout_height="wrap_content"
+                            android:inputType="textPersonName" />
+                    </LinearLayout>
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/colorLineDivide" />
+
+                    <!--Age-->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginRight="15dp"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:layout_width="0dp"
+                            style="@style/TextBoldDarkGray26"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="2"
+                            android:text="@string/age"/>
+                        <EditText
+                            android:id="@+id/etAge"
+                            style="@style/TextRegular26"
+                            android:layout_width="0dp"
+                            android:layout_weight="5"
+                            android:layout_height="wrap_content"
+                            android:inputType="number" />
+                    </LinearLayout>
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/colorLineDivide" />
+
+                    <!--Weight-->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginRight="15dp"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:layout_width="0dp"
+                            style="@style/TextBoldDarkGray26"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="2"
+                            android:text="@string/weight"/>
+                        <EditText
+                            android:id="@+id/etWeight"
+                            style="@style/TextRegular26"
+                            android:layout_width="0dp"
+                            android:layout_weight="5"
+                            android:layout_height="wrap_content"
+                            android:inputType="number" />
+                    </LinearLayout>
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/colorLineDivide" />
+
+                    <!--Disease-->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginRight="15dp"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:layout_width="0dp"
+                            style="@style/TextBoldDarkGray26"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="2"
+                            android:text="@string/disease"/>
+                        <EditText
+                            android:id="@+id/etDisease"
+                            style="@style/TextRegular26"
+                            android:layout_width="0dp"
+                            android:layout_weight="5"
+                            android:focusable="false"
+                            android:layout_height="wrap_content"
+                            android:inputType="text" />
+                    </LinearLayout>
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/colorLineDivide" />
+
+                    <!--Allergic-->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginRight="15dp"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:layout_width="0dp"
+                            style="@style/TextBoldDarkGray26"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="2"
+                            android:text="@string/allergic"/>
+                        <EditText
+                            android:id="@+id/etAllergic"
+                            style="@style/TextRegular26"
+                            android:layout_width="0dp"
+                            android:layout_weight="5"
+                            android:layout_height="wrap_content"
+                            android:inputType="text" />
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_margin="15dp"
+                        android:orientation="horizontal">
+
+                        <mehdi.sakout.fancybuttons.FancyButton
+                            style="@style/TextBold30"
+                            android:id="@+id/btnCancel"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_margin="5dp"
+                            android:layout_weight="1"
+                            android:paddingTop="8dp"
+                            android:paddingBottom="8dp"
+                            fancy:fb_defaultColor="@color/colorBtnRed"
+                            fancy:fb_radius="5dp"
+                            fancy:fb_text="ยกเลิก"
+                            android:onClick="cancelEditProfile"
+                            android:elevation="2dp" />
+
+                        <mehdi.sakout.fancybuttons.FancyButton
+                            style="@style/TextBold30"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_margin="5dp"
+                            android:layout_weight="1"
+                            android:paddingTop="8dp"
+                            android:paddingBottom="8dp"
+                            fancy:fb_defaultColor="@color/colorBtnBlue"
+                            fancy:fb_radius="5dp"
+                            fancy:fb_text="บันทึก"
+                            android:onClick="editProfile"
+                            android:elevation="2dp"/>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

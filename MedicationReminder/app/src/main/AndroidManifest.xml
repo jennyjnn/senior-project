@@ -20,10 +20,13 @@
         <activity android:name=".LoginUserActivity" />
         <activity android:name=".LoginTelActivity" />
         <activity android:name=".MenuActivity" />
-        <activity android:name=".EditMedActivity"
-            android:windowSoftInputMode="stateHidden"/>
+        <activity
+            android:name=".EditMedActivity"
+            android:windowSoftInputMode="stateHidden" />
         <activity android:name=".ListMedActivity" />
-        <activity android:name=".MedInfoActivity"></activity>
+        <activity android:name=".MedInfoActivity" />
+        <activity android:name=".ProfileActivity"
+            android:windowSoftInputMode="stateHidden"></activity>
     </application>
 
 </manifest>
