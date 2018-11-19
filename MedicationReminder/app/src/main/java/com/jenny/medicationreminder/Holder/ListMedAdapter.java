@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.jenny.medicationreminder.EditMedActivity;
 import com.jenny.medicationreminder.ListMedActivity;
 import com.jenny.medicationreminder.MedInfoActivity;
 import com.jenny.medicationreminder.MenuActivity;
@@ -30,7 +31,7 @@ public class ListMedAdapter extends RecyclerView.Adapter<ListMedAdapter.ViewHold
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public TextView tvMedName_list, tvMedProp_list, tvMedDes_list;
-        public Button btnViewMed;
+        public Button btnViewMed, btnEditMed;
         public ViewHolder(View itemView) {
             super(itemView);
 
@@ -39,6 +40,7 @@ public class ListMedAdapter extends RecyclerView.Adapter<ListMedAdapter.ViewHold
             tvMedDes_list = itemView.findViewById(R.id.tvMedDes_list);
 
             btnViewMed = itemView.findViewById(R.id.btnViewMed);
+            btnEditMed = itemView.findViewById(R.id.btnEditMed);
         }
     }
 
@@ -55,7 +57,9 @@ public class ListMedAdapter extends RecyclerView.Adapter<ListMedAdapter.ViewHold
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         ListMed med = mMeds.get(position);
 
-        holder.tvMedName_list.setText(med.getNameMed());
+        final String medName = med.getNameMed();
+
+        holder.tvMedName_list.setText(medName);
         holder.tvMedProp_list.setText(med.getProperties());
         holder.tvMedDes_list.setText(med.getDescriptions());
 
@@ -63,7 +67,17 @@ public class ListMedAdapter extends RecyclerView.Adapter<ListMedAdapter.ViewHold
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), MedInfoActivity.class);
+                intent.putExtra("medName", medName);
                 context.startActivity(intent);
+            }
+        });
+
+        holder.btnEditMed.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intentEdit = new Intent(v.getContext(), EditMedActivity.class);
+                intentEdit.putExtra("medName", medName);
+                context.startActivity(intentEdit);
             }
         });
 

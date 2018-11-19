@@ -52,7 +52,7 @@ public class ListMedActivity extends AppCompatActivity {
                 "หลังอาหาร, 1 เม็ด เวลา 08:00 น., 1 เม็ด เวลา 17.00 น.");
         ListMed testMed2 = new ListMed("MELOXICAM", "ยาบรรเทาอาการปวดและอักเสบ",
                 "หลังอาหาร, 1 เม็ด เวลา 08:00 น.");
-        ListMed testMed3 = new ListMed("insulin", "ยาลดระดับน้ำตาลในเลือด", "ฉีด, 10 ยูนิต เวลา 08.30 น., 10 ยูนิต เวลา 17.00 น.");
+        ListMed testMed3 = new ListMed("Regular insulin", "ยาลดระดับน้ำตาลในเลือด", "ฉีด, 10 ยูนิต เวลา 08.30 น., 10 ยูนิต เวลา 17.00 น.");
         ListMed testMed4 = new ListMed("Simvastatin", "ยาลดไขมัน", "ก่อนนอน, 1 เม็ด เวลา 21:30 น.");
         ListMed testMed5 = new ListMed("Sulfonylurea", "ยาเบาหวาน", "ก่อนอาหาร, 1 เม็ด เวลา 07:15 น.");
 
