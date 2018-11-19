@@ -1,3 +1,14 @@
 <resources>
     <string name="app_name">Medication Reminder</string>
+    <string name="name">ชื่อ</string>
+    <string name="lastname">นามสกุล</string>
+    <string name="age">อายุ (ปี)</string>
+    <string name="weight">น้ำหนัก (กก.)</string>
+    <string name="disease">โรคประจำตัว</string>
+    <string name="allergic">ประวัติแพ้ยา</string>
+    <string name="username">ชื่อผู้ใช้งาน</string>
+    <string name="password">รหัสผ่าน</string>
+    <string name="phone">เบอร์โทรศัพท์</string>
+    <string name="userInfo">ข้อมูลส่วนตัว</string>
+    <string name="loginInfo">ข้อมูลเข้าสู่ระบบ</string>
 </resources>

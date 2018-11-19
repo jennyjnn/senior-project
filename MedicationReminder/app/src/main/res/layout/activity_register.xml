@@ -69,7 +69,7 @@
                             android:paddingTop="5dp"
                             android:paddingRight="20dp"
                             android:paddingBottom="5dp"
-                            android:text="ข้อมูลส่วนตัว"
+                            android:text="@string/userInfo"
                             android:textColor="#ffffff"
                             android:textSize="24sp" />
 
@@ -86,7 +86,7 @@
                             style="@style/TextRegular26"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:hint="ชื่อ"
+                            android:hint="@string/name"
                             android:inputType="textPersonName" />
 
                         <EditText
@@ -94,7 +94,7 @@
                             style="@style/TextRegular26"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:hint="นามสกุล"
+                            android:hint="@string/lastname"
                             android:inputType="textPersonName" />
 
                         <LinearLayout
@@ -108,7 +108,7 @@
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
-                                android:hint="อายุ (ปี)"
+                                android:hint="@string/age"
                                 android:inputType="number" />
 
                             <EditText
@@ -117,7 +117,7 @@
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
-                                android:hint="น้ำหนัก (กก.)"
+                                android:hint="@string/weight"
                                 android:inputType="number" />
                         </LinearLayout>
 
@@ -130,7 +130,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:drawableRight="@drawable/ic_expand_more_black_24dp"
-                            android:hint="โรคประจำตัว"
+                            android:hint="@string/disease"
                             android:freezesText="true"
                             android:inputType="none" />
 
@@ -139,7 +139,7 @@
                             style="@style/TextRegular26"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:hint="ประวัติแพ้ยา"
+                            android:hint="@string/allergic"
                             android:inputType="text" />
                     </LinearLayout>
 
@@ -157,7 +157,7 @@
                             android:paddingTop="5dp"
                             android:paddingRight="20dp"
                             android:paddingBottom="5dp"
-                            android:text="ข้อมูลเข้าสู่ระบบ"
+                            android:text="@string/loginInfo"
                             android:textColor="#ffffff"
                             android:textSize="24sp" />
 
@@ -175,7 +175,7 @@
                             style="@style/TextRegular26"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:hint="ชื่อผู้ใช้งาน"
+                            android:hint="@string/username"
                             android:inputType="text"
                             android:drawablePadding="8dp"
                             android:drawableLeft="@drawable/ic_person_black_24dp" />
@@ -186,7 +186,7 @@
                             android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890-_."
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:hint="รหัสผ่าน"
+                            android:hint="@string/password"
                             android:drawablePadding="8dp"
                             android:drawableLeft="@drawable/ic_lock_black_24dp"
                             android:inputType="textPassword" />
@@ -198,7 +198,7 @@
                             android:layout_height="wrap_content"
                             android:drawablePadding="8dp"
                             android:drawableLeft="@drawable/ic_phone_black_24dp"
-                            android:hint="เบอร์โทรศัพท์"
+                            android:hint="@string/phone"
                             android:inputType="phone" />
 
                         <LinearLayout
