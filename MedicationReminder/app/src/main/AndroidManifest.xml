@@ -25,8 +25,10 @@
             android:windowSoftInputMode="stateHidden" />
         <activity android:name=".ListMedActivity" />
         <activity android:name=".MedInfoActivity" />
-        <activity android:name=".ProfileActivity"
-            android:windowSoftInputMode="stateHidden"></activity>
+        <activity
+            android:name=".ProfileActivity"
+            android:windowSoftInputMode="stateHidden" />
+        <activity android:name=".ViewProfileActivity"></activity>
     </application>
 
 </manifest>
