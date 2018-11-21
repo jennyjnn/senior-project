@@ -2,17 +2,19 @@ package com.jenny.medicationreminder.Model;
 
 public class ListMed {
     private String nameMed;
+    private String properties;
+    private String descriptions;
+    private String time;
 
     public ListMed() {
     }
 
-    public ListMed(String nameMed, String properties, String descriptions) {
+    public ListMed(String nameMed, String properties, String descriptions, String time) {
         this.nameMed = nameMed;
         this.properties = properties;
         this.descriptions = descriptions;
+        this.time = time;
     }
-
-    private String properties;
 
     public String getNameMed() {
         return nameMed;
@@ -38,5 +40,11 @@ public class ListMed {
         this.descriptions = descriptions;
     }
 
-    private String descriptions;
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
+    }
 }

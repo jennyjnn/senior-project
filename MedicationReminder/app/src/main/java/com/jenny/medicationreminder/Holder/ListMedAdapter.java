@@ -30,7 +30,7 @@ public class ListMedAdapter extends RecyclerView.Adapter<ListMedAdapter.ViewHold
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        public TextView tvMedName_list, tvMedProp_list, tvMedDes_list;
+        public TextView tvMedName_list, tvMedProp_list, tvMedDes_list, tvMedTime_list;
         public Button btnViewMed, btnEditMed;
         public ViewHolder(View itemView) {
             super(itemView);
@@ -38,6 +38,7 @@ public class ListMedAdapter extends RecyclerView.Adapter<ListMedAdapter.ViewHold
             tvMedName_list = itemView.findViewById(R.id.tvMedName_list);
             tvMedProp_list = itemView.findViewById(R.id.tvMedProp_list);
             tvMedDes_list = itemView.findViewById(R.id.tvMedDes_list);
+            tvMedTime_list = itemView.findViewById(R.id.tvMedTime_list);
 
             btnViewMed = itemView.findViewById(R.id.btnViewMed);
             btnEditMed = itemView.findViewById(R.id.btnEditMed);
@@ -62,6 +63,7 @@ public class ListMedAdapter extends RecyclerView.Adapter<ListMedAdapter.ViewHold
         holder.tvMedName_list.setText(medName);
         holder.tvMedProp_list.setText(med.getProperties());
         holder.tvMedDes_list.setText(med.getDescriptions());
+        holder.tvMedTime_list.setText(med.getTime());
 
         holder.btnViewMed.setOnClickListener(new View.OnClickListener() {
             @Override
