@@ -73,7 +73,7 @@ public class MenuActivity extends AppCompatActivity {
     }
 
     public void goToProfile(View view) {
-        Intent intent = new Intent(MenuActivity.this, ProfileActivity.class);
+        Intent intent = new Intent(MenuActivity.this, ViewProfileActivity.class);
         startActivity(intent);
     }
 }
