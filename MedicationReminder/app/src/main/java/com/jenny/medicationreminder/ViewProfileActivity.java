@@ -1,5 +1,6 @@
 package com.jenny.medicationreminder;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
@@ -24,5 +25,10 @@ public class ViewProfileActivity extends AppCompatActivity {
 
     public void backBtn(View view) {
         finish();
+    }
+
+    public void editProfile(View view) {
+        Intent intent = new Intent(ViewProfileActivity.this, ProfileActivity.class);
+        startActivity(intent);
     }
 }
