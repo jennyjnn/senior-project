@@ -31,4 +31,9 @@ public class ViewProfileActivity extends AppCompatActivity {
         Intent intent = new Intent(ViewProfileActivity.this, ProfileActivity.class);
         startActivity(intent);
     }
+
+    public void editLogin(View view) {
+        Intent intent = new Intent(ViewProfileActivity.this, EditLoginActivity.class);
+        startActivity(intent);
+    }
 }
