@@ -68,8 +68,6 @@ public class ListMedActivity extends AppCompatActivity {
     }
 
     public void backToHome(View view) {
-        Intent intent = new Intent(ListMedActivity.this, MenuActivity.class);
-        startActivity(intent);
         finish();
     }
 }
