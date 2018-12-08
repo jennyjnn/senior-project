@@ -34,7 +34,7 @@
 
     <style name="BtnTopic">
         <item name="android:textSize">31sp</item>
-        <item name="android:textColor">@color/colorPrimaryDark</item>
+        <item name="android:textColor">@color/colorAccent</item>
     </style>
     <style name="TextRegular26">
         <item name="android:textSize">26sp</item>
