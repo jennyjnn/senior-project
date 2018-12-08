@@ -1,46 +1,44 @@
-package com.jenny.medicationreminder;
+package com.jenny.medicationreminder.fragment;
 
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Typeface;
-import android.support.annotation.NonNull;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.jenny.medicationreminder.MenuActivity;
+import com.jenny.medicationreminder.R;
+import com.jenny.medicationreminder.RegisterActivity;
+import com.libRG.CustomTextView;
 
-import java.lang.reflect.Array;
 import java.text.DecimalFormat;
 import java.util.Arrays;
 import java.util.List;
 
+import mehdi.sakout.fancybuttons.FancyButton;
 
-public class RegisterActivity extends AppCompatActivity {
 
-    EditText etDisease;
-    EditText etName;
-    EditText etSurname;
-    EditText etAge;
-    EditText etWeight;
-    EditText etAllergic;
-    EditText etUsername;
-    EditText etPassword;
-    EditText etTel;
-    long countUser = 0;
-    String user_id;
+public class RegisterFragment extends Fragment {
+
+    FancyButton btnCancelRegister, btnRegister;
+    CustomTextView tvToLogin;
+    EditText etDisease, etUsername, etPassword, etTel;
+    EditText etName, etSurname, etAge, etWeight, etAllergic;
 
     FirebaseDatabase database;
     DatabaseReference regisRef;
@@ -50,36 +48,118 @@ public class RegisterActivity extends AppCompatActivity {
 
     ProgressDialog progressDialog;
 
+    long countUser = 0;
+    String user_id;
+
     SharedPreferences prefUser;
     SharedPreferences.Editor editor;
     private static final String USER_PREFS = "userStatus";
 
+    public RegisterFragment() {
+        super();
+    }
+
+    public static RegisterFragment newInstance() {
+        RegisterFragment fragment = new RegisterFragment();
+        Bundle args = new Bundle();
+        fragment.setArguments(args);
+        return fragment;
+    }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_register);
-
-        initInstances();
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        View rootView = inflater.inflate(R.layout.fragment_register, container, false);
+        initInstances(rootView);
+        return rootView;
     }
 
-    private void initInstances() {
-        etDisease = findViewById(R.id.etDisease);
+    private void initInstances(View rootView) {
+        // Init 'View' instance(s) with rootView.findViewById here
+        // Cancel for Register
+        btnCancelRegister = rootView.findViewById(R.id.btnCancelRegister);
+        btnCancelRegister.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getFragmentManager().popBackStack();
+            }
+        });
 
+        // Set Disease
+        etDisease = rootView.findViewById(R.id.etDisease);
+        final String [] diseaseArr = {"โรคเกาต์", "โรคเบาหวาน", "โรคไขมันในเลือดสูง", "โรคความดันโลหิตสูง", "โรคมะเร็งต่อมลูกหมาก", "โรคไต", "โรคหัวใจขาดเลือด", "โรคจอประสาทตาเสื่อม", "โรคอัลไซเมอร์"};
+        final boolean[] checkedDisease = new boolean[9];
+        etDisease.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
+                final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+
+                final List<String> diseaseList = Arrays.asList(diseaseArr);
+
+                builder.setTitle("โรคประจำตัว");
+
+                builder.setMultiChoiceItems(diseaseArr, checkedDisease, new DialogInterface.OnMultiChoiceClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which, boolean isChecked) {
+                        checkedDisease[which] = isChecked;
+                        String currentItem = diseaseList.get(which);
+                    }
+                });
+
+                builder.setPositiveButton("ยืนยัน", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        String disease = "";
+                        for (int i=0; i<checkedDisease.length; i++){
+                            boolean checked = checkedDisease[i];
+                            if (checked){
+                                disease += diseaseList.get(i) + ", ";
+                            }
+                        }
+                        if (disease.length() > 0){
+                            disease = disease.substring(0, disease.length()-2);
+                        }
+                        etDisease.setText(disease);
+                    }
+                });
+
+                AlertDialog dialog = builder.create();
+                dialog.show();
+            }
+        });
+
+        // Go to Login
+        tvToLogin = rootView.findViewById(R.id.tvToLogin);
+        tvToLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getFragmentManager().beginTransaction()
+                        .replace(R.id.contentContainer, LoginFragment.newInstance())
+                        .commit();
+            }
+        });
+
+        // Register
+        etName = rootView.findViewById(R.id.etName);
+        etSurname = rootView.findViewById(R.id.etSurname);
+        etAge = rootView.findViewById(R.id.etAge);
+        etWeight = rootView.findViewById(R.id.etWeight);
+        etDisease = rootView.findViewById(R.id.etDisease);
+        etAllergic = rootView.findViewById(R.id.etAllergic);
+        etUsername = rootView.findViewById(R.id.etUsername);
+        etPassword = rootView.findViewById(R.id.etPassword);
+        etTel = rootView.findViewById(R.id.etTel);
+        btnRegister = rootView.findViewById(R.id.btnRegister);
+        btnRegister.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                registerUser();
+            }
+        });
     }
 
-    public void registerUser(View view) {
-        etName = findViewById(R.id.etName);
-        etSurname = findViewById(R.id.etSurname);
-        etAge = findViewById(R.id.etAge);
-        etWeight = findViewById(R.id.etWeight);
-        etDisease = findViewById(R.id.etDisease);
-        etAllergic = findViewById(R.id.etAllergic);
-        etUsername = findViewById(R.id.etUsername);
-        etPassword = findViewById(R.id.etPassword);
-        etTel = findViewById(R.id.etTel);
-
+    public void registerUser() {
         database = FirebaseDatabase.getInstance();
         regisRef = database.getReference("User");
 
@@ -139,7 +219,7 @@ public class RegisterActivity extends AppCompatActivity {
         }
 
         // Progress Dialog
-        progressDialog = new ProgressDialog(RegisterActivity.this);
+        progressDialog = new ProgressDialog(getActivity());
         progressDialog.setMessage("กรุณารอสักครู่");
         progressDialog.show();
 
@@ -203,16 +283,16 @@ public class RegisterActivity extends AppCompatActivity {
                     progressDialog.dismiss();
 
                     // Keep user's key and status login in SharedPreferences
-                    prefUser = getSharedPreferences(USER_PREFS, Context.MODE_PRIVATE);
+                    prefUser = getActivity().getSharedPreferences(USER_PREFS, Context.MODE_PRIVATE);
                     editor = prefUser.edit();
                     editor.putString("keyUser", user_id);
                     editor.putBoolean("statusLogin", true);
                     editor.commit();
 
                     // Start Menu Activity
-                    Intent intent = new Intent(RegisterActivity.this, MenuActivity.class);
+                    Intent intent = new Intent(getActivity(), MenuActivity.class);
                     startActivity(intent);
-                    finish();
+                    getActivity().finish();
                 }
 
                 @Override
@@ -223,8 +303,33 @@ public class RegisterActivity extends AppCompatActivity {
         }
     }
 
-    public void cancelRegister(View view) {
-        finish();
+    @Override
+    public void onStart() {
+        super.onStart();
     }
 
+    @Override
+    public void onStop() {
+        super.onStop();
+    }
+
+    /*
+     * Save Instance State Here
+     */
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        // Save Instance State here
+    }
+
+    /*
+     * Restore Instance State Here
+     */
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        if (savedInstanceState != null) {
+            // Restore Instance State here
+        }
+    }
 }
