@@ -10,6 +10,8 @@ import android.os.Bundle;
 import android.support.v7.widget.CardView;
 import android.view.View;
 
+import com.jenny.medicationreminder.fragment.MenuFragment;
+
 public class MenuActivity extends AppCompatActivity {
 
     CardView cvAppBar;
@@ -22,14 +24,14 @@ public class MenuActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
 
-        initInstances();
+        if (savedInstanceState == null) {
+            getSupportFragmentManager().beginTransaction()
+                    .add(R.id.contentContainerMenu, new MenuFragment())
+                    .commit();
+        }
 
     }
 
-    private void initInstances() {
-        cvAppBar = findViewById(R.id.cvAppBar);
-        cvAppBar.setBackgroundResource(R.drawable.bg_appbar);
-    }
 
     public void logOut(View view) {
         AlertDialog.Builder alertLogout = new AlertDialog.Builder(this);
@@ -69,7 +71,6 @@ public class MenuActivity extends AppCompatActivity {
     public void showListMed(View view) {
         Intent intent = new Intent(MenuActivity.this, ListMedActivity.class);
         startActivity(intent);
-        finish();
     }
 
     public void goToProfile(View view) {
