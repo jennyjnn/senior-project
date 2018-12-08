@@ -6,6 +6,8 @@ public class Medicine {
     private String Med_preserve;
     private String Med_sideEffect;
     private String Med_warning;
+    private String Med_property;
+    private String Med_type;
 
     public Medicine() {
     }
@@ -16,6 +18,16 @@ public class Medicine {
         Med_preserve = med_preserve;
         Med_sideEffect = med_sideEffect;
         Med_warning = med_warning;
+    }
+
+    public Medicine(String med_intro, String med_name, String med_preserve, String med_sideEffect, String med_warning, String med_property, String med_type) {
+        Med_intro = med_intro;
+        Med_name = med_name;
+        Med_preserve = med_preserve;
+        Med_sideEffect = med_sideEffect;
+        Med_warning = med_warning;
+        Med_property = med_property;
+        Med_type = med_type;
     }
 
     public String getMed_intro() {
@@ -56,5 +68,21 @@ public class Medicine {
 
     public void setMed_warning(String med_warning) {
         Med_warning = med_warning;
+    }
+
+    public String getMed_propoty() {
+        return Med_property;
+    }
+
+    public void setMed_propoty(String med_propoty) {
+        Med_property = med_propoty;
+    }
+
+    public String getMed_type() {
+        return Med_type;
+    }
+
+    public void setMed_type(String med_type) {
+        Med_type = med_type;
     }
 }

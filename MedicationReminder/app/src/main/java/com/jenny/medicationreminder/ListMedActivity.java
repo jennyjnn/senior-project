@@ -12,6 +12,7 @@ import com.jenny.medicationreminder.Holder.ListMedAdapter;
 import com.jenny.medicationreminder.Model.ListMed;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class ListMedActivity extends AppCompatActivity {
@@ -48,7 +49,7 @@ public class ListMedActivity extends AppCompatActivity {
     }
 
     private List<ListMed> initListMeds() {
-        ListMed testMed1 = new ListMed("Metformin", "ยาลดระดับน้ำตาลในเลือด",
+        ListMed testMed1 = new ListMed("Captopril", "ยาลดระดับน้ำตาลในเลือด",
                 "หลังอาหาร, 1 เม็ด เวลา 08:00 น., 1 เม็ด เวลา 17:00 น.", "08:00");
         ListMed testMed2 = new ListMed("MELOXICAM", "ยาบรรเทาอาการปวดและอักเสบ",
                 "หลังอาหาร, 1 เม็ด เวลา 08:00 น.", "08:00");
