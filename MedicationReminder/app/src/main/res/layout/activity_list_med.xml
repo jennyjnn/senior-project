@@ -20,11 +20,10 @@
                 android:layout_height="35dp"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="15dp"
-                android:background="@color/colorBtnBlue"
                 android:elevation="8dp"
                 android:padding="5dp"
                 android:onClick="backToHome"
-                android:src="@drawable/ic_home_white_24dp" />
+                android:src="@drawable/ic_arrow_back_white_24dp" />
 
             <TextView
                 style="@style/TextAppBar"
