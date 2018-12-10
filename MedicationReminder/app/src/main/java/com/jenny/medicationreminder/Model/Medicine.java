@@ -8,19 +8,12 @@ public class Medicine {
     private String Med_warning;
     private String Med_property;
     private String Med_type;
+    private String Med_video;
 
     public Medicine() {
     }
 
-    public Medicine(String med_intro, String med_name, String med_preserve, String med_sideEffect, String med_warning) {
-        Med_intro = med_intro;
-        Med_name = med_name;
-        Med_preserve = med_preserve;
-        Med_sideEffect = med_sideEffect;
-        Med_warning = med_warning;
-    }
-
-    public Medicine(String med_intro, String med_name, String med_preserve, String med_sideEffect, String med_warning, String med_property, String med_type) {
+    public Medicine(String med_intro, String med_name, String med_preserve, String med_sideEffect, String med_warning, String med_property, String med_type, String med_video) {
         Med_intro = med_intro;
         Med_name = med_name;
         Med_preserve = med_preserve;
@@ -28,6 +21,7 @@ public class Medicine {
         Med_warning = med_warning;
         Med_property = med_property;
         Med_type = med_type;
+        Med_video = med_video;
     }
 
     public String getMed_intro() {
@@ -70,19 +64,27 @@ public class Medicine {
         Med_warning = med_warning;
     }
 
-    public String getMed_propoty() {
-        return Med_property;
-    }
-
-    public void setMed_propoty(String med_propoty) {
-        Med_property = med_propoty;
-    }
-
     public String getMed_type() {
         return Med_type;
     }
 
     public void setMed_type(String med_type) {
         Med_type = med_type;
+    }
+
+    public String getMed_property() {
+        return Med_property;
+    }
+
+    public void setMed_property(String med_property) {
+        Med_property = med_property;
+    }
+
+    public String getMed_video() {
+        return Med_video;
+    }
+
+    public void setMed_video(String med_video) {
+        Med_video = med_video;
     }
 }

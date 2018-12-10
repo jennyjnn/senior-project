@@ -1,7 +1,8 @@
 package com.jenny.medicationreminder.Model;
 
 public class Med_Record {
-    private String MedRec_dateTime;
+    private String MedRec_getTime;
+    private String MedRec_BefAft;
     private String MedRec_dose;
     private String MedRec_startDate;
     private String MedRec_endDate;
@@ -12,22 +13,15 @@ public class Med_Record {
     public Med_Record() {
     }
 
-    public Med_Record(String medRec_dateTime, String medRec_dose, String medRec_startDate, String medRec_endDate, String medRec_notiTime, String user_id, String med_id) {
-        MedRec_dateTime = medRec_dateTime;
+    public Med_Record(String medRec_getTime, String medRec_BefAft, String medRec_dose, String medRec_startDate, String medRec_endDate, String medRec_notiTime, String user_id, String med_id) {
+        MedRec_getTime = medRec_getTime;
+        MedRec_BefAft = medRec_BefAft;
         MedRec_dose = medRec_dose;
         MedRec_startDate = medRec_startDate;
         MedRec_endDate = medRec_endDate;
         MedRec_notiTime = medRec_notiTime;
         User_id = user_id;
         Med_id = med_id;
-    }
-
-    public String getMedRec_dateTime() {
-        return MedRec_dateTime;
-    }
-
-    public void setMedRec_dateTime(String medRec_dateTime) {
-        MedRec_dateTime = medRec_dateTime;
     }
 
     public String getMedRec_dose() {
@@ -76,5 +70,21 @@ public class Med_Record {
 
     public void setMed_id(String med_id) {
         Med_id = med_id;
+    }
+
+    public String getMedRec_getTime() {
+        return MedRec_getTime;
+    }
+
+    public void setMedRec_getTime(String medRec_getTime) {
+        MedRec_getTime = medRec_getTime;
+    }
+
+    public String getMedRec_BefAft() {
+        return MedRec_BefAft;
+    }
+
+    public void setMedRec_BefAft(String medRec_BefAft) {
+        MedRec_BefAft = medRec_BefAft;
     }
 }
