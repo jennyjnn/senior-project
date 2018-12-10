@@ -263,13 +263,13 @@
                             android:layout_gravity="center"
                             android:layout_margin="5dp"
                             android:layout_weight="1"
+                            android:elevation="2dp"
+                            android:onClick="saveProfile"
                             android:paddingTop="8dp"
                             android:paddingBottom="8dp"
                             fancy:fb_defaultColor="@color/colorBtnBlue"
                             fancy:fb_radius="5dp"
-                            fancy:fb_text="บันทึก"
-                            android:onClick="editProfile"
-                            android:elevation="2dp"/>
+                            fancy:fb_text="บันทึก" />
 
                     </LinearLayout>
 

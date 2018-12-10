@@ -34,6 +34,9 @@ dependencies {
     implementation 'com.libRG:customtextview:1.6'
     implementation 'com.android.support:recyclerview-v7:27.1.1'
     implementation 'com.ms-square:expandableTextView:0.1.4'
+    implementation files('libs/YouTubeAndroidPlayerApi.jar')
+    implementation 'com.android.support:design:27.1.1'
+    implementation 'com.code-troopers.betterpickers:library:3.1.0'
 }
 
 apply plugin: 'com.google.gms.google-services'

@@ -197,7 +197,7 @@
                             android:text="เบอร์โทรศัพท์ใหม่" />
 
                         <EditText
-                            android:id="@+id/etnewPhone"
+                            android:id="@+id/etNewPhone"
                             style="@style/TextRegular26"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
@@ -235,7 +235,7 @@
                             android:layout_margin="5dp"
                             android:layout_weight="1"
                             android:elevation="2dp"
-                            android:onClick="editProfile"
+                            android:onClick="checkLogin"
                             android:paddingTop="8dp"
                             android:paddingBottom="8dp"
                             fancy:fb_defaultColor="@color/colorBtnBlue"
