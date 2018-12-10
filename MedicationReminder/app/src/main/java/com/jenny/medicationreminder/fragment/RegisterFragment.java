@@ -14,7 +14,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.TextView;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -22,8 +21,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.jenny.medicationreminder.MenuActivity;
+import com.jenny.medicationreminder.Model.User;
 import com.jenny.medicationreminder.R;
-import com.jenny.medicationreminder.RegisterActivity;
 import com.libRG.CustomTextView;
 
 import java.text.DecimalFormat;
@@ -40,16 +39,23 @@ public class RegisterFragment extends Fragment {
     EditText etDisease, etUsername, etPassword, etTel;
     EditText etName, etSurname, etAge, etWeight, etAllergic;
 
-    FirebaseDatabase database;
-    DatabaseReference regisRef;
-
-    Boolean checkUsername = false;
-    Boolean checkTel = false;
+    FirebaseDatabase database = FirebaseDatabase.getInstance();
+    DatabaseReference regisRef = database.getReference("User");
 
     ProgressDialog progressDialog;
 
     long countUser = 0;
     String user_id;
+
+    String name;
+    String surname;
+    String age;
+    String weight;
+    String disease;
+    String allergy;
+    String username;
+    String password;
+    String tel;
 
     SharedPreferences prefUser;
     SharedPreferences.Editor editor;
@@ -87,7 +93,7 @@ public class RegisterFragment extends Fragment {
 
         // Set Disease
         etDisease = rootView.findViewById(R.id.etDisease);
-        final String [] diseaseArr = {"โรคเกาต์", "โรคเบาหวาน", "โรคไขมันในเลือดสูง", "โรคความดันโลหิตสูง", "โรคมะเร็งต่อมลูกหมาก", "โรคไต", "โรคหัวใจขาดเลือด", "โรคจอประสาทตาเสื่อม", "โรคอัลไซเมอร์"};
+        final String [] diseaseArr = {"โรคเกาต์", "โรคเบาหวาน", "โรคไขมันในเลือดสูง", "โรคความดันโลหิตสูง", "โรคมะเร็งต่อมลูกหมาก", "โรคไต", "โรคหัวใจขาดเลือด", "โรคจอประสาทตาเสื่อม", "โรคความจำเสื่อม"};
         final boolean[] checkedDisease = new boolean[9];
         etDisease.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -154,25 +160,23 @@ public class RegisterFragment extends Fragment {
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                registerUser();
+                validateForm();
             }
         });
     }
 
-    public void registerUser() {
-        database = FirebaseDatabase.getInstance();
-        regisRef = database.getReference("User");
+    public void validateForm() {
 
         // Validation form
-        final String name = String.valueOf(etName.getText());
-        final String surname = String.valueOf(etSurname.getText());
-        final String age = String.valueOf(etAge.getText());
-        final String weight = String.valueOf(etWeight.getText());
-        final String disease = String.valueOf(etDisease.getText());
-        final String allergy = String.valueOf(etAllergic.getText());
-        final String username = String.valueOf(etUsername.getText());
-        final String password = String.valueOf(etPassword.getText());
-        final String tel = String.valueOf(etTel.getText());
+        name = String.valueOf(etName.getText());
+        surname = String.valueOf(etSurname.getText());
+        age = String.valueOf(etAge.getText());
+        weight = String.valueOf(etWeight.getText());
+        disease = String.valueOf(etDisease.getText());
+        allergy = String.valueOf(etAllergic.getText());
+        username = String.valueOf(etUsername.getText());
+        password = String.valueOf(etPassword.getText());
+        tel = String.valueOf(etTel.getText());
 
         if (name.isEmpty()) {
             etName.setError("กรุณากรอกชื่อ !");
@@ -232,7 +236,7 @@ public class RegisterFragment extends Fragment {
                     etUsername.requestFocus();
                     return;
                 } else {
-                    checkUsername = true;
+                    checkTel();
                 }
             }
 
@@ -241,6 +245,9 @@ public class RegisterFragment extends Fragment {
 
             }
         });
+    }
+
+    private void checkTel() {
         regisRef.orderByChild("User_phone").equalTo(tel).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -250,7 +257,7 @@ public class RegisterFragment extends Fragment {
                     etTel.requestFocus();
                     return;
                 } else {
-                    checkTel = true;
+                    registerUser();
                 }
             }
 
@@ -259,16 +266,18 @@ public class RegisterFragment extends Fragment {
 
             }
         });
+    }
 
+    private void registerUser() {
         // Add information to firebase database
 
-        if (checkUsername == true && checkTel == true) {
             regisRef.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     countUser = dataSnapshot.getChildrenCount();
                     DecimalFormat idFormat = new DecimalFormat("0000");
                     user_id = "user" + idFormat.format(countUser + 1);
+//                    User user = new User(username, password, name, surname, disease, tel, allergy, weight, age);
 
                     regisRef.child(user_id).child("User_fname").setValue(name);
                     regisRef.child(user_id).child("User_lname").setValue(surname);
@@ -300,7 +309,6 @@ public class RegisterFragment extends Fragment {
                     Log.e("Error", databaseError.getMessage());
                 }
             });
-        }
     }
 
     @Override
