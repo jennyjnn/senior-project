@@ -104,43 +104,4 @@ public class MainFragment extends Fragment {
     }
 
 
-
-//
-//    public void showDialogLogin(View view) {
-//        final Dialog dialog = new Dialog(MainActivity.this);
-//        dialog.setContentView(R.layout.dialog_login);
-//
-//        FancyButton btnUserLogin = dialog.findViewById(R.id.btnUserLogin);
-//        FancyButton btnTelLogin = dialog.findViewById(R.id.btnTelLogin);
-//        ImageView btnClose = dialog.findViewById(R.id.btnClose);
-//
-//        btnClose.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                dialog.dismiss();
-//            }
-//        });
-//
-//        btnUserLogin.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent(MainActivity.this, LoginUserActivity.class);
-//                startActivity(intent);
-//                dialog.dismiss();
-//            }
-//        });
-//
-//        btnTelLogin.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent(MainActivity.this, LoginTelActivity.class);
-//                startActivity(intent);
-//                dialog.dismiss();
-//            }
-//        });
-//
-//        dialog.show();
-//    }
-
-
 }
