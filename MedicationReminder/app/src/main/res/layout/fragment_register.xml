@@ -197,6 +197,7 @@
                             android:drawablePadding="8dp"
                             android:drawableLeft="@drawable/ic_phone_black_24dp"
                             android:hint="@string/phone"
+                            android:imeOptions="actionDone"
                             android:inputType="phone" />
 
                         <LinearLayout

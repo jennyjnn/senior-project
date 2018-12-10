@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
@@ -60,6 +61,7 @@
                         android:drawableLeft="@drawable/ic_phone_black_24dp"
                         android:drawablePadding="8dp"
                         android:hint="เบอร์โทรศัพท์"
+                        android:imeOptions="actionDone"
                         android:inputType="phone" />
 
                     <mehdi.sakout.fancybuttons.FancyButton
@@ -157,6 +159,7 @@
                         android:drawableLeft="@drawable/ic_person_black_24dp"
                         android:drawablePadding="8dp"
                         android:hint="ชื่อผู้ใช้งาน"
+                        android:imeOptions="actionNext"
                         android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890-_."
                         android:inputType="text" />
 
@@ -168,6 +171,7 @@
                         android:drawableLeft="@drawable/ic_lock_black_24dp"
                         android:drawablePadding="8dp"
                         android:hint="รหัสผ่าน"
+                        android:imeOptions="actionDone"
                         android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890-_."
                         android:inputType="textPassword" />
 
