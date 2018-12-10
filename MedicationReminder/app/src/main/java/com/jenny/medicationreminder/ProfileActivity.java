@@ -3,6 +3,7 @@ package com.jenny.medicationreminder;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
@@ -60,14 +61,67 @@ public class ProfileActivity extends AppCompatActivity {
         prefUser = getSharedPreferences(USER_PREFS, Context.MODE_PRIVATE);
         keyUser = prefUser.getString("keyUser", "no user");
 
-        getProfile();
-        showDiseaseDialog();
+        String disease = null;
+
+        Bundle bundle = getIntent().getExtras();
+        if (bundle != null) {
+            String name = bundle.getString("name");
+            String[] nameSplit = name.split(" ");
+            etName.setText(nameSplit[0]);
+            etLastName.setText(nameSplit[1]);
+            String age = bundle.getString("age");
+            etAge.setText(age.substring(0, age.length() - 3));
+            String weight = bundle.getString("weight");
+            etWeight.setText(weight.substring(0, weight.length() - 9));
+            disease = bundle.getString("disease");
+            etDisease.setText(disease);
+            etAllergic.setText(bundle.getString("allergic"));
+        }
+
+//        getProfile();
+        showDiseaseDialog(disease);
     }
 
-    private void showDiseaseDialog() {
-        final String [] diseaseArr = {"โรคเกาต์", "โรคเบาหวาน", "โรคไขมันในเลือดสูง", "โรคความดันโลหิตสูง", "โรคมะเร็งต่อมลูกหมาก", "โรคไต", "โรคหัวใจขาดเลือด", "โรคจอประสาทตาเสื่อม", "โรคอัลไซเมอร์"};
+    private void showDiseaseDialog(String disease) {
+        final String[] diseaseArr = {"โรคเกาต์", "โรคเบาหวาน", "โรคไขมันในเลือดสูง", "โรคความดันโลหิตสูง", "โรคมะเร็งต่อมลูกหมาก",
+                "โรคไต", "โรคหัวใจขาดเลือด", "โรคจอประสาทตาเสื่อม", "โรคความจำเสื่อม"};
 
         final boolean[] checkedDisease = new boolean[9];
+
+        for (String di : disease.split(", ")) {
+            switch (di) {
+                case "โรคเกาต์":
+                    checkedDisease[0] = true;
+                    break;
+                case "โรคเบาหวาน":
+                    checkedDisease[1] = true;
+                    break;
+                case "โรคไขมันในเลือดสูง":
+                    checkedDisease[2] = true;
+                    break;
+                case "โรคความดันโลหิตสูง":
+                    checkedDisease[3] = true;
+                    break;
+                case "โรคมะเร็งต่อมลูกหมาก":
+                    checkedDisease[4] = true;
+                    break;
+                case "โรคไต":
+                    checkedDisease[5] = true;
+                    break;
+                case "โรคหัวใจขาดเลือด":
+                    checkedDisease[6] = true;
+                    break;
+                case "โรคจอประสาทตาเสื่อม":
+                    checkedDisease[7] = true;
+                    break;
+                case "โรคความจำเสื่อม":
+                    checkedDisease[8] = true;
+                    break;
+                default:
+                    break;
+            }
+        }
+
         etDisease.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -89,14 +143,14 @@ public class ProfileActivity extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         String disease = "";
-                        for (int i=0; i<checkedDisease.length; i++){
+                        for (int i = 0; i < checkedDisease.length; i++) {
                             boolean checked = checkedDisease[i];
-                            if (checked){
+                            if (checked) {
                                 disease += diseaseList.get(i) + ", ";
                             }
                         }
-                        if (disease.length() > 0){
-                            disease = disease.substring(0, disease.length()-2);
+                        if (disease.length() > 0) {
+                            disease = disease.substring(0, disease.length() - 2);
                         }
                         etDisease.setText(disease);
                     }
@@ -104,47 +158,6 @@ public class ProfileActivity extends AppCompatActivity {
 
                 AlertDialog dialog = builder.create();
                 dialog.show();
-            }
-        });
-    }
-
-    private void getProfile() {
-        // Progress Dialog
-        progressDialog = new ProgressDialog(ProfileActivity.this);
-        progressDialog.setMessage("กรุณารอสักครู่");
-        progressDialog.show();
-
-        database = FirebaseDatabase.getInstance();
-        userRef = database.getReference("User");
-
-        userRef.orderByKey().equalTo(keyUser).addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if (dataSnapshot.exists()) {
-                    for (DataSnapshot snapshot : dataSnapshot.getChildren()){
-                        progressDialog.dismiss();
-                        User user = snapshot.getValue(User.class);
-                        etName.setText(user.getUser_fname());
-                        etLastName.setText(user.getUser_lname());
-                        etAge.setText(user.getUser_age());
-                        etWeight.setText(user.getUser_weight());
-                        if (user.getUser_disease().isEmpty()){
-                            etDisease.setText("-");
-                        } else {
-                            etDisease.setText(user.getUser_disease());
-                        }
-                        if (user.getUser_allergy().isEmpty()){
-                            etAllergic.setText("-");
-                        } else {
-                            etAllergic.setText(user.getUser_allergy());
-                        }
-                    }
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
             }
         });
     }
@@ -157,8 +170,10 @@ public class ProfileActivity extends AppCompatActivity {
         finish();
     }
 
-    public void editProfile(View view) {
-
+    public void saveProfile(View view) {
+        // Progress Dialog
+        progressDialog = new ProgressDialog(ProfileActivity.this);
+        progressDialog.setMessage("กรุณารอสักครู่");
         progressDialog.show();
 
         database = FirebaseDatabase.getInstance();
@@ -174,6 +189,7 @@ public class ProfileActivity extends AppCompatActivity {
                 userRef.child(keyUser).child("User_allergy").setValue(etAllergic.getText().toString());
 
                 progressDialog.dismiss();
+                setResult(2);
                 finish();
             }
 
