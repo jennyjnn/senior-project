@@ -34,6 +34,7 @@
                         android:src="@drawable/ic_arrow_back_white_24dp" />
 
                     <TextView
+                        android:id="@+id/tvTopic"
                         style="@style/TextAppBar"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -67,11 +68,13 @@
                             android:text="ชื่อยา" />
 
                         <EditText
-                            style="@style/TextBoldDarkGray22"
+                            android:id="@+id/etMedName"
+                            style="@style/TextBoldLightGray22"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:enabled="false"
+                            android:textAllCaps="true"
                             android:paddingLeft="10dp"
                             android:text="MELOXICAM" />
                     </LinearLayout>
@@ -93,7 +96,7 @@
                             android:text="ประเภทยา" />
 
                         <EditText
-                            style="@style/TextBoldDarkGray22"
+                            style="@style/TextBoldLightGray22"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
@@ -132,14 +135,14 @@
                                 android:text="ก่อนอาหาร"
                                 android:enabled="false"
                                 android:layout_marginRight="5dp"
-                                style="@style/TextBoldDarkGray22"/>
+                                style="@style/TextBoldLightGray22"/>
                             <RadioButton
                                 android:id="@+id/afterMeal"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="หลังอาหาร"
                                 android:enabled="false"
-                                style="@style/TextBoldDarkGray22"/>
+                                style="@style/TextBoldLightGray22"/>
                         </RadioGroup>
 
                     </LinearLayout>
@@ -182,18 +185,19 @@
                                     android:layout_height="wrap_content"
                                     android:layout_gravity="center_vertical"
                                     android:src="@drawable/alarm"/>
+
                                 <EditText
                                     android:id="@+id/etTimeMorning"
+                                    style="@style/TextBoldDarkGray22"
                                     android:layout_width="0dp"
                                     android:layout_height="wrap_content"
-                                    android:layout_weight="1"
-                                    android:text="08.30"
-                                    android:focusable="false"
-                                    android:onClick="setTime"
                                     android:layout_marginLeft="5dp"
                                     android:layout_marginRight="5dp"
-                                    style="@style/TextBoldDarkGray22"
-                                    android:gravity="center" />
+                                    android:layout_weight="1"
+                                    android:focusable="false"
+                                    android:gravity="center"
+                                    android:onClick="setTime"
+                                    android:text="08:30" />
                                 <TextView
                                     style="@style/TextBoldDarkGray22"
                                     android:layout_width="wrap_content"
@@ -206,7 +210,7 @@
                                 android:layout_height="wrap_content"
                                 android:orientation="horizontal">
                                 <CheckBox
-                                    style="@style/TextBoldDarkGray22"
+                                    style="@style/TextBoldLightGray22"
                                     android:id="@+id/cbLunch"
                                     android:layout_width="100dp"
                                     android:layout_height="wrap_content"
@@ -221,12 +225,13 @@
                                     android:layout_width="0dp"
                                     android:layout_height="wrap_content"
                                     android:layout_weight="1"
-                                    android:text="12.00"
+                                    android:text="12:00"
                                     android:focusable="false"
                                     android:enabled="false"
+                                    android:onClick="setTime"
                                     android:layout_marginLeft="5dp"
                                     android:layout_marginRight="5dp"
-                                    style="@style/TextBoldDarkGray22"
+                                    style="@style/TextBoldLightGray22"
                                     android:gravity="center" />
                                 <TextView
                                     style="@style/TextBoldDarkGray22"
@@ -240,11 +245,11 @@
                                 android:layout_height="wrap_content"
                                 android:orientation="horizontal">
                                 <CheckBox
-                                    style="@style/TextBoldDarkGray22"
+                                    style="@style/TextBoldLightGray22"
                                     android:layout_width="100dp"
                                     android:layout_height="wrap_content"
                                     android:text="เย็น"
-                                    android:id="@+id/cbEveing"
+                                    android:id="@+id/cbEvening"
                                     android:enabled="false"/>
                                 <ImageView
                                     android:layout_width="wrap_content"
@@ -255,12 +260,13 @@
                                     android:layout_width="0dp"
                                     android:layout_height="wrap_content"
                                     android:layout_weight="1"
-                                    android:text="17.00"
+                                    android:text="17:00"
                                     android:focusable="false"
                                     android:enabled="false"
                                     android:layout_marginLeft="5dp"
                                     android:layout_marginRight="5dp"
-                                    style="@style/TextBoldDarkGray22"
+                                    android:onClick="setTime"
+                                    style="@style/TextBoldLightGray22"
                                     android:gravity="center" />
                                 <TextView
                                     style="@style/TextBoldDarkGray22"
@@ -274,7 +280,7 @@
                                 android:layout_height="wrap_content"
                                 android:orientation="horizontal">
                                 <CheckBox
-                                    style="@style/TextBoldDarkGray22"
+                                    style="@style/TextBoldLightGray22"
                                     android:id="@+id/cbBeforeBed"
                                     android:layout_width="100dp"
                                     android:layout_height="wrap_content"
@@ -287,7 +293,7 @@
                                     android:src="@drawable/alarm"/>
 
                                 <EditText
-                                    style="@style/TextBoldDarkGray22"
+                                    style="@style/TextBoldLightGray22"
                                     android:layout_width="0dp"
                                     android:layout_height="wrap_content"
                                     android:layout_marginLeft="5dp"
@@ -296,7 +302,8 @@
                                     android:focusable="false"
                                     android:enabled="false"
                                     android:gravity="center"
-                                    android:text="21.00" />
+                                    android:onClick="setTime"
+                                    android:text="21:00" />
                                 <TextView
                                     style="@style/TextBoldDarkGray22"
                                     android:layout_width="wrap_content"
@@ -326,7 +333,7 @@
                             android:text="ความถี่ที่ได้รับต่อครั้ง" />
 
                         <EditText
-                            style="@style/TextBoldDarkGray22"
+                            style="@style/TextBoldLightGray22"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
@@ -368,16 +375,16 @@
 
                         <EditText
                             android:id="@+id/etDateStart"
-                            style="@style/TextBoldDarkGray22"
+                            style="@style/TextBoldLightGray22"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:focusable="false"
                             android:gravity="center"
-                            android:onClick="setDate"
+                            android:enabled="false"
                             android:layout_marginLeft="5dp"
                             android:layout_marginRight="5dp"
-                            android:text="21/07/2561" />
+                            android:text="21/11/2561" />
                     </LinearLayout>
                     <View
                         android:layout_width="match_parent"
@@ -405,16 +412,17 @@
                         android:layout_marginLeft="5dp"/>
 
                     <EditText
+                        android:id="@+id/etDateEnd"
                         style="@style/TextBoldDarkGray22"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:focusable="false"
                         android:gravity="center"
+                        android:onClick="setDate"
                         android:layout_marginLeft="5dp"
                         android:layout_marginRight="5dp"
-                        android:enabled="false"
-                        android:text="04/08/2561" />
+                        android:text="22/12/2561" />
                 </LinearLayout>
                     <View
                         android:layout_width="match_parent"
@@ -438,11 +446,12 @@
 
                         <RadioGroup
                             android:id="@+id/optionAlert"
-                            android:checkedButton="@id/customAlert"
+                            android:checkedButton="@id/everyAlert"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content">
 
                             <RadioButton
+                                android:onClick="checkRadioBtn"
                                 android:id="@+id/everyAlert"
                                 style="@style/TextBoldDarkGray22"
                                 android:layout_width="wrap_content"
@@ -450,6 +459,7 @@
                                 android:text="ทุกวัน" />
 
                             <RadioButton
+                                android:onClick="checkRadioBtn"
                                 android:id="@+id/customAlert"
                                 style="@style/TextBoldDarkGray22"
                                 android:layout_width="wrap_content"
@@ -458,6 +468,7 @@
                         </RadioGroup>
 
                         <mehdi.sakout.fancybuttons.FancyButton
+                            android:id="@+id/btnCustomDays"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_gravity="bottom"
@@ -469,6 +480,7 @@
                             fancy:fb_defaultColor="@color/colorDarkGreen"
                             fancy:fb_radius="5dp"
                             fancy:fb_text="แก้ไขวัน"
+                            android:onClick="setDays"
                             fancy:fb_textSize="22sp" />
 
                     </LinearLayout>
@@ -481,6 +493,7 @@
                         android:layout_marginTop="10dp"
                         android:paddingTop="8dp"
                         android:paddingBottom="8dp"
+                        android:onClick="backBtn"
                         fancy:fb_defaultColor="@color/colorBtnBlue"
                         fancy:fb_radius="5dp"
                         fancy:fb_text="ยืนยัน" />

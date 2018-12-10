@@ -55,9 +55,14 @@
         <item name="android:textStyle">normal</item>
         <item name="android:layout_marginLeft">30dp</item>
     </style>
-    <style name="TextBoldDarkGray22">
+
+    <style name="TextBoldLightGray22">
         <item name="android:textSize">22sp</item>
         <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/colorLightGray</item>
+    </style>
+    <style name="TextBoldDarkGray22" parent="TextBoldLightGray22">
+        <item name="android:backgroundTint" tools:ignore="NewApi">@color/colorAccent</item>
         <item name="android:textColor">@color/colorTextGray</item>
     </style>
     <style name="BtnListMed">
