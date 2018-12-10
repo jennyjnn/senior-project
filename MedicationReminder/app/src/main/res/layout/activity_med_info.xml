@@ -292,6 +292,21 @@
                         android:layout_gravity="center"
                         android:text="ดูคลิปด้านล่าง เพื่อทำความรู้จักกับยาตัวนี้มากขึ้น"
                         android:layout_margin="12dp" />
+                    <!--<com.google.android.youtube.player.YouTubePlayerView-->
+                        <!--android:id="@+id/youTubeVdo"-->
+                        <!--android:visibility="gone"-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="wrap_content">-->
+
+                    <!--</com.google.android.youtube.player.YouTubePlayerView>-->
+
+                    <WebView
+                        android:id="@+id/wvVideo"
+                        android:visibility="gone"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                    </WebView>
 
                 </LinearLayout>
             </android.support.v7.widget.CardView>

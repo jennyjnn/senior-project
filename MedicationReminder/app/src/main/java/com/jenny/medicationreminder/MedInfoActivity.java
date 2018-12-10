@@ -2,21 +2,28 @@ package com.jenny.medicationreminder;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.util.Log;
 import android.view.View;
-import android.widget.LinearLayout;
+import android.webkit.WebChromeClient;
+import android.webkit.WebSettings;
+import android.webkit.WebView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.android.youtube.player.YouTubeBaseActivity;
+import com.google.android.youtube.player.YouTubeInitializationResult;
+import com.google.android.youtube.player.YouTubePlayer;
+import com.google.android.youtube.player.YouTubePlayerView;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.jenny.medicationreminder.Model.Medicine;
 import com.ms.square.android.expandabletextview.ExpandableTextView;
@@ -25,9 +32,13 @@ public class MedInfoActivity extends AppCompatActivity {
 
     CardView cvAppBarMedInfo, cvContent, cvOthers, cvSideEff;
     CardView cvWarning, cvPreserve;
-    TextView tvMedName, tvOthers, tvNoMedInfo;
+    TextView expandable_text, tvMedName, tvOthers, tvNoMedInfo;
     View vOthers, vSideEff, vWarning, vPreserve;
+//    YouTubePlayerView youTubeVdo;
+    WebView wvVideo;
 
+//    private final String API_KEY = "AIzaSyA9phrfpPpbiywCUWBhZ_ekX7n6Uc9pggk";
+    String videoCode = "";
     String medName = new String();
     String intro = new String();
     String sideEffect = new String();
@@ -43,7 +54,6 @@ public class MedInfoActivity extends AppCompatActivity {
 
     ExpandableTextView expandIntro, expandSideEff, expandWarning, expandPreserve;
 
-//    VideoView vdMed;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,10 +80,20 @@ public class MedInfoActivity extends AppCompatActivity {
         cvOthers = findViewById(R.id.cvOthers);
         tvOthers = findViewById(R.id.tvOthers);
         tvMedName = findViewById(R.id.tvMedName);
+        expandable_text = findViewById(R.id.expandable_text);
         expandIntro = findViewById(R.id.expandIntro);
         expandWarning = findViewById(R.id.expandWarning);
         expandSideEff = findViewById(R.id.expandSideEff);
         expandPreserve = findViewById(R.id.expandPreserve);
+//        youTubeVdo = findViewById(R.id.youTubeVdo);
+        wvVideo = findViewById(R.id.wvVideo);
+
+        // Set Font
+//        Typeface typeface = Typeface.createFromAsset(getAssets(), "fonts/th_sarabun.ttf");
+//        tvMedName.setTypeface(typeface, Typeface.BOLD);
+//        tvNoMedInfo.setTypeface(typeface, Typeface.BOLD);
+//        tvOthers.setTypeface(typeface, Typeface.BOLD);
+//        expandable_text.setTypeface(typeface, Typeface.BOLD);
 
         // set color for app bar
         cvAppBarMedInfo = findViewById(R.id.cvAppBarMedInfo);
@@ -91,9 +111,6 @@ public class MedInfoActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 progressDialog.dismiss();
-//                cvOthers.setVisibility(View.GONE);
-//                tvOthsers.setVisibility(View.GONE);
-//                vOthers.setVisibility(View.GONE);
                 if (dataSnapshot.exists()){
                     for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                         Medicine medicine = snapshot.getValue(Medicine.class);
@@ -124,6 +141,36 @@ public class MedInfoActivity extends AppCompatActivity {
                                 cvPreserve.setVisibility(View.VISIBLE);
                                 expandPreserve.setText(preserve);
                             }
+                            // Others
+                            videoCode = medicine.getMed_video();
+                            if (videoCode != null) {
+                                vOthers.setVisibility(View.VISIBLE);
+                                cvOthers.setVisibility(View.VISIBLE);
+                                tvOthers.setVisibility(View.VISIBLE);
+                                wvVideo.setVisibility(View.VISIBLE);
+                                // Show video
+
+                                wvVideo.getSettings().setJavaScriptEnabled(true);
+                                wvVideo.loadData("<iframe width=\"100%\" src=\"https://www.youtube.com/embed/WgfS1sFO40k\" frameborder=\"0\" allowfullscreen></iframe>",
+                                        "text/html" , "utf-8");
+                                wvVideo.setWebChromeClient(new WebChromeClient());
+
+//                                youTubeVdo.initialize(API_KEY, new YouTubePlayer.OnInitializedListener() {
+//                                    @Override
+//                                    public void onInitializationSuccess(YouTubePlayer.Provider provider, YouTubePlayer youTubePlayer, boolean b) {
+//                                        if (!b) {
+//                                            youTubePlayer.cueVideo(videoCode);
+//                                            youTubePlayer.setPlayerStyle(YouTubePlayer.PlayerStyle.DEFAULT);
+//                                        }
+//                                    }
+//
+//                                    @Override
+//                                    public void onInitializationFailure(YouTubePlayer.Provider provider, YouTubeInitializationResult youTubeInitializationResult) {
+//                                        Toast.makeText(MedInfoActivity.this, youTubeInitializationResult.toString(),
+//                                                Toast.LENGTH_LONG).show();
+//                                    }
+//                                });
+                            }
                             Log.e("Med", medicine.getMed_name());
                             checkMedInfo = true;
                             cvContent.setVisibility(View.VISIBLE);
@@ -142,14 +189,7 @@ public class MedInfoActivity extends AppCompatActivity {
         });
 
 
-        //  set url to video
-//        vdMed = findViewById(R.id.vdMed);
 
-        String path = "https://www.youtube.com/watch?v=WgfS1sFO40k";
-        Uri uri = Uri.parse(path);
-
-//        vdMed.setVideoURI(uri);
-//        vdMed.start();
 
     }
 
