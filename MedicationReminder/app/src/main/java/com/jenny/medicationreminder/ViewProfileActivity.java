@@ -104,7 +104,7 @@ public class ViewProfileActivity extends AppCompatActivity {
                             tvAllergic.setText(user.getUser_allergy());
                         }
                         tvUsername.setText(user.getUsername());
-                        tvPhone.setText(user.getUser_phone());
+                        tvPhone.setText("xxx-xxx" + user.getUser_phone().substring(5,9));
                         cvUserInfo.setVisibility(View.VISIBLE);
                         cvLoginInfo.setVisibility(View.VISIBLE);
                     }
