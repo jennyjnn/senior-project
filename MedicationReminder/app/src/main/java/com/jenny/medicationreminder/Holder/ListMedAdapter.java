@@ -79,6 +79,7 @@ public class ListMedAdapter extends RecyclerView.Adapter<ListMedAdapter.ViewHold
             public void onClick(View v) {
                 Intent intentEdit = new Intent(v.getContext(), EditMedActivity.class);
                 intentEdit.putExtra("medName", medName);
+                intentEdit.putExtra("topic", "แก้ไขแจ้งเตือน");
                 context.startActivity(intentEdit);
             }
         });

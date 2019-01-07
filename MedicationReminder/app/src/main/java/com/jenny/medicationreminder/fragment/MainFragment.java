@@ -1,22 +1,12 @@
 package com.jenny.medicationreminder.fragment;
 
-import android.app.Dialog;
-import android.content.Context;
-import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 
-import com.jenny.medicationreminder.LoginTelActivity;
-import com.jenny.medicationreminder.LoginUserActivity;
-import com.jenny.medicationreminder.MainActivity;
-import com.jenny.medicationreminder.MenuActivity;
 import com.jenny.medicationreminder.R;
-import com.jenny.medicationreminder.RegisterActivity;
 
 import mehdi.sakout.fancybuttons.FancyButton;
 

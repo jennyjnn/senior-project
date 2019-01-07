@@ -1,0 +1,340 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <!--App bar-->
+            <android.support.v7.widget.CardView
+                android:id="@+id/cvAppBarViewProfile"
+                android:layout_width="match_parent"
+                android:layout_height="56dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:id="@+id/btnBack"
+                        android:layout_width="35dp"
+                        android:layout_height="35dp"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="15dp"
+                        android:elevation="8dp"
+                        android:padding="5dp"
+                        android:src="@drawable/ic_arrow_back_white_24dp" />
+
+                    <TextView
+                        style="@style/TextAppBar"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:layout_centerVertical="true"
+                        android:text="ข้อมูลส่วนตัว" />
+
+                </RelativeLayout>
+
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/cvUserInfo"
+                android:visibility="gone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="12dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <!--user information-->
+                    <android.support.v7.widget.CardView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="12dp"
+                        card_view:cardBackgroundColor="@color/colorAccent"
+                        card_view:cardCornerRadius="5dp"
+                        card_view:cardElevation="8dp">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:paddingLeft="20dp"
+                            android:paddingTop="5dp"
+                            android:paddingRight="20dp"
+                            android:paddingBottom="5dp"
+                            android:text="@string/userInfo"
+                            android:textColor="#ffffff"
+                            android:textSize="24sp" />
+
+                    </android.support.v7.widget.CardView>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:padding="10dp">
+
+                        <!--Name-->
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:drawableLeft="@drawable/outline_face_black_24dp"
+                            android:drawableTint="@color/colorDarkGreen"
+                            android:drawablePadding="8dp"
+                            android:text="ชื่อ - นามสกุล" />
+
+                        <TextView
+                            android:id="@+id/tvName"
+                            style="@style/TextViewProfile"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="มรกต ภักดี" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_marginTop="8dp"
+                            android:layout_marginBottom="12dp"
+                            android:background="@color/colorLineDivide" />
+
+                        <!--Age-->
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:drawableLeft="@drawable/ic_show_chart_black_24dp"
+                            android:drawablePadding="8dp"
+                            android:text="อายุ" />
+
+                        <TextView
+                            android:id="@+id/tvAge"
+                            style="@style/TextViewProfile"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="80 ปี" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_marginTop="8dp"
+                            android:layout_marginBottom="12dp"
+                            android:background="@color/colorLineDivide" />
+
+                        <!--Weight-->
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:drawableLeft="@drawable/scale"
+                            android:drawablePadding="8dp"
+                            android:text="น้ำหนัก" />
+
+                        <TextView
+                            android:id="@+id/tvWeight"
+                            style="@style/TextViewProfile"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="48 กิโลกรัม" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_marginTop="8dp"
+                            android:layout_marginBottom="12dp"
+                            android:background="@color/colorLineDivide" />
+
+
+                        <!--Disease-->
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:drawableLeft="@drawable/hospital"
+                            android:drawableTint="@color/colorDarkGreen"
+                            android:drawablePadding="8dp"
+                            android:text="@string/disease" />
+
+                        <TextView
+                            android:id="@+id/tvDisease"
+                            style="@style/TextViewProfile"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="โรคเกาต์, โรคความดันโลหิตสูง, โรคหัวใจขาดเลือด, โรคจอประสาทตาเสื่อม" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_marginTop="8dp"
+                            android:layout_marginBottom="12dp"
+                            android:background="@color/colorLineDivide" />
+
+                        <!--Allergic-->
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:drawableLeft="@drawable/pill"
+                            android:drawablePadding="8dp"
+                            android:text="@string/allergic" />
+
+                        <TextView
+                            android:id="@+id/tvAllergic"
+                            style="@style/TextViewProfile"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Guanfacine" />
+
+                        <!--Button Edit-->
+                        <android.support.v7.widget.CardView
+                            android:id="@+id/cvBtnEditProfile"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_marginTop="14dp"
+                            android:layout_marginBottom="4dp"
+                            card_view:cardBackgroundColor="@color/colorBtnRed"
+                            card_view:cardCornerRadius="5dp"
+                            card_view:cardElevation="8dp">
+
+                            <TextView
+                                style="@style/ListMedName"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:drawableLeft="@drawable/edit"
+                                android:drawablePadding="10dp"
+                                android:paddingLeft="20dp"
+                                android:paddingTop="5dp"
+                                android:paddingRight="20dp"
+                                android:paddingBottom="5dp"
+                                android:text="แก้ไข"
+                                android:textColor="#ffffff"
+                                android:textStyle="normal" />
+
+                        </android.support.v7.widget.CardView>
+
+                    </LinearLayout>
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/cvLoginInfo"
+                android:visibility="gone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="12dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <!--login information-->
+                    <android.support.v7.widget.CardView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:layout_marginBottom="12dp"
+                        card_view:cardBackgroundColor="@color/colorAccent"
+                        card_view:cardCornerRadius="5dp"
+                        card_view:cardElevation="8dp">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:paddingLeft="20dp"
+                            android:paddingTop="5dp"
+                            android:paddingRight="20dp"
+                            android:paddingBottom="5dp"
+                            android:text="@string/loginInfo"
+                            android:textColor="#ffffff"
+                            android:textSize="24sp" />
+
+                    </android.support.v7.widget.CardView>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:padding="10dp">
+                        <!--Username-->
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:drawableLeft="@drawable/identity_black_24dp"
+                            android:drawablePadding="8dp"
+                            android:drawableTint="@color/colorDarkGreen"
+                            android:text="@string/username" />
+
+                        <TextView
+                            android:id="@+id/tvUsername"
+                            style="@style/TextViewProfile"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="user1234" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_marginTop="8dp"
+                            android:layout_marginBottom="12dp"
+                            android:background="@color/colorLineDivide" />
+
+                        <!--Phone-->
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:drawableLeft="@drawable/outline_phone_black_24dp"
+                            android:drawablePadding="8dp"
+                            android:drawableTint="@color/colorDarkGreen"
+                            android:text="@string/phone" />
+
+                        <TextView
+                            android:id="@+id/tvPhone"
+                            style="@style/TextViewProfile"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="0812345678" />
+
+                        <!--Button Edit-->
+                        <android.support.v7.widget.CardView
+                            android:id="@+id/cvEditLogin"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_marginTop="14dp"
+                            android:layout_marginBottom="4dp"
+                            card_view:cardBackgroundColor="@color/colorBtnRed"
+                            card_view:cardCornerRadius="5dp"
+                            card_view:cardElevation="8dp">
+
+                            <TextView
+                                style="@style/ListMedName"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:drawableLeft="@drawable/edit"
+                                android:drawablePadding="10dp"
+                                android:paddingLeft="20dp"
+                                android:paddingTop="5dp"
+                                android:paddingRight="20dp"
+                                android:paddingBottom="5dp"
+                                android:text="แก้ไข"
+                                android:textColor="#ffffff"
+                                android:textStyle="normal" />
+
+                        </android.support.v7.widget.CardView>
+
+                    </LinearLayout>
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+        </LinearLayout>
+    </ScrollView>
+
+
+</LinearLayout>

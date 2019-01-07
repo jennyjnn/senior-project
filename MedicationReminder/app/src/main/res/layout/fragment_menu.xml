@@ -29,6 +29,7 @@
                         android:text="เมนู" />
 
                     <ImageView
+                        android:id="@+id/imgLogout"
                         android:layout_width="35dp"
                         android:layout_height="35dp"
                         android:layout_alignParentRight="true"
@@ -36,7 +37,6 @@
                         android:layout_marginRight="15dp"
                         android:elevation="8dp"
                         android:padding="5dp"
-                        android:onClick="logOut"
                         android:src="@drawable/ic_exit_to_app_white_24dp" />
                 </RelativeLayout>
 
@@ -57,10 +57,10 @@
                     app:cardBackgroundColor="@color/colorAccent">
 
                     <LinearLayout
+                        android:id="@+id/btnAddMed"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:orientation="horizontal"
-                        android:onClick="addMed">
+                        android:orientation="horizontal">
 
                         <ImageView
                             android:layout_width="30dp"
@@ -88,10 +88,10 @@
                 </android.support.v7.widget.CardView>
 
                 <android.support.v7.widget.CardView
+                    android:id="@+id/cvListMed"
                     android:layout_width="match_parent"
                     android:layout_height="95dp"
-                    android:layout_marginBottom="10dp"
-                    android:onClick="showListMed">
+                    android:layout_marginBottom="10dp">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -158,10 +158,10 @@
                 </android.support.v7.widget.CardView>
 
                 <android.support.v7.widget.CardView
+                    android:id="@+id/cvProfile"
                     android:layout_width="match_parent"
                     android:layout_height="95dp"
-                    android:layout_marginBottom="10dp"
-                    android:onClick="goToProfile">
+                    android:layout_marginBottom="10dp">
 
                     <LinearLayout
                         android:layout_width="match_parent"

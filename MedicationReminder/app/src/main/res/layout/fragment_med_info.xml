@@ -1,0 +1,313 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <!--App bar-->
+            <android.support.v7.widget.CardView
+                android:id="@+id/cvAppBarMedInfo"
+                android:layout_width="match_parent"
+                android:layout_height="56dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:id="@+id/btnBack"
+                        android:layout_width="35dp"
+                        android:layout_height="35dp"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="15dp"
+                        android:elevation="8dp"
+                        android:padding="5dp"
+                        android:src="@drawable/ic_arrow_back_white_24dp" />
+
+                    <TextView
+                        style="@style/TextAppBar"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:layout_centerVertical="true"
+                        android:text="ข้อมูลยา" />
+
+                </RelativeLayout>
+
+            </android.support.v7.widget.CardView>
+
+            <!--Content-->
+
+            <TextView
+                android:id="@+id/tvNoMedInfo"
+                android:visibility="gone"
+                android:layout_gravity="center"
+                style="@style/TextBoldDarkGray26"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="ยังไม่มีข้อมูลเพิ่มเติมสำหรับยาชนิดนี้"/>
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/cvContent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:layout_margin="12dp">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <!--Medication name-->
+                    <TextView
+                        android:id="@+id/tvMedName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="ยาอินซูลิน (Insulin)"
+                        android:layout_margin="12dp"
+                        style="@style/ListMedName"/>
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/colorLineDivide" />
+
+                    <!--Intro-->
+                    <android.support.v7.widget.CardView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="30dp"
+                        app:cardBackgroundColor="@color/colorAccent"
+                        app:cardCornerRadius="5dp"
+                        app:cardElevation="8dp">
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:paddingLeft="20dp"
+                            android:paddingTop="5dp"
+                            android:paddingRight="20dp"
+                            android:paddingBottom="5dp"
+                            android:text="บทนำ"
+                            android:textColor="#ffffff"
+                            android:textSize="24sp" />
+                    </android.support.v7.widget.CardView>
+                    <com.ms.square.android.expandabletextview.ExpandableTextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/expandIntro">
+                        <TextView
+                            android:id="@id/expandable_text"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            style="@style/ListMedInfo"
+                            android:ellipsize="end"
+                            android:layout_margin="12dp"/>
+                        <ImageButton
+                            android:id="@id/expand_collapse"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="right" />
+                    </com.ms.square.android.expandabletextview.ExpandableTextView>
+
+                    <!--Side effect-->
+                    <View
+                        android:id="@+id/vSideEff"
+                        android:visibility="gone"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/colorLineDivide" />
+                    <android.support.v7.widget.CardView
+                        android:id="@+id/cvSideEff"
+                        android:visibility="gone"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="30dp"
+                        app:cardBackgroundColor="@color/colorAccent"
+                        app:cardCornerRadius="5dp"
+                        app:cardElevation="8dp">
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:paddingLeft="20dp"
+                            android:paddingTop="5dp"
+                            android:paddingRight="20dp"
+                            android:paddingBottom="5dp"
+                            android:text="ผลข้างเคียง"
+                            android:textColor="#ffffff"
+                            android:textSize="24sp" />
+                    </android.support.v7.widget.CardView>
+
+                    <com.ms.square.android.expandabletextview.ExpandableTextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/expandSideEff">
+                        <TextView
+                            android:id="@id/expandable_text"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            style="@style/ListMedInfo"
+                            android:ellipsize="end"
+                            android:text=""
+                            android:layout_margin="12dp"/>
+                        <ImageButton
+                            android:id="@id/expand_collapse"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="right"/>
+                    </com.ms.square.android.expandabletextview.ExpandableTextView>
+
+                    <!--Warning-->
+                    <View
+                        android:id="@+id/vWarning"
+                        android:visibility="gone"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/colorLineDivide" />
+                    <android.support.v7.widget.CardView
+                        android:id="@+id/cvWarning"
+                        android:visibility="gone"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="30dp"
+                        app:cardBackgroundColor="@color/colorAccent"
+                        app:cardCornerRadius="5dp"
+                        app:cardElevation="8dp">
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:paddingLeft="20dp"
+                            android:paddingTop="5dp"
+                            android:paddingRight="20dp"
+                            android:paddingBottom="5dp"
+                            android:text="ข้อควรระวัง"
+                            android:textColor="#ffffff"
+                            android:textSize="24sp" />
+                    </android.support.v7.widget.CardView>
+                    <com.ms.square.android.expandabletextview.ExpandableTextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/expandWarning">
+                        <TextView
+                            android:id="@id/expandable_text"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            style="@style/ListMedInfo"
+                            android:ellipsize="end"
+                            android:layout_margin="12dp"/>
+                        <ImageButton
+                            android:id="@id/expand_collapse"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="right" />
+                    </com.ms.square.android.expandabletextview.ExpandableTextView>
+
+                    <!--Preserve-->
+                    <View
+                        android:id="@+id/vPreserve"
+                        android:visibility="gone"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/colorLineDivide" />
+                    <android.support.v7.widget.CardView
+                        android:id="@+id/cvPreserve"
+                        android:visibility="gone"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="30dp"
+                        app:cardBackgroundColor="@color/colorAccent"
+                        app:cardCornerRadius="5dp"
+                        app:cardElevation="8dp">
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:paddingLeft="20dp"
+                            android:paddingTop="5dp"
+                            android:paddingRight="20dp"
+                            android:paddingBottom="5dp"
+                            android:text="การเก็บรักษา"
+                            android:textColor="#ffffff"
+                            android:textSize="24sp" />
+                    </android.support.v7.widget.CardView>
+                    <com.ms.square.android.expandabletextview.ExpandableTextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/expandPreserve">
+                        <TextView
+                            android:id="@id/expandable_text"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            style="@style/ListMedInfo"
+                            android:ellipsize="end"
+                            android:layout_margin="12dp"/>
+                        <ImageButton
+                            android:id="@id/expand_collapse"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="right" />
+                    </com.ms.square.android.expandabletextview.ExpandableTextView>
+
+                    <!--Others-->
+                    <View
+                        android:id="@+id/vOthers"
+                        android:visibility="gone"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/colorLineDivide" />
+                    <android.support.v7.widget.CardView
+                        android:id="@+id/cvOthers"
+                        android:visibility="gone"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="30dp"
+                        app:cardBackgroundColor="@color/colorAccent"
+                        app:cardCornerRadius="5dp"
+                        app:cardElevation="8dp">
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:paddingLeft="20dp"
+                            android:paddingTop="5dp"
+                            android:paddingRight="20dp"
+                            android:paddingBottom="5dp"
+                            android:text="ข้อมูลเพิ่มเติม"
+                            android:textColor="#ffffff"
+                            android:textSize="24sp" />
+                    </android.support.v7.widget.CardView>
+                    <TextView
+                        android:id="@+id/tvOthers"
+                        android:visibility="gone"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        style="@style/ListMedInfo"
+                        android:layout_gravity="center"
+                        android:text="ดูคลิปด้านล่าง เพื่อทำความรู้จักกับยาตัวนี้มากขึ้น"
+                        android:layout_margin="12dp" />
+                    <!--<com.google.android.youtube.player.YouTubePlayerView-->
+                    <!--android:id="@+id/youTubeVdo"-->
+                    <!--android:visibility="gone"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content">-->
+
+                    <!--</com.google.android.youtube.player.YouTubePlayerView>-->
+
+                    <WebView
+                        android:id="@+id/wvVideo"
+                        android:visibility="gone"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                    </WebView>
+
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
+
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

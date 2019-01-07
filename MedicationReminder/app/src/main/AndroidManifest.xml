@@ -17,20 +17,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".RegisterActivity" />
-        <activity android:name=".LoginUserActivity" />
-        <activity android:name=".LoginTelActivity" />
         <activity android:name=".MenuActivity" />
         <activity
             android:name=".EditMedActivity"
             android:windowSoftInputMode="stateHidden" />
         <activity android:name=".ListMedActivity" />
         <activity android:name=".MedInfoActivity" />
-        <activity
-            android:name=".ProfileActivity"
-            android:windowSoftInputMode="stateHidden" />
         <activity android:name=".ViewProfileActivity" />
-        <activity android:name=".EditLoginActivity"></activity>
     </application>
 
 </manifest>

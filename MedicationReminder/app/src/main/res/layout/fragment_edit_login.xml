@@ -1,14 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     xmlns:fancy="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
-    tools:context=".EditLoginActivity">
-
+    android:orientation="vertical">
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -28,12 +24,12 @@
                     android:layout_height="match_parent">
 
                     <ImageView
+                        android:id="@+id/btnBack"
                         android:layout_width="35dp"
                         android:layout_height="35dp"
                         android:layout_centerVertical="true"
                         android:layout_marginLeft="15dp"
                         android:elevation="8dp"
-                        android:onClick="backBtn"
                         android:padding="5dp"
                         android:src="@drawable/ic_arrow_back_white_24dp" />
 
@@ -220,7 +216,6 @@
                             android:layout_margin="5dp"
                             android:layout_weight="1"
                             android:elevation="2dp"
-                            android:onClick="cancelEditProfile"
                             android:paddingTop="8dp"
                             android:paddingBottom="8dp"
                             fancy:fb_defaultColor="@color/colorBtnRed"
@@ -228,6 +223,7 @@
                             fancy:fb_text="ยกเลิก" />
 
                         <mehdi.sakout.fancybuttons.FancyButton
+                            android:id="@+id/btnUpdateLogin"
                             style="@style/TextBold30"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
@@ -235,7 +231,6 @@
                             android:layout_margin="5dp"
                             android:layout_weight="1"
                             android:elevation="2dp"
-                            android:onClick="checkLogin"
                             android:paddingTop="8dp"
                             android:paddingBottom="8dp"
                             fancy:fb_defaultColor="@color/colorBtnBlue"

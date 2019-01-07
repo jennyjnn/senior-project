@@ -21,12 +21,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
-import com.jenny.medicationreminder.LoginTelActivity;
-import com.jenny.medicationreminder.LoginUserActivity;
 import com.jenny.medicationreminder.MenuActivity;
 import com.jenny.medicationreminder.Model.User;
 import com.jenny.medicationreminder.R;
-import com.jenny.medicationreminder.RegisterActivity;
 import com.libRG.CustomTextView;
 
 import mehdi.sakout.fancybuttons.FancyButton;
