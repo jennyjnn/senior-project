@@ -16,6 +16,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.codetroopers.betterpickers.calendardatepicker.CalendarDatePickerDialogFragment;
 import com.codetroopers.betterpickers.radialtimepicker.RadialTimePickerDialogFragment;
@@ -96,9 +97,11 @@ public class EditMedFragment extends Fragment {
         tvTopic = rootView.findViewById(R.id.tvTopic);
         Bundle bundle = getActivity().getIntent().getExtras();
         if (bundle != null) {
-            topic = bundle.getString("topic");
-            tvTopic.setText(topic);
-            etMedName.setText(bundle.getString("medName"));
+//            topic = bundle.getString("topic");
+//            tvTopic.setText(topic);
+//            etMedName.setText(bundle.getString("medName"));
+            String qrCode = bundle.getString("qrCode");
+            Toast.makeText(getContext(), qrCode, Toast.LENGTH_LONG).show();
         }
 
         btnCustomDays.setOnClickListener(new View.OnClickListener() {
