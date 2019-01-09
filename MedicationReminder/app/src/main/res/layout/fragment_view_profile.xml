@@ -1,56 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
+
+
+    <!--App bar-->
+    <android.support.v7.widget.CardView
+        android:id="@+id/cvAppBarViewProfile"
+        android:layout_width="match_parent"
+        android:layout_height="56dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/btnBack"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="15dp"
+                android:elevation="8dp"
+                android:padding="5dp"
+                android:src="@drawable/ic_arrow_back_white_24dp" />
+
+            <TextView
+                style="@style/TextAppBar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:text="ข้อมูลส่วนตัว" />
+
+        </RelativeLayout>
+
+    </android.support.v7.widget.CardView>
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
-            <!--App bar-->
-            <android.support.v7.widget.CardView
-                android:id="@+id/cvAppBarViewProfile"
-                android:layout_width="match_parent"
-                android:layout_height="56dp">
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <ImageView
-                        android:id="@+id/btnBack"
-                        android:layout_width="35dp"
-                        android:layout_height="35dp"
-                        android:layout_centerVertical="true"
-                        android:layout_marginLeft="15dp"
-                        android:elevation="8dp"
-                        android:padding="5dp"
-                        android:src="@drawable/ic_arrow_back_white_24dp" />
-
-                    <TextView
-                        style="@style/TextAppBar"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerHorizontal="true"
-                        android:layout_centerVertical="true"
-                        android:text="ข้อมูลส่วนตัว" />
-
-                </RelativeLayout>
-
-            </android.support.v7.widget.CardView>
 
             <android.support.v7.widget.CardView
                 android:id="@+id/cvUserInfo"
-                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="12dp">
+                android:layout_margin="12dp"
+                android:visibility="gone">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -63,8 +65,7 @@
                         android:layout_marginTop="8dp"
                         android:layout_marginBottom="12dp"
                         card_view:cardBackgroundColor="@color/colorAccent"
-                        card_view:cardCornerRadius="5dp"
-                        card_view:cardElevation="8dp">
+                        card_view:cardCornerRadius="5dp">
 
                         <TextView
                             android:layout_width="match_parent"
@@ -90,8 +91,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:drawableLeft="@drawable/outline_face_black_24dp"
-                            android:drawableTint="@color/colorDarkGreen"
                             android:drawablePadding="8dp"
+                            android:drawableTint="@color/colorDarkGreen"
                             android:text="ชื่อ - นามสกุล" />
 
                         <TextView
@@ -158,8 +159,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:drawableLeft="@drawable/hospital"
-                            android:drawableTint="@color/colorDarkGreen"
                             android:drawablePadding="8dp"
+                            android:drawableTint="@color/colorDarkGreen"
                             android:text="@string/disease" />
 
                         <TextView
@@ -225,10 +226,10 @@
 
             <android.support.v7.widget.CardView
                 android:id="@+id/cvLoginInfo"
-                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="12dp">
+                android:layout_margin="12dp"
+                android:visibility="gone">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -241,8 +242,7 @@
                         android:layout_marginTop="12dp"
                         android:layout_marginBottom="12dp"
                         card_view:cardBackgroundColor="@color/colorAccent"
-                        card_view:cardCornerRadius="5dp"
-                        card_view:cardElevation="8dp">
+                        card_view:cardCornerRadius="5dp">
 
                         <TextView
                             android:layout_width="match_parent"
