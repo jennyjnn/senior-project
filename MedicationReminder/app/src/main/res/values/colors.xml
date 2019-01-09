@@ -11,4 +11,7 @@
     <color name="colorLightGray">#878787</color>
     <color name="colorDarkGreen">#17A1BE</color>
     <color name="colorLineDivide">#D4E9FC</color>
+    <color name="colorLineDivideGray">#BEBEBE</color>
+    <color name="colorLightGray2">#D1D1D1</color>
+    <color name="colorLightGreen">#86E5E2</color>
 </resources>

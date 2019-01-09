@@ -45,6 +45,9 @@
         <item name="android:textStyle">bold</item>
         <item name="android:textColor">@color/colorTextGray</item>
     </style>
+    <style name="TextBoldDarkGreen26" parent="TextBoldDarkGray26">
+        <item name="android:textColor">@color/colorDarkGreen</item>
+    </style>
     <style name="TextBoldDarkGray24">
         <item name="android:textSize">24sp</item>
         <item name="android:textStyle">bold</item>
