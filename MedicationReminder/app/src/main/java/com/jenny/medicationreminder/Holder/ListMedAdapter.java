@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.jenny.medicationreminder.EditMedActivity;
@@ -30,15 +31,17 @@ public class ListMedAdapter extends RecyclerView.Adapter<ListMedAdapter.ViewHold
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        public TextView tvMedName_list, tvMedProp_list, tvMedDes_list, tvMedTime_list;
+        public TextView tvMedName_list, tvMedProp_list, tvMedDes_list, tvMedStatus_list;
         public Button btnViewMed, btnEditMed;
+        public ImageView imgStatus;
         public ViewHolder(View itemView) {
             super(itemView);
 
             tvMedName_list = itemView.findViewById(R.id.tvMedName_list);
             tvMedProp_list = itemView.findViewById(R.id.tvMedProp_list);
             tvMedDes_list = itemView.findViewById(R.id.tvMedDes_list);
-            tvMedTime_list = itemView.findViewById(R.id.tvMedTime_list);
+            tvMedStatus_list = itemView.findViewById(R.id.tvMedStatus_list);
+            imgStatus = itemView.findViewById(R.id.imgStatus);
 
             btnViewMed = itemView.findViewById(R.id.btnViewMed);
             btnEditMed = itemView.findViewById(R.id.btnEditMed);
@@ -63,7 +66,10 @@ public class ListMedAdapter extends RecyclerView.Adapter<ListMedAdapter.ViewHold
         holder.tvMedName_list.setText(medName);
         holder.tvMedProp_list.setText(med.getProperties());
         holder.tvMedDes_list.setText(med.getDescriptions());
-        holder.tvMedTime_list.setText(med.getTime());
+        if (med.getGetMed() == true) {
+            holder.imgStatus.setImageResource(R.drawable.circle_status_green);
+            holder.tvMedStatus_list.setText("รับยาแล้ว");
+        }
 
         holder.btnViewMed.setOnClickListener(new View.OnClickListener() {
             @Override

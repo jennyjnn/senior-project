@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
@@ -37,26 +38,25 @@ import java.util.List;
 public class ListMedFragment extends Fragment {
 
     CardView cvAppBar;
-    RecyclerView rcListMed;
+    RecyclerView rcListMedBefore, rcListMedAfter;
     RecyclerView.Adapter mAdapter;
-    RecyclerView.LayoutManager mLayoutManager;
-    TextView tvNoListMed;
+    RecyclerView.LayoutManager mLayoutManagerBefore, mLayoutManagerAfter;
     ImageView btnBack;
     ProgressDialog progressDialog;
-
+    TextView tvDate;
 
     FirebaseDatabase database;
     DatabaseReference medRecordRef;
     DatabaseReference medRef;
 
-    ListMedAdapter adapter;
+    ListMedAdapter adapterBefore, adapterAfter;
 
     String nameMed = new String();
     String properties;
     String descriptions;
-    String time;
+    String date, time;
 
-    List<ListMed> dataset;
+    List<ListMed> datasetBefore, datasetAfter;
     ListMed listMed;
 
     SharedPreferences prefUser;
@@ -67,9 +67,11 @@ public class ListMedFragment extends Fragment {
         super();
     }
 
-    public static ListMedFragment newInstance() {
+    public static ListMedFragment newInstance(String date, String time) {
         ListMedFragment fragment = new ListMedFragment();
         Bundle args = new Bundle();
+        args.putString("date", date);
+        args.putString("time", time);
         fragment.setArguments(args);
         return fragment;
     }
@@ -82,36 +84,50 @@ public class ListMedFragment extends Fragment {
         return rootView;
     }
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        date = getArguments().getString("date");
+        time = getArguments().getString("time");
+    }
+
     private void initInstances(View rootView) {
         // Init 'View' instance(s) with rootView.findViewById here
+
+        tvDate = rootView.findViewById(R.id.tvDate);
 
         // set color on app bar
         cvAppBar = rootView.findViewById(R.id.cvAppBarList);
         cvAppBar.setBackgroundResource(R.drawable.bg_appbar);
 
-        tvNoListMed = rootView.findViewById(R.id.tvNoListMed);
-
         prefUser = getActivity().getSharedPreferences(USER_PREFS, Context.MODE_PRIVATE);
         keyUser = prefUser.getString("keyUser", "no user");
 
         // RecyclerView
-        rcListMed = rootView.findViewById(R.id.rcListMed);
+        rcListMedBefore = rootView.findViewById(R.id.rcListMedBefore);
+        rcListMedAfter = rootView.findViewById(R.id.rcListMedAfter);
 
-        mLayoutManager = new LinearLayoutManager(getContext());
-        rcListMed.setLayoutManager(mLayoutManager);
-
-        // Get current date & time
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-        Date date = new Date();
-        Log.e("Date", dateFormat.format(date));
+        mLayoutManagerBefore = new LinearLayoutManager(getContext());
+        rcListMedBefore.setLayoutManager(mLayoutManagerBefore);
+        mLayoutManagerAfter = new LinearLayoutManager(getContext());
+        rcListMedAfter.setLayoutManager(mLayoutManagerAfter);
 
         btnBack = rootView.findViewById(R.id.btnBack);
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getActivity().finish();
+                getFragmentManager().popBackStack();
             }
         });
+
+        getDate();
+    }
+
+    private void getDate() {
+        // Get current date & time
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        Date dateCurrent = new Date();
+        tvDate.setText(dateFormat.format(dateCurrent));
 
         queryMedList();
     }
@@ -129,35 +145,53 @@ public class ListMedFragment extends Fragment {
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                dataset = new ArrayList<>();
+                datasetBefore = new ArrayList<>();
+                datasetAfter= new ArrayList<>();
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     final Med_Record medRecord = snapshot.getValue(Med_Record.class);
-                    medRef.orderByKey().equalTo(medRecord.getMed_id()).addListenerForSingleValueEvent(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                            for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                                Medicine medicine = snapshot.getValue(Medicine.class);
-                                nameMed = medicine.getMed_name();
-                                properties = medicine.getMed_property();
-                                descriptions = medicine.getMed_type() + ", ";
+                    String dateMed = medRecord.getMedRec_startDate();
+                    String timeMed = medRecord.getMedRec_notiTime();
+                    Log.e("time", time);
+                    if (dateMed.equals(date) && timeMed.equals(time)) {
+                        medRef.orderByKey().equalTo(medRecord.getMed_id()).addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                                    Medicine medicine = snapshot.getValue(Medicine.class);
+                                    nameMed = medicine.getMed_name();
+                                    properties = medicine.getMed_property();
+                                    descriptions = medicine.getMed_type() + " " + medRecord.getMedRec_dose();
 
-                                listMed = new ListMed();
-                                listMed.setNameMed(nameMed);
-                                listMed.setProperties(properties);
-                                listMed.setDescriptions(descriptions);
-                                listMed.setTime(medRecord.getMedRec_notiTime());
-                                dataset.add(listMed);
+                                    Log.e("med name", nameMed);
+
+                                    listMed = new ListMed();
+                                    listMed.setNameMed(nameMed);
+                                    listMed.setProperties(properties);
+                                    listMed.setDescriptions(descriptions);
+                                    if (medRecord.getMedRec_getTime().equals("none")) {
+                                        listMed.setGetMed(false);
+                                    } else {
+                                        listMed.setGetMed(true);
+                                    }
+                                    if (medRecord.getMedRec_BefAft().equals("ก่อนอาหาร")) {
+                                        datasetBefore.add(listMed);
+                                    } else {
+                                        datasetAfter.add(listMed);
+                                    }
+                                }
+                                adapterBefore = new ListMedAdapter(getContext(), datasetBefore);
+                                rcListMedBefore.setAdapter(adapterBefore);
+                                adapterAfter = new ListMedAdapter(getContext(), datasetAfter);
+                                rcListMedAfter.setAdapter(adapterAfter);
+
+                                progressDialog.dismiss();
                             }
-                            adapter = new ListMedAdapter(getContext(), dataset);
-                            rcListMed.setAdapter(adapter);
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
 
-                            progressDialog.dismiss();
-                        }
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                        }
-                    });
+                            }
+                        });
+                    }
                 }
             }
 

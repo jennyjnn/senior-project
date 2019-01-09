@@ -4,16 +4,16 @@ public class ListMed {
     private String nameMed;
     private String properties;
     private String descriptions;
-    private String time;
+    private Boolean getMed;
 
     public ListMed() {
     }
 
-    public ListMed(String nameMed, String properties, String descriptions, String time) {
+    public ListMed(String nameMed, String properties, String descriptions, Boolean getMed) {
         this.nameMed = nameMed;
         this.properties = properties;
         this.descriptions = descriptions;
-        this.time = time;
+        this.getMed = getMed;
     }
 
     public String getNameMed() {
@@ -40,11 +40,12 @@ public class ListMed {
         this.descriptions = descriptions;
     }
 
-    public String getTime() {
-        return time;
+    public Boolean getGetMed() {
+        return getMed;
     }
 
-    public void setTime(String time) {
-        this.time = time;
+    public void setGetMed(Boolean getMed) {
+        this.getMed = getMed;
     }
+
 }

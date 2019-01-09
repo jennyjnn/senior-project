@@ -3,6 +3,7 @@ package com.jenny.medicationreminder;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import com.jenny.medicationreminder.fragment.ListMedFragment;
+import com.jenny.medicationreminder.fragment.SelectTimeFragment;
 
 public class ListMedActivity extends AppCompatActivity {
 
@@ -13,7 +14,7 @@ public class ListMedActivity extends AppCompatActivity {
 
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
-                    .add(R.id.contentContainerListMed, new ListMedFragment())
+                    .add(R.id.contentContainerListMed, new SelectTimeFragment())
                     .commit();
         }
     }

@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     app:cardElevation="4dp"
     android:layout_margin="8dp"
-    android:layout_height="wrap_content">
+    android:layout_height="150dp">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -22,90 +22,97 @@
                 android:paddingLeft="5dp"
                 android:orientation="horizontal">
                 <ImageView
+                    android:id="@+id/imgStatus"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="4dp"
                     android:layout_gravity="center_vertical"
-                    android:src="@drawable/alarm"/>
+                    android:src="@drawable/circle_status_red"/>
                 <TextView
-                    android:id="@+id/tvMedTime_list"
+                    android:id="@+id/tvMedStatus_list"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="08:00"
+                    android:text="ยังไม่รับยา"
                     android:layout_marginLeft="10dp"
-                    android:textColor="@color/colorBtnRed"
+                    android:textColor="@color/colorDarkGreen"
                     style="@style/ListMedInfo"
                     android:paddingTop="5dp"
-                    android:paddingBottom="5dp"
-                    android:paddingLeft="10dp"
-                    android:paddingRight="10dp"
-                    android:background="@drawable/textview_border"/>
+                    android:paddingBottom="5dp"/>
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:orientation="vertical"
                 android:paddingLeft="16dp"
-                android:paddingTop="5dp"
-                android:orientation="vertical">
+                android:paddingTop="5dp">
+
                 <TextView
                     android:id="@+id/tvMedName_list"
                     style="@style/ListMedName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Med Name"
-                    android:textAllCaps="true"/>
+                    android:textAllCaps="true" />
+
                 <TextView
                     android:id="@+id/tvMedProp_list"
+                    style="@style/ListMedInfo"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    style="@style/ListMedInfo"
-                    android:text="สรรพคุณ"/>
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:text="สรรพคุณ" />
+
                 <TextView
-                    style="@style/ListMedInfo"
                     android:id="@+id/tvMedDes_list"
-                    android:singleLine="true"
-                    android:layout_marginBottom="4dp"
+                    style="@style/ListMedInfo"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="รายละเอียด"/>
+                    android:layout_marginBottom="4dp"
+                    android:singleLine="true"
+                    android:text="รายละเอียด" />
             </LinearLayout>
         </LinearLayout>
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:layout_gravity="center_vertical"
             android:orientation="vertical">
 
             <Button
                 android:id="@+id/btnEditMed"
                 style="@style/BtnListMed"
-                android:layout_weight="1"
+                android:textColor="@color/colorDarkGreen"
                 android:layout_width="match_parent"
-                android:background="@color/colorBtnBlue"
+                android:background="@drawable/textview_border"
                 android:drawableLeft="@drawable/edit"
+                android:drawableTint="@color/colorDarkGreen"
                 android:text="แก้ไข"
-                android:layout_height="30dp" />
+                android:layout_height="40dp" />
             <Button
                 android:id="@+id/btnViewMed"
                 style="@style/BtnListMed"
-                android:layout_weight="1"
+                android:textColor="@color/colorDarkGreen"
+                android:background="@drawable/textview_border"
                 android:layout_marginTop="8dp"
                 android:layout_width="match_parent"
-                android:background="@color/colorDarkGreen"
                 android:drawableLeft="@drawable/med_info"
                 android:paddingLeft="8dp"
                 android:text="ดูข้อมูลยา"
-                android:layout_height="30dp" />
+                android:layout_height="40dp" />
             <Button
                 android:id="@+id/btnDelMed"
                 style="@style/BtnListMed"
-                android:layout_weight="1"
                 android:layout_width="match_parent"
                 android:layout_marginTop="8dp"
-                android:background="@color/colorBtnRed"
+                android:drawableTint="@color/colorDarkGreen"
+                android:textColor="@color/colorDarkGreen"
+                android:background="@drawable/textview_border"
                 android:drawableLeft="@drawable/remove"
                 android:text="ลบ"
-                android:layout_marginBottom="5dp"
-                android:layout_height="30dp" />
+                android:layout_height="40dp" />
         </LinearLayout>
     </LinearLayout>
 
