@@ -44,8 +44,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-
-            <!--Date-->
+            <!--Time-->
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="52dp"
@@ -53,22 +52,22 @@
                 android:background="@color/colorDarkGreen">
 
                 <TextView
-                    android:id="@+id/tvDate"
+                    android:id="@+id/tvTime"
                     style="@style/ListMedName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="8dp"
-                    android:text="วันที่"
+                    android:text="ช่วงเวลา"
                     android:textColor="@color/white" />
 
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginRight="8dp"
-                    android:src="@drawable/calendar2" />
+                <!--<ImageView-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_alignParentRight="true"-->
+                    <!--android:layout_centerVertical="true"-->
+                    <!--android:layout_marginRight="8dp"-->
+                    <!--android:src="@drawable/calendar2" />-->
 
             </RelativeLayout>
 

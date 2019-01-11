@@ -17,6 +17,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.codetroopers.betterpickers.calendardatepicker.CalendarDatePickerDialogFragment;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -43,7 +44,7 @@ public class ListMedFragment extends Fragment {
     RecyclerView.LayoutManager mLayoutManagerBefore, mLayoutManagerAfter;
     ImageView btnBack;
     ProgressDialog progressDialog;
-    TextView tvDate;
+    TextView tvTime;
 
     FirebaseDatabase database;
     DatabaseReference medRecordRef;
@@ -94,7 +95,8 @@ public class ListMedFragment extends Fragment {
     private void initInstances(View rootView) {
         // Init 'View' instance(s) with rootView.findViewById here
 
-        tvDate = rootView.findViewById(R.id.tvDate);
+        tvTime = rootView.findViewById(R.id.tvTime);
+        tvTime.setText(time);
 
         // set color on app bar
         cvAppBar = rootView.findViewById(R.id.cvAppBarList);
@@ -120,15 +122,6 @@ public class ListMedFragment extends Fragment {
             }
         });
 
-        getDate();
-    }
-
-    private void getDate() {
-        // Get current date & time
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-        Date dateCurrent = new Date();
-        tvDate.setText(dateFormat.format(dateCurrent));
-
         queryMedList();
     }
 
@@ -151,7 +144,6 @@ public class ListMedFragment extends Fragment {
                     final Med_Record medRecord = snapshot.getValue(Med_Record.class);
                     String dateMed = medRecord.getMedRec_startDate();
                     String timeMed = medRecord.getMedRec_notiTime();
-                    Log.e("time", time);
                     if (dateMed.equals(date) && timeMed.equals(time)) {
                         medRef.orderByKey().equalTo(medRecord.getMed_id()).addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override
@@ -161,8 +153,6 @@ public class ListMedFragment extends Fragment {
                                     nameMed = medicine.getMed_name();
                                     properties = medicine.getMed_property();
                                     descriptions = medicine.getMed_type() + " " + medRecord.getMedRec_dose();
-
-                                    Log.e("med name", nameMed);
 
                                     listMed = new ListMed();
                                     listMed.setNameMed(nameMed);
