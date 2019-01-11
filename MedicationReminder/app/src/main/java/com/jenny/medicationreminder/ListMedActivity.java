@@ -2,7 +2,7 @@ package com.jenny.medicationreminder;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import com.jenny.medicationreminder.fragment.ListMedFragment;
+
 import com.jenny.medicationreminder.fragment.SelectTimeFragment;
 
 public class ListMedActivity extends AppCompatActivity {
@@ -18,5 +18,4 @@ public class ListMedActivity extends AppCompatActivity {
                     .commit();
         }
     }
-
 }

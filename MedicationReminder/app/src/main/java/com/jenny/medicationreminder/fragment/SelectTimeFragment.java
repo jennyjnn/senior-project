@@ -15,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.codetroopers.betterpickers.calendardatepicker.CalendarDatePickerDialogFragment;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -25,13 +26,14 @@ import com.jenny.medicationreminder.Model.Med_Record;
 import com.jenny.medicationreminder.R;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 
-public class SelectTimeFragment extends Fragment {
+public class SelectTimeFragment extends Fragment implements CalendarDatePickerDialogFragment.OnDateSetListener {
 
     CardView cvAppBar;
-    ImageView btnBack;
+    ImageView btnBack, imgCalendar;
     TextView tvDate;
     LinearLayout LinearContent, cardMoring, cardLunch, cardEvening, cardBeforeBed;
     TextView tvCountMorning, tvCountLunch, tvCountEvening, tvCountBeforeBed;
@@ -45,6 +47,9 @@ public class SelectTimeFragment extends Fragment {
     private static final String USER_PREFS = "userStatus";
     String keyUser;
     String dateMedList;
+
+    private static final String FRAG_TAG_DATE_PICKER = "fragment_date_picker_name";
+    private int mYear, mMonth, mDay;
 
     int morning = 0;
     int lunch = 0;
@@ -85,7 +90,7 @@ public class SelectTimeFragment extends Fragment {
         tvCountEvening = rootView.findViewById(R.id.tvCountEvening);
         tvCountBeforeBed = rootView.findViewById(R.id.tvCountBeforeBed);
         LinearContent = rootView.findViewById(R.id.LinearContent);
-
+        imgCalendar = rootView.findViewById(R.id.imgCalendar);
 
         prefUser = getContext().getSharedPreferences(USER_PREFS, Context.MODE_PRIVATE);
         keyUser = prefUser.getString("keyUser", "no user");
@@ -127,6 +132,28 @@ public class SelectTimeFragment extends Fragment {
                         .replace(R.id.contentContainerListMed, ListMedFragment.newInstance(dateMedList, "ก่อนนอน"))
                         .addToBackStack(null)
                         .commit();
+            }
+        });
+
+        imgCalendar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Get Date from Edit text
+                String[] dateSplit = tvDate.getText().toString().split("/");
+                mYear = Integer.parseInt(dateSplit[2]);
+                mMonth = Integer.parseInt(dateSplit[1]);
+                mDay = Integer.parseInt(dateSplit[0]);
+
+                // Show Calendar date picker dialog
+                CalendarDatePickerDialogFragment cdp = new CalendarDatePickerDialogFragment()
+                        .setOnDateSetListener((CalendarDatePickerDialogFragment.OnDateSetListener) SelectTimeFragment.this)
+                        .setFirstDayOfWeek(Calendar.SUNDAY)
+                        .setPreselectedDate(mYear, mMonth-1, mDay)
+                        .setDoneText("ตกลง")
+                        .setCancelText("ยกเลิก");
+                cdp.show(getFragmentManager(), FRAG_TAG_DATE_PICKER);
+
+                checkMed(tvDate.getText().toString());
             }
         });
 
@@ -204,6 +231,9 @@ public class SelectTimeFragment extends Fragment {
     private void showCountMed() {
         if (morning > 0) {
             tvCountMorning.setText(morning + " ตัวยา");
+            tvCountMorning.setVisibility(View.VISIBLE);
+            cardMoring.setBackgroundResource(R.drawable.time_of_day_border);
+            cardMoring.setEnabled(true);
         } else {
             cardMoring.setBackgroundResource(R.drawable.time_of_day_gray);
             cardMoring.setEnabled(false);
@@ -211,6 +241,9 @@ public class SelectTimeFragment extends Fragment {
         }
         if (lunch > 0) {
             tvCountLunch.setText(lunch + " ตัวยา");
+            tvCountLunch.setVisibility(View.VISIBLE);
+            cardLunch.setBackgroundResource(R.drawable.time_of_day_border);
+            cardLunch.setEnabled(true);
         } else {
             cardLunch.setBackgroundResource(R.drawable.time_of_day_gray);
             cardLunch.setEnabled(false);
@@ -218,6 +251,9 @@ public class SelectTimeFragment extends Fragment {
         }
         if (evening > 0) {
             tvCountEvening.setText(evening + " ตัวยา");
+            tvCountEvening.setVisibility(View.VISIBLE);
+            cardEvening.setBackgroundResource(R.drawable.time_of_day_border);
+            cardEvening.setEnabled(true);
         } else {
             cardEvening.setBackgroundResource(R.drawable.time_of_day_gray);
             cardEvening.setEnabled(false);
@@ -225,6 +261,9 @@ public class SelectTimeFragment extends Fragment {
         }
         if (beforeBed > 0) {
             tvCountBeforeBed.setText(beforeBed + " ตัวยา");
+            tvCountBeforeBed.setVisibility(View.VISIBLE);
+            cardBeforeBed.setBackgroundResource(R.drawable.time_of_day_border);
+            cardBeforeBed.setEnabled(true);
         } else {
             cardBeforeBed.setBackgroundResource(R.drawable.time_of_day_gray);
             cardBeforeBed.setEnabled(false);
@@ -263,5 +302,12 @@ public class SelectTimeFragment extends Fragment {
         if (savedInstanceState != null) {
             // Restore Instance State here
         }
+    }
+
+    @Override
+    public void onDateSet(CalendarDatePickerDialogFragment dialog, int year, int monthOfYear, int dayOfMonth) {
+        String date = String.format("%02d", dayOfMonth) + "/" + String.format("%02d", monthOfYear+1) + "/" + (year);
+        tvDate.setText(date);
+        checkMed(date);
     }
 }
