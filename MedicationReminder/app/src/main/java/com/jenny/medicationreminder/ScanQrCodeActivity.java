@@ -42,6 +42,7 @@ public class ScanQrCodeActivity extends AppCompatActivity implements ZXingScanne
         scannerView.stopCamera();
         Intent intent = new Intent(ScanQrCodeActivity.this, EditMedActivity.class);
         intent.putExtra("qrCode", result.getText());
+        intent.putExtra("topic", "เพิ่มยา");
         finish();
         startActivity(intent);
     }

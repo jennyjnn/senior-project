@@ -19,6 +19,8 @@ import com.codetroopers.betterpickers.radialtimepicker.RadialTimePickerDialogFra
 import com.jenny.medicationreminder.fragment.EditMedFragment;
 import com.jenny.medicationreminder.fragment.ViewProfileFragment;
 
+import net.danlew.android.joda.JodaTimeAndroid;
+
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
@@ -44,6 +46,8 @@ public class EditMedActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_med);
+
+        JodaTimeAndroid.init(this);
 
         if (savedInstanceState == null) {
             // First Created
@@ -82,25 +86,25 @@ public class EditMedActivity extends AppCompatActivity
     @Override
     public void onDateSet(CalendarDatePickerDialogFragment dialog, int year, int monthOfYear, int dayOfMonth) {
         etDateEnd = findViewById(R.id.etDateEnd);
-        etDateEnd.setText(String.format("%02d", dayOfMonth) + "/" + String.format("%02d", monthOfYear+1) + "/" + (year+543));
+        etDateEnd.setText(String.format("%02d", dayOfMonth) + "/" + String.format("%02d", monthOfYear+1) + "/" + (year));
     }
 
     @Override
     public void onTimeSet(RadialTimePickerDialogFragment dialog, int hourOfDay, int minute) {
-        if (hourOfDay < 4 || hourOfDay > 10) {
-            alertTime.setTitle("เวลาแจ้งเตือนไม่ถูกต้อง");
-            alertTime.setMessage("กรุณาเลือกเวลาแจ้งเตือนระหว่าง\n04:00 - 10.59 น.");
-            alertTime.setPositiveButton("ตกลง", new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int id) {
-                    dialog.dismiss();
-                    setTime(etTimeMorning);
-                }
-            });
-            dialogAlertTime = alertTime.create();
-            dialogAlertTime.show();
-        } else {
-            etTimeMorning = findViewById(R.id.etTimeMorning);
-            etTimeMorning.setText(String.format("%02d", hourOfDay) + ":" + String.format("%02d", minute));
-        }
+//        if (hourOfDay < 4 || hourOfDay > 10) {
+//            alertTime.setTitle("เวลาแจ้งเตือนไม่ถูกต้อง");
+//            alertTime.setMessage("กรุณาเลือกเวลาแจ้งเตือนระหว่าง\n04:00 - 10.59 น.");
+//            alertTime.setPositiveButton("ตกลง", new DialogInterface.OnClickListener() {
+//                public void onClick(DialogInterface dialog, int id) {
+//                    dialog.dismiss();
+//                    setTime(etTimeMorning);
+//                }
+//            });
+//            dialogAlertTime = alertTime.create();
+//            dialogAlertTime.show();
+//        } else {
+//            etTimeMorning = findViewById(R.id.etTimeMorning);
+//            etTimeMorning.setText(String.format("%02d", hourOfDay) + ":" + String.format("%02d", minute));
+//        }
     }
 }

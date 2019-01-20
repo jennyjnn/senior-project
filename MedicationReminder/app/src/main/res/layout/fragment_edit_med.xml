@@ -3,13 +3,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:fancy="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <LinearLayout
+            android:id="@+id/linearEditMed"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:visibility="gone"
             android:orientation="vertical">
             <android.support.v7.widget.CardView
                 android:id="@+id/cvAppBarEditMed"
@@ -76,14 +79,18 @@
                             android:text="MELOXICAM" />
                     </LinearLayout>
                     <View
+                        android:id="@+id/lineProperty"
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
+                        android:visibility="gone"
                         android:background="@color/colorLineDivide" />
                     <LinearLayout
+                        android:id="@+id/linearProperty"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginLeft="15dp"
                         android:layout_marginRight="15dp"
+                        android:visibility="gone"
                         android:orientation="horizontal">
 
                         <TextView
@@ -93,6 +100,7 @@
                             android:text="ประเภทยา" />
 
                         <EditText
+                            android:id="@+id/etProperty"
                             style="@style/TextBoldLightGray22"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
@@ -102,10 +110,12 @@
                             android:text="ยาบรรเทาอาการปวดและอักเสบ" />
                     </LinearLayout>
                     <View
+                        android:id="@+id/lineTime"
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
                         android:background="@color/colorLineDivide" />
                     <LinearLayout
+                        android:id="@+id/linearTimeOfDay"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginLeft="15dp"
@@ -123,7 +133,6 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:orientation="horizontal"
-                            android:checkedButton="@id/afterMeal"
                             android:layout_weight="1">
                             <RadioButton
                                 android:id="@+id/beforeMeal"
@@ -170,41 +179,12 @@
                                 android:layout_height="wrap_content"
                                 android:orientation="horizontal">
                                 <CheckBox
-                                    style="@style/TextBoldDarkGray22"
+                                    style="@style/TextBoldLightGray22"
                                     android:id="@+id/cbMorning"
                                     android:layout_width="100dp"
                                     android:layout_height="wrap_content"
                                     android:text="เช้า"
-                                    android:checked="true"
                                     android:enabled="false"/>
-                                <ImageView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_gravity="center_vertical"
-                                    android:src="@drawable/alarm"/>
-
-                                <EditText
-                                    android:id="@+id/etTimeMorning"
-                                    style="@style/TextBoldDarkGray22"
-                                    android:layout_width="0dp"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginLeft="5dp"
-                                    android:layout_marginRight="5dp"
-                                    android:layout_weight="1"
-                                    android:focusable="false"
-                                    android:gravity="center"
-                                    android:text="08:30" />
-                                <TextView
-                                    style="@style/TextBoldDarkGray22"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="น." />
-
-                            </LinearLayout>
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:orientation="horizontal">
                                 <CheckBox
                                     style="@style/TextBoldLightGray22"
                                     android:id="@+id/cbLunch"
@@ -212,28 +192,6 @@
                                     android:layout_height="wrap_content"
                                     android:text="กลางวัน"
                                     android:enabled="false"/>
-                                <ImageView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_gravity="center_vertical"
-                                    android:src="@drawable/alarm"/>
-                                <EditText
-                                    android:layout_width="0dp"
-                                    android:layout_height="wrap_content"
-                                    android:layout_weight="1"
-                                    android:text="12:00"
-                                    android:focusable="false"
-                                    android:enabled="false"
-                                    android:onClick="setTime"
-                                    android:layout_marginLeft="5dp"
-                                    android:layout_marginRight="5dp"
-                                    style="@style/TextBoldLightGray22"
-                                    android:gravity="center" />
-                                <TextView
-                                    style="@style/TextBoldDarkGray22"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="น." />
 
                             </LinearLayout>
                             <LinearLayout
@@ -247,34 +205,6 @@
                                     android:text="เย็น"
                                     android:id="@+id/cbEvening"
                                     android:enabled="false"/>
-                                <ImageView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_gravity="center_vertical"
-                                    android:src="@drawable/alarm"/>
-                                <EditText
-                                    android:layout_width="0dp"
-                                    android:layout_height="wrap_content"
-                                    android:layout_weight="1"
-                                    android:text="17:00"
-                                    android:focusable="false"
-                                    android:enabled="false"
-                                    android:layout_marginLeft="5dp"
-                                    android:layout_marginRight="5dp"
-                                    android:onClick="setTime"
-                                    style="@style/TextBoldLightGray22"
-                                    android:gravity="center" />
-                                <TextView
-                                    style="@style/TextBoldDarkGray22"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="น." />
-
-                            </LinearLayout>
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:orientation="horizontal">
                                 <CheckBox
                                     style="@style/TextBoldLightGray22"
                                     android:id="@+id/cbBeforeBed"
@@ -282,30 +212,6 @@
                                     android:layout_height="wrap_content"
                                     android:text="ก่อนนอน"
                                     android:enabled="false"/>
-                                <ImageView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_gravity="center_vertical"
-                                    android:src="@drawable/alarm"/>
-
-                                <EditText
-                                    style="@style/TextBoldLightGray22"
-                                    android:layout_width="0dp"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginLeft="5dp"
-                                    android:layout_marginRight="5dp"
-                                    android:layout_weight="1"
-                                    android:focusable="false"
-                                    android:enabled="false"
-                                    android:gravity="center"
-                                    android:onClick="setTime"
-                                    android:text="21:00" />
-                                <TextView
-                                    style="@style/TextBoldDarkGray22"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="น." />
-
                             </LinearLayout>
 
                         </LinearLayout>
@@ -329,6 +235,7 @@
                             android:text="ความถี่ที่ได้รับต่อครั้ง" />
 
                         <EditText
+                            android:id="@+id/etDose"
                             style="@style/TextBoldLightGray22"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
@@ -339,6 +246,7 @@
                             android:enabled="false"
                             android:text="1" />
                         <TextView
+                            android:id="@+id/tvUnit"
                             style="@style/TextBoldDarkGray24"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
@@ -419,63 +327,63 @@
                             android:layout_marginRight="5dp"
                             android:text="22/12/2561" />
                     </LinearLayout>
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:background="@color/colorLineDivide" />
+                    <!--<View-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="1dp"-->
+                        <!--android:background="@color/colorLineDivide" />-->
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginLeft="15dp"
-                        android:layout_marginRight="15dp"
-                        android:layout_marginTop="8dp"
-                        android:layout_marginBottom="8dp"
-                        android:orientation="horizontal">
+                    <!--<LinearLayout-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="match_parent"-->
+                        <!--android:layout_marginLeft="15dp"-->
+                        <!--android:layout_marginRight="15dp"-->
+                        <!--android:layout_marginTop="8dp"-->
+                        <!--android:layout_marginBottom="8dp"-->
+                        <!--android:orientation="horizontal">-->
 
-                        <TextView
-                            style="@style/TextBoldDarkGray24"
-                            android:layout_width="120dp"
-                            android:layout_height="wrap_content"
-                            android:text="วันที่บริหารยา" />
+                        <!--<TextView-->
+                            <!--style="@style/TextBoldDarkGray24"-->
+                            <!--android:layout_width="120dp"-->
+                            <!--android:layout_height="wrap_content"-->
+                            <!--android:text="วันที่บริหารยา" />-->
 
-                        <RadioGroup
-                            android:id="@+id/optionAlert"
-                            android:checkedButton="@id/everyAlert"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content">
+                        <!--<RadioGroup-->
+                            <!--android:id="@+id/optionAlert"-->
+                            <!--android:checkedButton="@id/everyAlert"-->
+                            <!--android:layout_width="wrap_content"-->
+                            <!--android:layout_height="wrap_content">-->
 
-                            <RadioButton
-                                android:id="@+id/everyAlert"
-                                style="@style/TextBoldDarkGray22"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="ทุกวัน" />
+                            <!--<RadioButton-->
+                                <!--android:id="@+id/everyAlert"-->
+                                <!--style="@style/TextBoldDarkGray22"-->
+                                <!--android:layout_width="wrap_content"-->
+                                <!--android:layout_height="wrap_content"-->
+                                <!--android:text="ทุกวัน" />-->
 
-                            <RadioButton
-                                android:id="@+id/customAlert"
-                                style="@style/TextBoldDarkGray22"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="กำหนดเอง" />
-                        </RadioGroup>
+                            <!--<RadioButton-->
+                                <!--android:id="@+id/customAlert"-->
+                                <!--style="@style/TextBoldDarkGray22"-->
+                                <!--android:layout_width="wrap_content"-->
+                                <!--android:layout_height="wrap_content"-->
+                                <!--android:text="กำหนดเอง" />-->
+                        <!--</RadioGroup>-->
 
-                        <mehdi.sakout.fancybuttons.FancyButton
-                            android:id="@+id/btnCustomDays"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="bottom"
-                            android:layout_marginLeft="15dp"
-                            android:layout_weight="1"
-                            android:elevation="2dp"
-                            android:paddingTop="5dp"
-                            android:paddingBottom="5dp"
-                            fancy:fb_defaultColor="@color/colorDarkGreen"
-                            fancy:fb_radius="5dp"
-                            fancy:fb_text="แก้ไขวัน"
-                            fancy:fb_textSize="22sp" />
+                        <!--<mehdi.sakout.fancybuttons.FancyButton-->
+                            <!--android:id="@+id/btnCustomDays"-->
+                            <!--android:layout_width="0dp"-->
+                            <!--android:layout_height="wrap_content"-->
+                            <!--android:layout_gravity="bottom"-->
+                            <!--android:layout_marginLeft="15dp"-->
+                            <!--android:layout_weight="1"-->
+                            <!--android:elevation="2dp"-->
+                            <!--android:paddingTop="5dp"-->
+                            <!--android:paddingBottom="5dp"-->
+                            <!--fancy:fb_defaultColor="@color/colorDarkGreen"-->
+                            <!--fancy:fb_radius="5dp"-->
+                            <!--fancy:fb_text="แก้ไขวัน"-->
+                            <!--fancy:fb_textSize="22sp" />-->
 
-                    </LinearLayout>
+                    <!--</LinearLayout>-->
                     <mehdi.sakout.fancybuttons.FancyButton
                         android:id="@+id/btnConfirm"
                         style="@style/TextBold30"
