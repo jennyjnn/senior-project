@@ -128,7 +128,7 @@ public class LoginFragment extends Fragment {
         final AlertDialog dialog = builder.create();
 
         // Query database
-        Query query = loginTelRef.orderByChild("User_phone").equalTo(String.valueOf(etLoginTel.getText()));
+        Query query = loginTelRef.orderByChild("user_phone").equalTo(String.valueOf(etLoginTel.getText()));
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {

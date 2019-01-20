@@ -248,7 +248,7 @@ public class RegisterFragment extends Fragment {
     }
 
     private void checkTel() {
-        regisRef.orderByChild("User_phone").equalTo(tel).addListenerForSingleValueEvent(new ValueEventListener() {
+        regisRef.orderByChild("user_phone").equalTo(tel).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()){
@@ -277,17 +277,10 @@ public class RegisterFragment extends Fragment {
                     countUser = dataSnapshot.getChildrenCount();
                     DecimalFormat idFormat = new DecimalFormat("0000");
                     user_id = "user" + idFormat.format(countUser + 1);
-//                    User user = new User(username, password, name, surname, disease, tel, allergy, weight, age);
-
-                    regisRef.child(user_id).child("User_fname").setValue(name);
-                    regisRef.child(user_id).child("User_lname").setValue(surname);
-                    regisRef.child(user_id).child("User_age").setValue(age);
-                    regisRef.child(user_id).child("User_weight").setValue(weight);
-                    regisRef.child(user_id).child("User_disease").setValue(disease);
-                    regisRef.child(user_id).child("User_allergy").setValue(allergy);
-                    regisRef.child(user_id).child("username").setValue(username);
-                    regisRef.child(user_id).child("password").setValue(password);
-                    regisRef.child(user_id).child("User_phone").setValue(tel);
+                    User newUser = new User(username, password, name, surname, disease, tel, allergy,
+                            weight, age, "07:30", "08:30", "11:30", "12:30", "17:00", "18:00", "21:00");
+                    regisRef.child(user_id
+                    ).setValue(newUser);
 
                     progressDialog.dismiss();
 

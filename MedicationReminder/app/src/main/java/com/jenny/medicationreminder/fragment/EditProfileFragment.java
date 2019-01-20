@@ -125,12 +125,12 @@ public class EditProfileFragment extends Fragment {
                 userRef.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        userRef.child(keyUser).child("User_fname").setValue(etName.getText().toString());
-                        userRef.child(keyUser).child("User_lname").setValue(etLastName.getText().toString());
-                        userRef.child(keyUser).child("User_age").setValue(etAge.getText().toString());
-                        userRef.child(keyUser).child("User_weight").setValue(etWeight.getText().toString());
-                        userRef.child(keyUser).child("User_disease").setValue(etDisease.getText().toString());
-                        userRef.child(keyUser).child("User_allergy").setValue(etAllergic.getText().toString());
+                        userRef.child(keyUser).child("user_fname").setValue(etName.getText().toString());
+                        userRef.child(keyUser).child("user_lname").setValue(etLastName.getText().toString());
+                        userRef.child(keyUser).child("user_age").setValue(etAge.getText().toString());
+                        userRef.child(keyUser).child("user_weight").setValue(etWeight.getText().toString());
+                        userRef.child(keyUser).child("user_disease").setValue(etDisease.getText().toString());
+                        userRef.child(keyUser).child("user_allergy").setValue(etAllergic.getText().toString());
 
                         progressDialog.dismiss();
                         getFragmentManager().popBackStack();

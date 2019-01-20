@@ -204,14 +204,14 @@ public class EditLoginFragment extends Fragment {
                         userRef.child(keyUser).child("username").setValue(etUsername.getText().toString());
                     } else if (etNewPassword.getText().toString().isEmpty() && !etNewPhone.getText().toString().isEmpty()) {
                         userRef.child(keyUser).child("username").setValue(etUsername.getText().toString());
-                        userRef.child(keyUser).child("User_phone").setValue(etNewPhone.getText().toString());
+                        userRef.child(keyUser).child("user_phone").setValue(etNewPhone.getText().toString());
                     } else if (!etNewPassword.getText().toString().isEmpty() && etNewPhone.getText().toString().isEmpty()) {
                         userRef.child(keyUser).child("username").setValue(etUsername.getText().toString());
                         userRef.child(keyUser).child("password").setValue(etNewPassword.getText().toString());
                     } else {
                         userRef.child(keyUser).child("username").setValue(etUsername.getText().toString());
                         userRef.child(keyUser).child("password").setValue(etNewPassword.getText().toString());
-                        userRef.child(keyUser).child("User_phone").setValue(etNewPhone.getText().toString());
+                        userRef.child(keyUser).child("user_phone").setValue(etNewPhone.getText().toString());
                     }
                 }
                 getFragmentManager().popBackStack();
