@@ -2,33 +2,41 @@ package com.jenny.medicationreminder.fragment;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.codetroopers.betterpickers.calendardatepicker.CalendarDatePickerDialogFragment;
+import com.codetroopers.betterpickers.radialtimepicker.RadialTimePickerDialogFragment;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.jenny.medicationreminder.EditMedActivity;
 import com.jenny.medicationreminder.Holder.ListMedAdapter;
 import com.jenny.medicationreminder.ListMedActivity;
+import com.jenny.medicationreminder.MainActivity;
 import com.jenny.medicationreminder.Model.ListMed;
 import com.jenny.medicationreminder.Model.Med_Record;
 import com.jenny.medicationreminder.Model.Medicine;
+import com.jenny.medicationreminder.Model.Notification_Time;
+import com.jenny.medicationreminder.Model.User;
 import com.jenny.medicationreminder.R;
 
 import java.text.SimpleDateFormat;
@@ -36,7 +44,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class ListMedFragment extends Fragment {
+public class ListMedFragment extends Fragment implements RadialTimePickerDialogFragment.OnTimeSetListener {
 
     CardView cvAppBar;
     RecyclerView rcListMedBefore, rcListMedAfter;
@@ -44,11 +52,14 @@ public class ListMedFragment extends Fragment {
     RecyclerView.LayoutManager mLayoutManagerBefore, mLayoutManagerAfter;
     ImageView btnBack;
     ProgressDialog progressDialog;
-    TextView tvTime;
+    TextView tvTime, tvBeforeMeal, tvBeforeTime, tvAfterTime;
+    LinearLayout linearBefore, linearAfter;
+    View vLine;
 
     FirebaseDatabase database;
     DatabaseReference medRecordRef;
     DatabaseReference medRef;
+    DatabaseReference notiTimeRef;
 
     ListMedAdapter adapterBefore, adapterAfter;
 
@@ -56,6 +67,10 @@ public class ListMedFragment extends Fragment {
     String properties;
     String descriptions;
     String date, time;
+    String notiTime;
+    String timeBefAft;
+    int countBefore = 0;
+    int countAfter = 0;
 
     List<ListMed> datasetBefore, datasetAfter;
     ListMed listMed;
@@ -63,6 +78,8 @@ public class ListMedFragment extends Fragment {
     SharedPreferences prefUser;
     private static final String USER_PREFS = "userStatus";
     String keyUser;
+    public static final String FRAG_TAG_TIME_PICKER = "fragment_time_picker_name";
+    private int mHour, mMinute;
 
     public ListMedFragment() {
         super();
@@ -98,6 +115,13 @@ public class ListMedFragment extends Fragment {
         tvTime = rootView.findViewById(R.id.tvTime);
         tvTime.setText(time);
 
+        tvAfterTime = rootView.findViewById(R.id.tvAfterTime);
+        tvBeforeTime = rootView.findViewById(R.id.tvBeforeTime);
+        tvBeforeMeal = rootView.findViewById(R.id.tvBeforeMeal);
+        linearAfter = rootView.findViewById(R.id.linearAfter);
+        linearBefore = rootView.findViewById(R.id.linearBefore);
+        vLine = rootView.findViewById(R.id.vLine);
+
         // set color on app bar
         cvAppBar = rootView.findViewById(R.id.cvAppBarList);
         cvAppBar.setBackgroundResource(R.drawable.bg_appbar);
@@ -114,6 +138,33 @@ public class ListMedFragment extends Fragment {
         mLayoutManagerAfter = new LinearLayoutManager(getContext());
         rcListMedAfter.setLayoutManager(mLayoutManagerAfter);
 
+        if (time.equals("เช้า")) {
+            notiTime = "morning";
+        } else if (time.equals("กลางวัน")) {
+            notiTime = "noon";
+        } else if (time.equals("เย็น")) {
+            notiTime = "evening";
+        } else {
+            notiTime = "bed";
+            tvBeforeMeal.setText("ก่อนนอน");
+        }
+
+        tvBeforeTime.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                timeBefAft = "_bf";
+                setTime(tvBeforeTime.getText().toString());
+            }
+        });
+
+        tvAfterTime.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                timeBefAft = "_af";
+                setTime(tvAfterTime.getText().toString());
+            }
+        });
+
         btnBack = rootView.findViewById(R.id.btnBack);
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -122,18 +173,70 @@ public class ListMedFragment extends Fragment {
             }
         });
 
-        queryMedList();
+        getNotiTime();
     }
 
-    private void queryMedList() {
+    private void setTime(String time) {
+        // Get Date from Edit text
+        String[] timeSplit = time.split(":");
+        mHour = Integer.parseInt(timeSplit[0]);
+        mMinute = Integer.parseInt(timeSplit[1]);
+
+        // Show time picker dialog
+        RadialTimePickerDialogFragment rtpd = new RadialTimePickerDialogFragment()
+                .setOnTimeSetListener(ListMedFragment.this)
+                .setStartTime(mHour, mMinute)
+                .setDoneText("ตกลง")
+                .setCancelText("ยกเลิก");
+        rtpd.show(getFragmentManager(), FRAG_TAG_TIME_PICKER);
+    }
+
+    private void getNotiTime() {
         // Progress Dialog
         progressDialog = new ProgressDialog(getActivity());
         progressDialog.setMessage("กรุณารอสักครู่");
         progressDialog.show();
 
         database = FirebaseDatabase.getInstance();
+        notiTimeRef = database.getReference("User");
+        notiTimeRef.orderByKey().equalTo(keyUser).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot snapshot:dataSnapshot.getChildren()) {
+                    User user = snapshot.getValue(User.class);
+                    switch (notiTime) {
+                        case "morning":
+                            tvBeforeTime.setText(user.getMorning_bf());
+                            tvAfterTime.setText(user.getMorning_af());
+                            break;
+                        case "noon":
+                            tvBeforeTime.setText(user.getNoon_bf());
+                            tvAfterTime.setText(user.getNoon_af());
+                            break;
+                        case "evening":
+                            tvBeforeTime.setText(user.getEvening_bf());
+                            tvAfterTime.setText(user.getEvening_af());
+                            break;
+                        case "bed":
+                            tvBeforeTime.setText(user.getBed_bf());
+                            break;
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+        queryMedList();
+    }
+
+    private void queryMedList() {
+        database = FirebaseDatabase.getInstance();
         medRecordRef = database.getReference("Med_Record");
-        Query query = medRecordRef.orderByChild("User_id").equalTo(keyUser);
+        Query query = medRecordRef.orderByChild("user_id").equalTo(keyUser);
         medRef = database.getReference("Medicine");
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -142,45 +245,61 @@ public class ListMedFragment extends Fragment {
                 datasetAfter= new ArrayList<>();
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     final Med_Record medRecord = snapshot.getValue(Med_Record.class);
-                    String dateMed = medRecord.getMedRec_startDate();
+                    String dateMed = medRecord.getMedRec_notiDate();
                     String timeMed = medRecord.getMedRec_notiTime();
                     if (dateMed.equals(date) && timeMed.equals(time)) {
-                        medRef.orderByKey().equalTo(medRecord.getMed_id()).addListenerForSingleValueEvent(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                                    Medicine medicine = snapshot.getValue(Medicine.class);
-                                    nameMed = medicine.getMed_name();
-                                    properties = medicine.getMed_property();
-                                    descriptions = medicine.getMed_type() + " " + medRecord.getMedRec_dose();
+                        if (!medRecord.getMedRec_getTime().equals("false")) {
+                            medRef.orderByKey().equalTo(medRecord.getMed_id()).addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                                        Medicine medicine = snapshot.getValue(Medicine.class);
 
-                                    listMed = new ListMed();
-                                    listMed.setNameMed(nameMed);
-                                    listMed.setProperties(properties);
-                                    listMed.setDescriptions(descriptions);
-                                    if (medRecord.getMedRec_getTime().equals("none")) {
-                                        listMed.setGetMed(false);
-                                    } else {
-                                        listMed.setGetMed(true);
+                                        nameMed = medicine.getMed_name();
+                                        properties = medicine.getMed_property();
+                                        if (medicine.getMed_type() == null) {
+                                            descriptions = medRecord.getMedRec_dose();
+                                        } else {
+                                            descriptions = medicine.getMed_type() + " " + medRecord.getMedRec_dose();
+                                        }
+                                        listMed = new ListMed();
+                                        listMed.setNameMed(nameMed);
+                                        listMed.setProperties(properties);
+                                        listMed.setDescriptions(descriptions);
+                                        listMed.setMedID(medRecord.getMed_id());
+                                        if (medRecord.getMedRec_getTime().equals("none")) {
+                                            listMed.setGetMed(false);
+                                        } else {
+                                            listMed.setGetMed(true);
+                                        }
+
+                                        String befAft = medRecord.getMedRec_BefAft();
+                                        if (befAft.equals("ก่อนอาหาร") || befAft.equals("ก่อนนอน")) {
+                                            datasetBefore.add(listMed);
+                                            linearBefore.setVisibility(View.VISIBLE);
+                                            countBefore++;
+                                        } else {
+                                            datasetAfter.add(listMed);
+                                            linearAfter.setVisibility(View.VISIBLE);
+                                            countAfter++;
+                                        }
                                     }
-                                    if (medRecord.getMedRec_BefAft().equals("ก่อนอาหาร")) {
-                                        datasetBefore.add(listMed);
-                                    } else {
-                                        datasetAfter.add(listMed);
+                                    if (countBefore > 0 && countAfter > 0) {
+                                        vLine.setVisibility(View.VISIBLE);
                                     }
+                                    adapterBefore = new ListMedAdapter(getContext(), datasetBefore);
+                                    rcListMedBefore.setAdapter(adapterBefore);
+                                    adapterAfter = new ListMedAdapter(getContext(), datasetAfter);
+                                    rcListMedAfter.setAdapter(adapterAfter);
+
+                                    progressDialog.dismiss();
                                 }
-                                adapterBefore = new ListMedAdapter(getContext(), datasetBefore);
-                                rcListMedBefore.setAdapter(adapterBefore);
-                                adapterAfter = new ListMedAdapter(getContext(), datasetAfter);
-                                rcListMedAfter.setAdapter(adapterAfter);
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError databaseError) {
 
-                                progressDialog.dismiss();
-                            }
-                            @Override
-                            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                            }
-                        });
+                                }
+                            });
+                        }
                     }
                 }
             }
@@ -191,124 +310,16 @@ public class ListMedFragment extends Fragment {
             }
         });
     }
-    //    private List<ListMed> initListMeds() {
-//        final ListMed testMed5 = new ListMed();
-//
-//        dataset = new ArrayList<>();
-//        database = FirebaseDatabase.getInstance();
-//        medRecordRef = database.getReference("Med_Record");
-//        Query query = medRecordRef.orderByChild("User_id").equalTo(keyUser);
-//
-//
-//        medRef = database.getReference("Medicine");
-//        query.addListenerForSingleValueEvent(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-//                if (dataSnapshot.exists()) {
-//                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-//                        Med_Record medRecord = snapshot.getValue(Med_Record.class);
-////                        medRef.orderByKey().equalTo(medRecord.getMed_id()).addListenerForSingleValueEvent(new ValueEventListener() {
-////                            @Override
-////                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-////                                if (dataSnapshot.exists()) {
-////                                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-////                                        Medicine medicine = snapshot.getValue(Medicine.class);
-////                                        nameMed = medicine.getMed_name();
-////                                        properties = medicine.getMed_property();
-////                                        descriptions = medicine.getMed_type() + ", ";
-//////                                        listMed.setNameMed(nameMed);
-//////                                        listMed.setProperties(properties);
-////
-////                                        Log.e("Check", snapshot.getKey() + "---" + properties);
-////                                    }
-////                                }
-////                            }
-////
-////                            @Override
-////                            public void onCancelled(@NonNull DatabaseError databaseError) {
-////
-////                            }
-////                        });
-//
-////                        if (medRecord.getMedRec_BefAft() != null) {
-////                            descriptions += medRecord.getMedRec_BefAft() + ", " + medRecord.getMedRec_dose() + " เวลา " + medRecord.getMedRec_getTime();
-////                        } else {
-////                            descriptions += medRecord.getMedRec_dose() + " เวลา " + medRecord.getMedRec_getTime();
-////                        }
-//
-//
-//                        nameMed = medRecord.getMed_id();
-//                        properties = medRecord.getMedRec_dose();
-//                        time = medRecord.getMedRec_notiTime();
-//                        descriptions = medRecord.getMedRec_BefAft();
-//                        listMed = new ListMed(nameMed, properties, descriptions, time);
-//
-////                        listMed.setTime(time);
-////                        listMed.setDescriptions(medRecord.getMedRec_BefAft());
-//                        dataset.add(listMed);
-//
-//                        Log.e("test",nameMed + "/"+properties+"/"+descriptions+"/"+time);
-////                        tvNoListMed.setText("-- " + nameMed + "\n" + properties + "\n" + descriptions + "\n" + time);
-////                        Log.e("Test list med", "-- Name: " + nameMed + " P : " + properties + " D : " + descriptions + " T : " + time);
-////                        tvNoListMed.setVisibility(View.VISIBLE);
-////                        ListMed listMed = new ListMed(nameMed, properties, descriptions, time);
-////                        dataset.add(listMed);
-//                    }
-//                    Log.e("test2",nameMed + "/"+properties+"/"+descriptions+"/"+time);
-////                    ListMed listMed3 = new ListMed(nameMed, properties, descriptions, time);
-////                    dataset.add(listMed3);
-//
-//
-//
-//                } else {
-//                    tvNoListMed.setVisibility(View.VISIBLE);
-//                }
-//                check = true;
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError databaseError) {
-//
-//            }
-//        });
-//
-//
-////        if (check) {
-////            nameMed = "Name";
-////            properties = "Prop";
-////            descriptions = "Des";
-////            time = "08:00";
-////
-////            ListMed listMed2 = new ListMed(nameMed, properties, descriptions, time);
-////            dataset.add(listMed2);
-////
-////
-////
-////        }
-//
-//        ListMed testMed1 = new ListMed("Metformin", "ยาลดระดับน้ำตาลในเลือด",
-//                "หลังอาหาร, 1 เม็ด เวลา 08:00 น., 1 เม็ด เวลา 17:00 น.", "08:00");
-//        ListMed testMed2 = new ListMed("MELOXICAM", "ยาบรรเทาอาการปวดและอักเสบ",
-//                "หลังอาหาร, 1 เม็ด เวลา 08:00 น.", "08:00");
-//        ListMed testMed3 = new ListMed("Regular insulin", "ยาลดระดับน้ำตาลในเลือด",
-//                "ฉีด, 10 ยูนิต เวลา 08:30 น., 10 ยูนิต เวลา 17.00 น.","08:30");
-//        ListMed testMed4 = new ListMed("Simvastatin", "ยาลดไขมัน",
-//                "ก่อนนอน, 1 เม็ด เวลา 21:30 น.", "21:30");
-//
-//        testMed5.setNameMed("name");
-//        testMed5.setDescriptions("des");
-//        testMed5.setTime("time");
-//        testMed5.setProperties("prop");
-//        dataset.add(testMed5);
-//        Log.e("testList", testMed5.getNameMed());
-//
-////        dataset.add(testMed1);
-////        dataset.add(testMed2);
-////        dataset.add(testMed3);
-////        dataset.add(testMed4);
-//        return dataset;
-//
-//    }
+
+    public void refreshMedList() {
+        // Reload current fragment
+        Fragment frg = null;
+        frg = getFragmentManager().findFragmentByTag("ListMedFragment");
+        final FragmentTransaction ft = getFragmentManager().beginTransaction();
+        ft.detach(frg);
+        ft.attach(frg);
+        ft.commit();
+    }
 
     @Override
     public void onStart() {
@@ -338,5 +349,38 @@ public class ListMedFragment extends Fragment {
         if (savedInstanceState != null) {
             // Restore Instance State here
         }
+    }
+
+    @Override
+    public void onTimeSet(RadialTimePickerDialogFragment dialog, int hourOfDay, int minute) {
+        final String newTime = String.format("%02d", hourOfDay) + ":" + String.format("%02d", minute);
+        AlertDialog.Builder alertTimeNoti = new AlertDialog.Builder(getContext());
+        alertTimeNoti.setMessage("คุณต้องการเปลี่ยนเวลาการแจ้งเตือนเป็น "
+                + newTime + " น. ใช่หรือไม่ ?");
+        alertTimeNoti.setPositiveButton("ใช่", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                notiTimeRef.orderByKey().equalTo(keyUser).addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        notiTimeRef.child(keyUser).child(notiTime+timeBefAft).setValue(newTime);
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
+            }
+        });
+
+        alertTimeNoti.setNeutralButton("ไม่ใช่", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+            }
+        });
+
+        AlertDialog alertDialog = alertTimeNoti.create();
+        alertDialog.show();
     }
 }

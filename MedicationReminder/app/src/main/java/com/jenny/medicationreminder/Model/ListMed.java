@@ -5,15 +5,17 @@ public class ListMed {
     private String properties;
     private String descriptions;
     private Boolean getMed;
+    private String medID;
 
     public ListMed() {
     }
 
-    public ListMed(String nameMed, String properties, String descriptions, Boolean getMed) {
+    public ListMed(String nameMed, String properties, String descriptions, Boolean getMed, String medID) {
         this.nameMed = nameMed;
         this.properties = properties;
         this.descriptions = descriptions;
         this.getMed = getMed;
+        this.medID = medID;
     }
 
     public String getNameMed() {
@@ -48,4 +50,11 @@ public class ListMed {
         this.getMed = getMed;
     }
 
+    public String getMedID() {
+        return medID;
+    }
+
+    public void setMedID(String medID) {
+        this.medID = medID;
+    }
 }

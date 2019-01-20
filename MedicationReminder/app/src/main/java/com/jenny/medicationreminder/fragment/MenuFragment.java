@@ -143,7 +143,6 @@ public class MenuFragment extends Fragment {
                 ActivityCompat.requestPermissions(getActivity(),
                         new String[] {Manifest.permission.CAMERA},
                         REQUEST_CODE_ASK_PERMISSIONS);
-                Log.e("permission2", "allow2");
             }
         } else {
             toScanQrCode();
@@ -152,8 +151,6 @@ public class MenuFragment extends Fragment {
 
     private void toScanQrCode() {
         Intent intent = new Intent(getActivity(), ScanQrCodeActivity.class);
-        intent.putExtra("topic", "เพิ่มยา");
-        intent.putExtra("medName", "Meloxicam");
         startActivity(intent);
     }
 

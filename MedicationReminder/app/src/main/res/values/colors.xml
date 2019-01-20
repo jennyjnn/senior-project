@@ -14,4 +14,6 @@
     <color name="colorLineDivideGray">#BEBEBE</color>
     <color name="colorLightGray2">#D1D1D1</color>
     <color name="colorLightGreen">#86E5E2</color>
+    <color name="colorLightBlueGreen">#EBFFFE</color>
+    <color name="colorLightRed">#FFEEEE</color>
 </resources>

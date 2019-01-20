@@ -6,9 +6,11 @@
     android:layout_margin="8dp"
     android:layout_height="150dp">
     <LinearLayout
+        android:id="@+id/linearListMed"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:background="@drawable/dont_take_med_border">
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"

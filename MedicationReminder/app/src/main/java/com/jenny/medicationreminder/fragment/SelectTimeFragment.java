@@ -99,7 +99,7 @@ public class SelectTimeFragment extends Fragment implements CalendarDatePickerDi
             @Override
             public void onClick(View v) {
                 getFragmentManager().beginTransaction()
-                        .replace(R.id.contentContainerListMed, ListMedFragment.newInstance(dateMedList, "เช้า"))
+                        .replace(R.id.contentContainerListMed, ListMedFragment.newInstance(dateMedList, "เช้า"), "ListMedFragment")
                         .addToBackStack(null)
                         .commit();
             }
@@ -109,7 +109,7 @@ public class SelectTimeFragment extends Fragment implements CalendarDatePickerDi
             @Override
             public void onClick(View v) {
                 getFragmentManager().beginTransaction()
-                        .replace(R.id.contentContainerListMed, ListMedFragment.newInstance(dateMedList, "กลางวัน"))
+                        .replace(R.id.contentContainerListMed, ListMedFragment.newInstance(dateMedList, "กลางวัน"), "ListMedFragment")
                         .addToBackStack(null)
                         .commit();
             }
@@ -119,7 +119,7 @@ public class SelectTimeFragment extends Fragment implements CalendarDatePickerDi
             @Override
             public void onClick(View v) {
                 getFragmentManager().beginTransaction()
-                        .replace(R.id.contentContainerListMed, ListMedFragment.newInstance(dateMedList, "เย็น"))
+                        .replace(R.id.contentContainerListMed, ListMedFragment.newInstance(dateMedList, "เย็น"), "ListMedFragment")
                         .addToBackStack(null)
                         .commit();
             }
@@ -129,7 +129,7 @@ public class SelectTimeFragment extends Fragment implements CalendarDatePickerDi
             @Override
             public void onClick(View v) {
                 getFragmentManager().beginTransaction()
-                        .replace(R.id.contentContainerListMed, ListMedFragment.newInstance(dateMedList, "ก่อนนอน"))
+                        .replace(R.id.contentContainerListMed, ListMedFragment.newInstance(dateMedList, "ก่อนนอน"), "ListMedFragment")
                         .addToBackStack(null)
                         .commit();
             }
@@ -146,7 +146,7 @@ public class SelectTimeFragment extends Fragment implements CalendarDatePickerDi
 
                 // Show Calendar date picker dialog
                 CalendarDatePickerDialogFragment cdp = new CalendarDatePickerDialogFragment()
-                        .setOnDateSetListener((CalendarDatePickerDialogFragment.OnDateSetListener) SelectTimeFragment.this)
+                        .setOnDateSetListener(SelectTimeFragment.this)
                         .setFirstDayOfWeek(Calendar.SUNDAY)
                         .setPreselectedDate(mYear, mMonth-1, mDay)
                         .setDoneText("ตกลง")
@@ -166,6 +166,7 @@ public class SelectTimeFragment extends Fragment implements CalendarDatePickerDi
         });
 
         getDate();
+
     }
 
     private void getDate() {
@@ -191,15 +192,15 @@ public class SelectTimeFragment extends Fragment implements CalendarDatePickerDi
 
         database = FirebaseDatabase.getInstance();
         medRecordRef = database.getReference("Med_Record");
-        Query query = medRecordRef.orderByChild("User_id").equalTo(keyUser);
+        Query query = medRecordRef.orderByChild("user_id").equalTo(keyUser);
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
                     for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                         Med_Record medRecord = snapshot.getValue(Med_Record.class);
-                        String dateMed = medRecord.getMedRec_startDate();
-                        if (dateMed.equals(dateMedList)) {
+                        String dateMed = medRecord.getMedRec_notiDate();
+                        if (dateMed.equals(dateMedList) && !medRecord.getMedRec_getTime().equals("false")) {
                             String notiTime = medRecord.getMedRec_notiTime();
                             switch (notiTime) {
                                 case "เช้า":

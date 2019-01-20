@@ -186,6 +186,18 @@
                             android:drawablePadding="8dp"
                             android:drawableLeft="@drawable/ic_lock_black_24dp"
                             android:inputType="textPassword" />
+                        <!--<android.support.design.widget.TextInputLayout-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--app:passwordToggleDrawable="@drawable/ic_portrait_black_24dp"-->
+                        <!--app:passwordToggleEnabled="true"-->
+                        <!--fancy:passwordToggleTint="@color/colorDarkGreen">-->
+                        <!--<EditText-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:hint="@string/password"-->
+                        <!--android:inputType="textPassword"/>-->
+                        <!--</android.support.design.widget.TextInputLayout>-->
 
                         <EditText
                             android:id="@+id/etTel"
