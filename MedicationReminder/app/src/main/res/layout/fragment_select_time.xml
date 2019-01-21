@@ -110,8 +110,9 @@
                         android:id="@+id/tvCountMorning"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:drawableLeft="@drawable/drug"
+                        android:layout_marginTop="12dp"
+                        android:drawableLeft="@drawable/medication"
+                        android:drawablePadding="8dp"
                         android:text="จำนวนตัวยา"
                         android:gravity="center_vertical"
                         android:textStyle="bold" />
@@ -142,8 +143,9 @@
                         android:id="@+id/tvCountLunch"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:drawableLeft="@drawable/drug"
-                        android:layout_marginTop="10dp"
+                        android:layout_marginTop="12dp"
+                        android:drawableLeft="@drawable/medication"
+                        android:drawablePadding="8dp"
                         android:text="จำนวนตัวยา"
                         android:gravity="center_vertical"
                         android:textStyle="bold" />
@@ -184,8 +186,9 @@
                         android:id="@+id/tvCountEvening"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:drawableLeft="@drawable/drug"
-                        android:layout_marginTop="10dp"
+                        android:layout_marginTop="12dp"
+                        android:drawableLeft="@drawable/medication"
+                        android:drawablePadding="8dp"
                         android:text="จำนวนตัวยา"
                         android:gravity="center_vertical"
                         android:textStyle="bold" />
@@ -216,9 +219,10 @@
                         android:id="@+id/tvCountBeforeBed"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:drawableLeft="@drawable/drug"
+                        android:layout_marginTop="12dp"
+                        android:drawableLeft="@drawable/medication"
+                        android:drawablePadding="8dp"
                         android:gravity="center_vertical"
-                        android:layout_marginTop="10dp"
                         android:text="จำนวนตัวยา"
                         android:textStyle="bold" />
                 </LinearLayout>

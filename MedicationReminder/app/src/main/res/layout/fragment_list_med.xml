@@ -77,7 +77,7 @@
                     style="@style/ListMedInfo"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:drawableRight="@drawable/alarm"
+                    android:drawableRight="@drawable/before_meal"
                     android:drawablePadding="6dp"
                     android:gravity="center_vertical"
                     android:text="ก่อนอาหาร" />
@@ -87,12 +87,11 @@
                     style="@style/TextBoldDarkGray24"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="8dp"
                     android:background="@drawable/textview_border"
+                    android:layout_marginLeft="-2dp"
                     android:paddingLeft="10dp"
-                    android:paddingTop="5dp"
+                    android:paddingTop="1dp"
                     android:paddingRight="10dp"
-                    android:paddingBottom="5dp"
                     android:text="08:00"
                     android:textColor="@color/colorBtnBlue" />
 
@@ -125,7 +124,7 @@
                     style="@style/ListMedInfo"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:drawableRight="@drawable/alarm"
+                    android:drawableRight="@drawable/after_meal"
                     android:drawablePadding="6dp"
                     android:gravity="center_vertical"
                     android:text="หลังอาหาร" />
@@ -135,14 +134,14 @@
                     style="@style/TextBoldDarkGray24"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="8dp"
                     android:background="@drawable/textview_border"
+                    android:layout_marginLeft="-2dp"
                     android:paddingLeft="10dp"
-                    android:paddingTop="5dp"
+                    android:paddingTop="1dp"
                     android:paddingRight="10dp"
-                    android:paddingBottom="5dp"
                     android:text="08:30"
-                    android:textColor="@color/colorBtnBlue" />
+                    android:textColor="@color/colorBtnBlue"
+                    android:elevation="4dp"/>
 
             </LinearLayout>
             <android.support.v7.widget.RecyclerView
