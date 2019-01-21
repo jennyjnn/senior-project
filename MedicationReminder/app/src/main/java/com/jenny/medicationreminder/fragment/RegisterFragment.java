@@ -57,9 +57,10 @@ public class RegisterFragment extends Fragment {
     String password;
     String tel;
 
-    SharedPreferences prefUser;
-    SharedPreferences.Editor editor;
+    SharedPreferences prefUser, prefNotiTime;
+    SharedPreferences.Editor editor, editorNotiTime;
     private static final String USER_PREFS = "userStatus";
+    private static final String NOTI_PREFS = "notiTime";
 
     public RegisterFragment() {
         super();
@@ -290,6 +291,18 @@ public class RegisterFragment extends Fragment {
                     editor.putString("keyUser", user_id);
                     editor.putBoolean("statusLogin", true);
                     editor.commit();
+
+                    // Keep Notification time
+                    prefNotiTime = getActivity().getSharedPreferences(NOTI_PREFS, Context.MODE_PRIVATE);
+                    editorNotiTime = prefNotiTime.edit();
+                    editorNotiTime.putString("morning_bf", "07:30");
+                    editorNotiTime.putString("morning_af", "08:30");
+                    editorNotiTime.putString("noon_bf", "11:30");
+                    editorNotiTime.putString("noon_af", "12:30");
+                    editorNotiTime.putString("evening_bf", "17:00");
+                    editorNotiTime.putString("evening_af", "18:00");
+                    editorNotiTime.putString("bed_bf", "21:00");
+                    editorNotiTime.commit();
 
                     // Start Menu Activity
                     Intent intent = new Intent(getActivity(), MenuActivity.class);

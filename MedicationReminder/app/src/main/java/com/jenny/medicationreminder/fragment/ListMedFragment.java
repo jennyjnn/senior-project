@@ -3,7 +3,6 @@ package com.jenny.medicationreminder.fragment;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -28,20 +27,13 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
-import com.jenny.medicationreminder.EditMedActivity;
 import com.jenny.medicationreminder.Holder.ListMedAdapter;
-import com.jenny.medicationreminder.ListMedActivity;
-import com.jenny.medicationreminder.MainActivity;
 import com.jenny.medicationreminder.Model.ListMed;
 import com.jenny.medicationreminder.Model.Med_Record;
 import com.jenny.medicationreminder.Model.Medicine;
-import com.jenny.medicationreminder.Model.Notification_Time;
-import com.jenny.medicationreminder.Model.User;
 import com.jenny.medicationreminder.R;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class ListMedFragment extends Fragment implements RadialTimePickerDialogFragment.OnTimeSetListener {
@@ -63,6 +55,9 @@ public class ListMedFragment extends Fragment implements RadialTimePickerDialogF
 
     ListMedAdapter adapterBefore, adapterAfter;
 
+    AlertDialog.Builder alertTimeNoti;
+    AlertDialog dialogAlertNotification;
+
     String nameMed = new String();
     String properties;
     String descriptions;
@@ -75,9 +70,14 @@ public class ListMedFragment extends Fragment implements RadialTimePickerDialogF
     List<ListMed> datasetBefore, datasetAfter;
     ListMed listMed;
 
-    SharedPreferences prefUser;
+    SharedPreferences prefUser, prefNotiTime;
+    SharedPreferences.Editor editorNotiTime;
     private static final String USER_PREFS = "userStatus";
+    private static final String NOTI_PREFS = "notiTime";
     String keyUser;
+
+    String morning_bf, morning_af, noon_bf, noon_af, evening_bf, evening_af, bed_bf;
+
     public static final String FRAG_TAG_TIME_PICKER = "fragment_time_picker_name";
     private int mHour, mMinute;
 
@@ -197,38 +197,31 @@ public class ListMedFragment extends Fragment implements RadialTimePickerDialogF
         progressDialog.setMessage("กรุณารอสักครู่");
         progressDialog.show();
 
-        database = FirebaseDatabase.getInstance();
-        notiTimeRef = database.getReference("User");
-        notiTimeRef.orderByKey().equalTo(keyUser).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for (DataSnapshot snapshot:dataSnapshot.getChildren()) {
-                    User user = snapshot.getValue(User.class);
-                    switch (notiTime) {
-                        case "morning":
-                            tvBeforeTime.setText(user.getMorning_bf());
-                            tvAfterTime.setText(user.getMorning_af());
-                            break;
-                        case "noon":
-                            tvBeforeTime.setText(user.getNoon_bf());
-                            tvAfterTime.setText(user.getNoon_af());
-                            break;
-                        case "evening":
-                            tvBeforeTime.setText(user.getEvening_bf());
-                            tvAfterTime.setText(user.getEvening_af());
-                            break;
-                        case "bed":
-                            tvBeforeTime.setText(user.getBed_bf());
-                            break;
-                    }
-                }
-            }
+        prefNotiTime = getContext().getSharedPreferences(NOTI_PREFS, Context.MODE_PRIVATE);
+        morning_bf = prefNotiTime.getString("morning_bf", "07:30");
+        morning_af = prefNotiTime.getString("morning_af", "08:30");
+        noon_bf = prefNotiTime.getString("noon_bf", "11:30");
+        noon_af = prefNotiTime.getString("noon_af", "12:30");
+        evening_bf = prefNotiTime.getString("evening_bf", "17:00");
+        evening_af = prefNotiTime.getString("evening_af", "18:00");
+        bed_bf = prefNotiTime.getString("bed_bf", "21:00");
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
+        switch (notiTime) {
+            case "morning":
+                tvBeforeTime.setText(morning_bf);
+                tvAfterTime.setText(morning_af);
+                break;
+            case "noon":
+                tvBeforeTime.setText(noon_bf);
+                tvAfterTime.setText(noon_af);
+                break;
+            case "evening":
+                tvBeforeTime.setText(evening_bf);
+                tvAfterTime.setText(evening_af);
+                break;
+            case "bed":
+                tvBeforeTime.setText(bed_bf);
+        }
 
         queryMedList();
     }
@@ -354,16 +347,225 @@ public class ListMedFragment extends Fragment implements RadialTimePickerDialogF
     @Override
     public void onTimeSet(RadialTimePickerDialogFragment dialog, int hourOfDay, int minute) {
         final String newTime = String.format("%02d", hourOfDay) + ":" + String.format("%02d", minute);
-        AlertDialog.Builder alertTimeNoti = new AlertDialog.Builder(getContext());
-        alertTimeNoti.setMessage("คุณต้องการเปลี่ยนเวลาการแจ้งเตือนเป็น "
-                + newTime + " น. ใช่หรือไม่ ?");
-        alertTimeNoti.setPositiveButton("ใช่", new DialogInterface.OnClickListener() {
+
+        int hourMorningBf = Integer.parseInt(morning_bf.substring(0,2));
+        int minuteMorningBf = Integer.parseInt(morning_bf.substring(3));
+        int hourMorningAf = Integer.parseInt(morning_af.substring(0,2));
+        int minuteMorningAf = Integer.parseInt(morning_af.substring(3));
+        int hourNoonBf = Integer.parseInt(noon_bf.substring(0,2));
+        int minuteNoonBf = Integer.parseInt(noon_bf.substring(3));
+        int hourNoonAf = Integer.parseInt(noon_af.substring(0,2));
+        int minuteNoonAf = Integer.parseInt(noon_af.substring(3));
+        int hourEveningBf = Integer.parseInt(evening_bf.substring(0,2));
+        int minuteEveningBf = Integer.parseInt(evening_bf.substring(3));
+        int hourEveningAf = Integer.parseInt(evening_af.substring(0,2));
+        int minuteEveningAf = Integer.parseInt(evening_af.substring(3));
+        int hourBedBf = Integer.parseInt(bed_bf.substring(0,2));
+        int minuteBedBf = Integer.parseInt(bed_bf.substring(3));
+
+        alertTimeNoti = new AlertDialog.Builder(getContext());
+        alertTimeNoti.setCancelable(false);
+        alertTimeNoti.setTitle("เวลาแจ้งเตือนไม่ถูกต้อง");
+
+        if (notiTime.equals("morning")) {
+            if (timeBefAft.equals("_bf")) {
+                if (hourOfDay == hourMorningAf) {
+                    if (minute >= minuteMorningAf) {
+                        alertTimeNoti.setMessage("กรุณาตั้งเวลาไม่เกินเวลาแจ้งเตือนหลังอาหารเช้า");
+                        alertTimeWrong(newTime);
+                    } else {
+                        updateNotificaction(newTime);
+                    }
+                } else if (hourOfDay > hourMorningAf) {
+                    alertTimeNoti.setMessage("กรุณาตั้งเวลาไม่เกินเวลาแจ้งเตือนหลังอาหารเช้า");
+                    alertTimeWrong(newTime);
+                } else if (hourOfDay < 4) {
+                    alertTimeNoti.setMessage("กรุณาตั้งเวลาแจ้งเตือนตั้งแต่\n04:00 น. เป็นต้นไป");
+                    alertTimeWrong(newTime);
+                } else {
+                    updateNotificaction(newTime);
+                }
+            } else {
+                if (hourOfDay == hourNoonBf) {
+                    if (minute >= minuteNoonBf) {
+                        alertTimeNoti.setMessage("กรุณาตั้งเวลาไม่เกินเวลาแจ้งเตือนก่อนอาหารกลางวัน");
+                        alertTimeWrong(newTime);
+                    } else {
+                        updateNotificaction(newTime);
+                    }
+                } else if (hourOfDay > hourNoonBf) {
+                    alertTimeNoti.setMessage("กรุณาตั้งเวลาไม่เกินเวลาแจ้งเตือนก่อนอาหารกลางวัน");
+                    alertTimeWrong(newTime);
+                } else if (hourOfDay == hourMorningBf) {
+                    if (minute <= minuteMorningBf) {
+                        alertTimeNoti.setMessage("กรุณาตั้งเวลาหลังจากเวลาแจ้งเตือนก่อนอาหารเช้า");
+                        alertTimeWrong(newTime);
+                    } else {
+                        updateNotificaction(newTime);
+                    }
+                } else if (hourOfDay < hourMorningBf) {
+                    alertTimeNoti.setMessage("กรุณาตั้งเวลาหลังจากเวลาแจ้งเตือนก่อนอาหารเช้า");
+                    alertTimeWrong(newTime);
+                }
+                else {
+                    updateNotificaction(newTime);
+                }
+            }
+        } else if (notiTime.equals("noon")) {
+            if (timeBefAft.equals("_bf")) {
+                if (hourOfDay == hourNoonAf) {
+                    if (minute >= minuteNoonAf) {
+                        alertTimeNoti.setMessage("กรุณาตั้งเวลาไม่เกินเวลาแจ้งเตือนหลังอาหารกลางวัน");
+                        alertTimeWrong(newTime);
+                    } else {
+                        updateNotificaction(newTime);
+                    }
+                } else if (hourOfDay > hourNoonAf) {
+                    alertTimeNoti.setMessage("กรุณาตั้งเวลาไม่เกินเวลาแจ้งเตือนหลังอาหารกลางวัน");
+                    alertTimeWrong(newTime);
+                } else if (hourOfDay == hourMorningAf) {
+                    if (minute <= minuteMorningAf) {
+                        alertTimeNoti.setMessage("กรุณาตั้งเวลาหลังจากเวลาแจ้งเตือนหลังอาหารเช้า");
+                        alertTimeWrong(newTime);
+                    } else {
+                        updateNotificaction(newTime);
+                    }
+                } else if (hourOfDay < hourMorningBf) {
+                    alertTimeNoti.setMessage("กรุณาตั้งเวลาหลังจากเวลาแจ้งเตือนหลังอาหารเช้า");
+                    alertTimeWrong(newTime);
+                }
+                else {
+                    updateNotificaction(newTime);
+                }
+            } else {
+                if (hourOfDay == hourEveningBf) {
+                    if (minute >= minuteEveningBf) {
+                        alertTimeNoti.setMessage("เกรุณาตั้งเวลาไม่เกินเวลาแจ้งเตือนก่อนอาหารเย็น");
+                        alertTimeWrong(newTime);
+                    } else {
+                        updateNotificaction(newTime);
+                    }
+                } else if (hourOfDay > hourEveningBf) {
+                    alertTimeNoti.setMessage("กรุณาตั้งเวลาไม่เกินเวลาแจ้งเตือนก่อนอาหารเย็น");
+                    alertTimeWrong(newTime);
+                } else if (hourOfDay == hourNoonBf) {
+                    if (minute <= minuteNoonBf) {
+                        alertTimeNoti.setMessage("กรุณาตั้งเวลาหลังจากเวลาแจ้งเตือนก่อนอาหารกลางวัน");
+                        alertTimeWrong(newTime);
+                    } else {
+                        updateNotificaction(newTime);
+                    }
+                } else if (hourOfDay < hourNoonBf) {
+                    alertTimeNoti.setMessage("กรุณาตั้งเวลาหลังจากเวลาแจ้งเตือนก่อนอาหารกลางวัน");
+                    alertTimeWrong(newTime);
+                }
+                else {
+                    updateNotificaction(newTime);
+                }
+            }
+        } else if (notiTime.equals("evening")) {
+            if (timeBefAft.equals("_bf")) {
+                if (hourOfDay == hourEveningAf) {
+                    if (minute >= minuteEveningAf) {
+                        alertTimeNoti.setMessage("กรุณาตั้งเวลาไม่เกินเวลาแจ้งเตือนหลังอาหารเย็น");
+                        alertTimeWrong(newTime);
+                    } else {
+                        updateNotificaction(newTime);
+                    }
+                } else if (hourOfDay > hourEveningAf) {
+                    alertTimeNoti.setMessage("กรุณาตั้งเวลาไม่เกินเวลาแจ้งเตือนหลังอาหารเย็น");
+                    alertTimeWrong(newTime);
+                } else if (hourOfDay == hourNoonAf) {
+                    if (minute <= minuteNoonAf) {
+                        alertTimeNoti.setMessage("กรุณาตั้งเวลาหลังจากเวลาแจ้งเตือนหลังอาหารกลางวัน");
+                        alertTimeWrong(newTime);
+                    } else {
+                        updateNotificaction(newTime);
+                    }
+                } else if (hourOfDay < hourNoonAf) {
+                    alertTimeNoti.setMessage("กรุณาตั้งเวลาหลังจากเวลาแจ้งเตือนหลังอาหารกลางวัน");
+                    alertTimeWrong(newTime);
+                }
+                else {
+                    updateNotificaction(newTime);
+                }
+            } else {
+                if (hourOfDay == hourBedBf) {
+                    if (minute >= minuteBedBf) {
+                        alertTimeNoti.setMessage("กรุณาตั้งเวลาไม่เกินเวลาแจ้งเตือนก่อนนอน");
+                        alertTimeWrong(newTime);
+                    } else {
+                        updateNotificaction(newTime);
+                    }
+                } else if (hourOfDay > hourBedBf) {
+                    alertTimeNoti.setMessage("กรุณาตั้งเวลาไม่เกินเวลาแจ้งเตือนก่อนนอน");
+                    alertTimeWrong(newTime);
+                } else if (hourOfDay == hourEveningBf) {
+                    if (minute <= minuteEveningBf) {
+                        alertTimeNoti.setMessage("กรุณาตั้งเวลาจากเวลาแจ้งเตือนก่อนอาหารเย็น");
+                        alertTimeWrong(newTime);
+                    } else {
+                        updateNotificaction(newTime);
+                    }
+                } else if (hourOfDay < hourEveningBf) {
+                    alertTimeNoti.setMessage("กรุณาตั้งเวลาหลังจากเวลาแจ้งเตือนก่อนอาหารเย็น");
+                    alertTimeWrong(newTime);
+                }
+                else {
+                    updateNotificaction(newTime);
+                }
+            }
+        } else {
+            if (hourOfDay == hourEveningAf) {
+                if (minute <= minuteEveningAf) {
+                    alertTimeNoti.setMessage("กรุณาตั้งเวลาหลังจากเวลาแจ้งเตือนหลังอาหารเย็น");
+                    alertTimeWrong(newTime);
+                } else {
+                    updateNotificaction(newTime);
+                }
+            } else if (hourOfDay < hourEveningAf) {
+                alertTimeNoti.setMessage("กรุณาตั้งเวลาหลังจากเวลาแจ้งเตือนหลังอาหารเย็น");
+                alertTimeWrong(newTime);
+            } else {
+                updateNotificaction(newTime);
+            }
+        }
+
+    }
+
+    private void alertTimeWrong(final String newTime) {
+        alertTimeNoti.setPositiveButton("ตกลง", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+                setTime(newTime);
+            }
+        });
+        dialogAlertNotification = alertTimeNoti.create();
+        dialogAlertNotification.show();
+    }
+
+    private void updateNotificaction(final String newTime) {
+        final AlertDialog.Builder alertConfirmTime = new AlertDialog.Builder(getContext());
+        alertConfirmTime.setMessage("คุณต้องการเปลี่ยนเวลาการแจ้งเตือนเป็น "
+                + newTime + " น. ใช่หรือไม่ ?");
+        alertConfirmTime.setPositiveButton("ใช่", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                notiTimeRef = database.getReference("User");
                 notiTimeRef.orderByKey().equalTo(keyUser).addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        notiTimeRef.child(keyUser).child(notiTime+timeBefAft).setValue(newTime);
+                        String editNotification = notiTime + timeBefAft;
+                        notiTimeRef.child(keyUser).child(editNotification).setValue(newTime);
+
+                        // Edit Notification time
+                        prefNotiTime = getActivity().getSharedPreferences(NOTI_PREFS, Context.MODE_PRIVATE);
+                        editorNotiTime = prefNotiTime.edit();
+                        editorNotiTime.putString(editNotification, newTime);
+                        editorNotiTime.commit();
+
+                        refreshMedList();
                     }
 
                     @Override
@@ -374,13 +576,13 @@ public class ListMedFragment extends Fragment implements RadialTimePickerDialogF
             }
         });
 
-        alertTimeNoti.setNeutralButton("ไม่ใช่", new DialogInterface.OnClickListener() {
+        alertConfirmTime.setNeutralButton("ไม่ใช่", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
             }
         });
 
-        AlertDialog alertDialog = alertTimeNoti.create();
+        AlertDialog alertDialog = alertConfirmTime.create();
         alertDialog.show();
     }
 }

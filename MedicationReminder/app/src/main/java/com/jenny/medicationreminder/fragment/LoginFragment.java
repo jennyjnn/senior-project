@@ -39,10 +39,10 @@ public class LoginFragment extends Fragment {
 
     ProgressDialog progressDialog;
 
-    SharedPreferences prefUser;
-    SharedPreferences.Editor editor;
-
+    SharedPreferences prefUser, prefNotiTime;
+    SharedPreferences.Editor editor, editorNotiTime;
     private static final String USER_PREFS = "userStatus";
+    private static final String NOTI_PREFS = "notiTime";
 
     public LoginFragment() {
         super();
@@ -147,6 +147,18 @@ public class LoginFragment extends Fragment {
                         editor.putBoolean("statusLogin", true);
                         editor.commit();
 
+                        // Keep Notification time
+                        prefNotiTime = getActivity().getSharedPreferences(NOTI_PREFS, Context.MODE_PRIVATE);
+                        editorNotiTime = prefNotiTime.edit();
+                        editorNotiTime.putString("morning_bf", user.getMorning_bf());
+                        editorNotiTime.putString("morning_af", user.getMorning_af());
+                        editorNotiTime.putString("noon_bf", user.getNoon_bf());
+                        editorNotiTime.putString("noon_af", user.getNoon_af());
+                        editorNotiTime.putString("evening_bf", user.getEvening_bf());
+                        editorNotiTime.putString("evening_af", user.getEvening_af());
+                        editorNotiTime.putString("bed_bf", user.getBed_bf());
+                        editorNotiTime.commit();
+
                         // Start Menu
                         Intent intent = new Intent(getActivity(), MenuActivity.class);
                         startActivity(intent);
@@ -216,6 +228,18 @@ public class LoginFragment extends Fragment {
                             editor.putString("keyUser", String.valueOf(snapshot.getKey()));
                             editor.putBoolean("statusLogin", true);
                             editor.commit();
+
+                            // Keep Notification time
+                            prefNotiTime = getActivity().getSharedPreferences(NOTI_PREFS, Context.MODE_PRIVATE);
+                            editorNotiTime = prefNotiTime.edit();
+                            editorNotiTime.putString("morning_bf", user.getMorning_bf());
+                            editorNotiTime.putString("morning_af", user.getMorning_af());
+                            editorNotiTime.putString("noon_bf", user.getNoon_bf());
+                            editorNotiTime.putString("noon_af", user.getNoon_af());
+                            editorNotiTime.putString("evening_bf", user.getEvening_bf());
+                            editorNotiTime.putString("evening_af", user.getEvening_af());
+                            editorNotiTime.putString("bed_bf", user.getBed_bf());
+                            editorNotiTime.commit();
 
                             // Start Menu Activity
                             Intent intent = new Intent(getActivity(), MenuActivity.class);
