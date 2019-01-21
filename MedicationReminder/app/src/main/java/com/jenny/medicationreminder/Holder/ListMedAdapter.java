@@ -117,23 +117,40 @@ public class ListMedAdapter extends RecyclerView.Adapter<ListMedAdapter.ViewHold
                  SharedPreferences prefUser = v.getContext().getSharedPreferences(USER_PREFS, Context.MODE_PRIVATE);;
                  final String keyUser = prefUser.getString("keyUser", "no user");
 
-                 AlertDialog.Builder alertDeleteMed = new AlertDialog.Builder(v.getContext());
-                 alertDeleteMed.setMessage("คุณต้องการลบการแจ้งเตือนสำหรับ " + medName + " ใช่หรือไม่ ?");
-                 alertDeleteMed.setPositiveButton("ใช่", new DialogInterface.OnClickListener() {
+                 AlertDialog.Builder alertLogout = new AlertDialog.Builder(v.getContext());
+                 alertLogout.setMessage("คุณต้องการลบการแจ้งเตือนสำหรับ " + medName + " ใช่หรือไม่ ?");
+                 alertLogout.setPositiveButton("ใช่", new DialogInterface.OnClickListener() {
                      @Override
                      public void onClick(DialogInterface dialog, int which) {
-                         ListMedFragment medFragment = new ListMedFragment();
-                         medFragment.deleteMed(medID, keyUser);
+                         FirebaseDatabase database = FirebaseDatabase.getInstance();
+                         final DatabaseReference medRef = database.getReference("Med_Record");
+                         medRef.orderByChild("user_id").equalTo(keyUser).addListenerForSingleValueEvent(new ValueEventListener() {
+                             @Override
+                             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                                     Med_Record med_record = snapshot.getValue(Med_Record.class);
+                                     if (med_record.getMed_id().equals(medID) && med_record.getMedRec_getTime().equals("none")) {
+                                         String mrID = snapshot.getKey();
+                                         medRef.child(mrID).child("medRec_getTime").setValue("false");
+                                     }
+                                 }
+                             }
+
+                             @Override
+                             public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                             }
+                         });
                      }
                  });
 
-                 alertDeleteMed.setNeutralButton("ไม่ใช่", new DialogInterface.OnClickListener() {
+                 alertLogout.setNeutralButton("ไม่ใช่", new DialogInterface.OnClickListener() {
                      @Override
                      public void onClick(DialogInterface dialog, int which) {
                      }
                  });
 
-                 AlertDialog alertDialog = alertDeleteMed.create();
+                 AlertDialog alertDialog = alertLogout.create();
                  alertDialog.show();
 
              }
