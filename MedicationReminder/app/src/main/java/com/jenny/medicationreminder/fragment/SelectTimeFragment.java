@@ -70,10 +70,12 @@ public class SelectTimeFragment extends Fragment implements CalendarDatePickerDi
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        Log.e("onCreateView", "select Time");
         View rootView = inflater.inflate(R.layout.fragment_select_time, container, false);
         initInstances(rootView);
         return rootView;
     }
+
 
     private void initInstances(View rootView) {
         // Init 'View' instance(s) with rootView.findViewById here
@@ -165,8 +167,12 @@ public class SelectTimeFragment extends Fragment implements CalendarDatePickerDi
             }
         });
 
-        getDate();
-
+        if (dateMedList != null) {
+            checkMed(dateMedList);
+            tvDate.setText(dateMedList);
+        } else {
+            getDate();
+        }
     }
 
     private void getDate() {
@@ -278,11 +284,13 @@ public class SelectTimeFragment extends Fragment implements CalendarDatePickerDi
     @Override
     public void onStart() {
         super.onStart();
+        Log.e("onStart", "select Time");
     }
 
     @Override
     public void onStop() {
         super.onStop();
+        Log.e("onStop", "select Time");
     }
 
     /*
@@ -300,6 +308,7 @@ public class SelectTimeFragment extends Fragment implements CalendarDatePickerDi
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        Log.e("onActivityCreated", "select Time");
         if (savedInstanceState != null) {
             // Restore Instance State here
         }
