@@ -13,6 +13,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,6 +29,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.jenny.medicationreminder.Holder.ListMedAdapter;
+import com.jenny.medicationreminder.ListMedActivity;
 import com.jenny.medicationreminder.Model.ListMed;
 import com.jenny.medicationreminder.Model.Med_Record;
 import com.jenny.medicationreminder.Model.Medicine;
@@ -66,6 +68,7 @@ public class ListMedFragment extends Fragment implements RadialTimePickerDialogF
     String timeBefAft;
     int countBefore = 0;
     int countAfter = 0;
+    int countRefresh = 0;
 
     List<ListMed> datasetBefore, datasetAfter;
     ListMed listMed;
@@ -231,7 +234,7 @@ public class ListMedFragment extends Fragment implements RadialTimePickerDialogF
         medRecordRef = database.getReference("Med_Record");
         Query query = medRecordRef.orderByChild("user_id").equalTo(keyUser);
         medRef = database.getReference("Medicine");
-        query.addListenerForSingleValueEvent(new ValueEventListener() {
+        query.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 datasetBefore = new ArrayList<>();
@@ -304,10 +307,33 @@ public class ListMedFragment extends Fragment implements RadialTimePickerDialogF
         });
     }
 
-    public void refreshMedList() {
+    public void deleteMed(final String medID, String keyUser) {
+        final FirebaseDatabase database = FirebaseDatabase.getInstance();
+        final DatabaseReference medRecordDelete = database.getReference("Med_Record");
+        medRecordDelete.orderByChild("user_id").equalTo(keyUser).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    Med_Record med_record = snapshot.getValue(Med_Record.class);
+                    if (med_record.getMed_id().equals(medID) && med_record.getMedRec_getTime().equals("none")) {
+                        String mrID = snapshot.getKey();
+                        medRecordDelete.child(mrID).child("medRec_getTime").setValue("false");
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    private void refreshMedList() {
         // Reload current fragment
         Fragment frg = null;
         frg = getFragmentManager().findFragmentByTag("ListMedFragment");
+//        frg = getFragmentManager().findFragmentById(R.id.contentContainerListMed);
         final FragmentTransaction ft = getFragmentManager().beginTransaction();
         ft.detach(frg);
         ft.attach(frg);
