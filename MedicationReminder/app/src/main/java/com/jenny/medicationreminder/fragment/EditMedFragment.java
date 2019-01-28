@@ -71,6 +71,7 @@ public class EditMedFragment extends Fragment {
     String medDose = new String();
     String medTime = new String();
     String startDate = new String();
+    String bfOrAf = new String();
     Date notiDate;
     int amountDay;
     String endDate = new String();
@@ -86,6 +87,8 @@ public class EditMedFragment extends Fragment {
     private int mYear, mMonth, mDay;
 
     String topic;
+    String medicineID;
+    String medProperty = new String();
 
     SharedPreferences prefMed;
     SharedPreferences.Editor editor;
@@ -156,7 +159,14 @@ public class EditMedFragment extends Fragment {
         tvTopic = rootView.findViewById(R.id.tvTopic);
 
         progressDialog = new ProgressDialog(getContext());
+        progressDialog.setCancelable(false);
         progressDialog.setMessage("กรุณารอสักครู่");
+
+        database = FirebaseDatabase.getInstance();
+        mRecordRef = database.getReference("Med_Record");
+
+        prefUser = getContext().getSharedPreferences(USER_PREFS, Context.MODE_PRIVATE);
+        keyUser = prefUser.getString("keyUser", "no user");
 
         Bundle bundle = getActivity().getIntent().getExtras();
         if (bundle != null) {
@@ -164,88 +174,13 @@ public class EditMedFragment extends Fragment {
             tvTopic.setText(topic);
             etMedName.setText(bundle.getString("medName"));
             qrCode = bundle.getString("qrCode");
+            medicineID = bundle.getString("medID");
+            medProperty = bundle.getString("medProperty");
         }
         if (topic.equals("เพิ่มยา")) {
-            // Progress Dialog
-            progressDialog.show();
-
-            String[] qrCodeSplit = qrCode.split(" // ");
-            // Name
-            medName = qrCodeSplit[0].toLowerCase();
-            etMedName.setText(medName);
-
-            // Property
-            // Read information of medication from firebase database
-            database = FirebaseDatabase.getInstance();
-            medRef = database.getReference("Medicine");
-            medRef.addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                        Medicine medicine = snapshot.getValue(Medicine.class);
-                        if (medicine.getMed_name().toLowerCase().contains(medName)) {
-                            medID = snapshot.getKey();
-                            property = medicine.getMed_property();
-
-                            prefMed = getActivity().getSharedPreferences(MED_PREFS, Context.MODE_PRIVATE);
-                            editor = prefMed.edit();
-                            editor.putString("medID", medID);
-                            editor.commit();
-
-                            if (property != null) {
-                                etProperty.setText(property);
-                                linearProperty.setVisibility(View.VISIBLE);
-                                linearProperty.setVisibility(View.VISIBLE);
-                            }
-                        }
-                    }
-                    linearEditMed.setVisibility(View.VISIBLE);
-                    progressDialog.dismiss();
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                }
-            });
-
-            // Before or After
-            if (!qrCodeSplit[1].equals("-")) {
-                if (qrCodeSplit[1].equals("ก่อนอาหาร")) {
-                    beforeMeal.setChecked(true);
-//                    afterMeal.setChecked(false);
-                } else {
-                    afterMeal.setChecked(true);
-                }
-            } else {
-                linearTimeOfDay.setVisibility(View.GONE);
-                lineTime.setVisibility(View.GONE);
-            }
-
-            // Time of day
-            medTime = qrCodeSplit[2];
-            if (medTime.contains("เช้า")) {
-                cbMorning.setChecked(true);
-            }
-            if (medTime.contains("กลางวัน")) {
-                cbLunch.setChecked(true);
-            }
-            if (medTime.contains("เย็น")) {
-                cbEvening.setChecked(true);
-            }
-            if (medTime.contains("ก่อนนอน")) {
-                cbBeforeBed.setChecked(true);
-            }
-
-            // Dose
-            medDose = qrCodeSplit[3];
-            String[] quantity = medDose.split(" ");
-            etDose.setText(quantity[0]);
-            tvUnit.setText(quantity[1]);
-
-            // amount of days
-            amountDay = Integer.parseInt(qrCodeSplit[4]);
-            getDate(amountDay-1);
+            addMed();
+        } else {
+            editMed();
         }
 
 //        btnCustomDays.setOnClickListener(new View.OnClickListener() {
@@ -347,14 +282,161 @@ public class EditMedFragment extends Fragment {
 //        });
     }
 
+    private void editMed() {
+        Log.e("property", medProperty);
+        progressDialog.show();
+        if (!medProperty.equals("")) {
+            etProperty.setText(medProperty);
+            linearProperty.setVisibility(View.VISIBLE);
+            lineProperty.setVisibility(View.VISIBLE);
+        } else {
+            linearProperty.setVisibility(View.GONE);
+            lineProperty.setVisibility(View.GONE);
+        }
+        mRecordRef.orderByChild("user_id").equalTo(keyUser).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    Med_Record med_record = snapshot.getValue(Med_Record.class);
+                    if (med_record.getMed_id().equals(medicineID)) {
+
+                        // before or after
+                        bfOrAf = med_record.getMedRec_BefAft();
+                        if (bfOrAf.equals("หลังอาหาร")) {
+                            afterMeal.setChecked(true);
+                        } else if (bfOrAf.equals("ก่อนอาหาร")) {
+                            beforeMeal.setChecked(true);
+                        } else {
+                            linearTimeOfDay.setVisibility(View.GONE);
+                            lineTime.setVisibility(View.GONE);
+                        }
+
+                        // Time of day
+                        medTime = med_record.getMedRec_notiTime();
+                        if (medTime.contains("เช้า")) {
+                            cbMorning.setChecked(true);
+                        }
+                        if (medTime.contains("กลางวัน")) {
+                            cbLunch.setChecked(true);
+                        }
+                        if (medTime.contains("เย็น")) {
+                            cbEvening.setChecked(true);
+                        }
+                        if (medTime.contains("ก่อนนอน")) {
+                            cbBeforeBed.setChecked(true);
+                        }
+
+                        // Dose
+                        medDose = med_record.getMedRec_dose();
+                        String[] quantity = medDose.split(" ");
+                        etDose.setText(quantity[0]);
+                        tvUnit.setText(quantity[1]);
+
+                        // start date
+                        etDateStart.setText(med_record.getMedRec_startDate());
+
+                        // end date
+                        etDateEnd.setText(med_record.getMedRec_endDate());
+                    }
+                }
+                linearEditMed.setVisibility(View.VISIBLE);
+                progressDialog.dismiss();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    private void addMed() {
+        // Progress Dialog
+        progressDialog.show();
+
+        String[] qrCodeSplit = qrCode.split(" // ");
+        // Name
+        medName = qrCodeSplit[0].toLowerCase();
+        etMedName.setText(medName);
+
+        // Property
+        // Read information of medication from firebase database
+        medRef = database.getReference("Medicine");
+        medRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    Medicine medicine = snapshot.getValue(Medicine.class);
+                    if (medicine.getMed_name().toLowerCase().contains(medName)) {
+                        medID = snapshot.getKey();
+                        property = medicine.getMed_property();
+
+                        prefMed = getActivity().getSharedPreferences(MED_PREFS, Context.MODE_PRIVATE);
+                        editor = prefMed.edit();
+                        editor.putString("medID", medID);
+                        editor.commit();
+
+                        if (property != null) {
+                            etProperty.setText(property);
+                            linearProperty.setVisibility(View.VISIBLE);
+                            lineProperty.setVisibility(View.VISIBLE);
+                        }
+                    }
+                }
+                linearEditMed.setVisibility(View.VISIBLE);
+                progressDialog.dismiss();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+        // Before or After
+        bfOrAf = qrCodeSplit[1];
+        if (!bfOrAf.equals("-")) {
+            if (bfOrAf.equals("ก่อนอาหาร")) {
+                beforeMeal.setChecked(true);
+//                    afterMeal.setChecked(false);
+            } else {
+                afterMeal.setChecked(true);
+            }
+        } else {
+            linearTimeOfDay.setVisibility(View.GONE);
+            lineTime.setVisibility(View.GONE);
+        }
+
+        // Time of day
+        medTime = qrCodeSplit[2];
+        if (medTime.contains("เช้า")) {
+            cbMorning.setChecked(true);
+        }
+        if (medTime.contains("กลางวัน")) {
+            cbLunch.setChecked(true);
+        }
+        if (medTime.contains("เย็น")) {
+            cbEvening.setChecked(true);
+        }
+        if (medTime.contains("ก่อนนอน")) {
+            cbBeforeBed.setChecked(true);
+        }
+
+        // Dose
+        medDose = qrCodeSplit[3];
+        String[] quantity = medDose.split(" ");
+        etDose.setText(quantity[0]);
+        tvUnit.setText(quantity[1]);
+
+        // amount of days
+        amountDay = Integer.parseInt(qrCodeSplit[4]);
+        getDate(amountDay-1);
+    }
+
     private void AddMedToDatabase() {
-        prefUser = getContext().getSharedPreferences(USER_PREFS, Context.MODE_PRIVATE);
-        keyUser = prefUser.getString("keyUser", "no user");
         prefMed = getContext().getSharedPreferences(MED_PREFS, Context.MODE_PRIVATE);
         medID = prefMed.getString("medID", "no ID");
 
-        database = FirebaseDatabase.getInstance();
-        mRecordRef = database.getReference("Med_Record");
         mRecordRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -369,11 +451,9 @@ public class EditMedFragment extends Fragment {
                 while (!dateFormat.format(notiDate).equals(endDate)) {
                     for (String time:medTimeSplit) {
                         medRecID = "mr" + idFormat.format(countMedRec+1);
-                        Med_Record med_record = new Med_Record("none", medName, medDose, etDateStart.getText().toString(),
+                        Med_Record med_record = new Med_Record("none", bfOrAf, medDose, etDateStart.getText().toString(),
                                 etDateEnd.getText().toString(),time, dateFormat.format(notiDate), keyUser, medID);
                         mRecordRef.child(medRecID).setValue(med_record);
-                        Log.e("Med Record", medRecID+" -- "+medName + ", " + medDose + ", " + etDateStart.getText().toString()
-                                + ", " + etDateEnd.getText().toString() + ", " + time + ", " + dateFormat.format(notiDate) + ", " + keyUser + medID);
                         countMedRec++;
                     }
                     cal.setTime(notiDate);
@@ -382,11 +462,9 @@ public class EditMedFragment extends Fragment {
                 }
                 for (String time:medTimeSplit) {
                     medRecID = "mr" + idFormat.format(countMedRec+1);
-                    Med_Record med_record = new Med_Record("none", medName, medDose, etDateStart.getText().toString(),
+                    Med_Record med_record = new Med_Record("none", bfOrAf, medDose, etDateStart.getText().toString(),
                             etDateEnd.getText().toString(),time, dateFormat.format(notiDate), keyUser, medID);
                         mRecordRef.child(medRecID).setValue(med_record);
-                    Log.e("Med Record", medRecID+" -- "+medName + ", " + medDose + ", " + etDateStart.getText().toString()
-                            + ", " + etDateEnd.getText().toString() + ", " + time + ", " + dateFormat.format(notiDate) + ", " + keyUser + medID);
                     countMedRec++;
                 }
 
