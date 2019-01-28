@@ -42,7 +42,6 @@ public class ListMedFragment extends Fragment implements RadialTimePickerDialogF
 
     CardView cvAppBar;
     RecyclerView rcListMedBefore, rcListMedAfter;
-    RecyclerView.Adapter mAdapter;
     RecyclerView.LayoutManager mLayoutManagerBefore, mLayoutManagerAfter;
     ImageView btnBack;
     ProgressDialog progressDialog;

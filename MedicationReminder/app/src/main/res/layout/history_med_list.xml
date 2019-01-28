@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardElevation="4dp"
+    android:layout_margin="8dp"
+    android:layout_height="120dp">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:weightSum="3">
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:orientation="vertical"
+            android:paddingLeft="16dp"
+            android:paddingTop="5dp"
+            android:gravity="center_vertical">
+            <TextView
+                android:id="@+id/tvMedNameHist"
+                style="@style/ListMedName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Med Name"
+                android:textAllCaps="true" />
+
+            <TextView
+                android:id="@+id/tvMedPropertyHist"
+                style="@style/ListMedInfo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:text="สรรพคุณ" />
+
+            <TextView
+                android:id="@+id/tvMedDoseHist"
+                style="@style/ListMedInfo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="4dp"
+                android:singleLine="true"
+                android:text="รายละเอียด" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_marginRight="8dp"
+            android:gravity="center_vertical"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/btnHistWeeks"
+                style="@style/TextRegular22"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginBottom="4dp"
+                android:background="@drawable/textview_border"
+                android:text="รายสัปดาห์"
+                android:textColor="@color/colorDarkGreen" />
+            <Button
+                android:id="@+id/btnHistMonths"
+                style="@style/TextRegular22"
+                android:textColor="@color/white"
+                android:layout_width="match_parent"
+                android:background="@drawable/btn_darkgreen"
+                android:text="รายเดือน"
+                android:layout_height="40dp" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+</android.support.v7.widget.CardView>

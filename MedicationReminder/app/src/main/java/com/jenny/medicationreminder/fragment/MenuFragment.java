@@ -21,6 +21,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.jenny.medicationreminder.EditMedActivity;
+import com.jenny.medicationreminder.HistoryActivity;
 import com.jenny.medicationreminder.ListMedActivity;
 import com.jenny.medicationreminder.MainActivity;
 import com.jenny.medicationreminder.MenuActivity;
@@ -31,7 +32,7 @@ import com.jenny.medicationreminder.ViewProfileActivity;
 
 public class MenuFragment extends Fragment {
 
-    CardView cvAppBar, cvListMed, cvProfile;
+    CardView cvAppBar, cvListMed, cvProfile, cvHistory;
     ImageView imgLogout;
     LinearLayout btnAddMed;
     SharedPreferences prefUser;
@@ -110,6 +111,15 @@ public class MenuFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), ListMedActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        cvHistory = rootView.findViewById(R.id.cvHistory);
+        cvHistory.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), HistoryActivity.class);
                 startActivity(intent);
             }
         });
