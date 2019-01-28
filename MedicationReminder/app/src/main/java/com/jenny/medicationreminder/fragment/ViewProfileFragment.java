@@ -129,6 +129,7 @@ public class ViewProfileFragment extends Fragment {
     private void showProfile() {
         // Progress Dialog
         progressDialog = new ProgressDialog(getActivity());
+        progressDialog.setCancelable(false);
         progressDialog.setMessage("กรุณารอสักครู่");
         progressDialog.show();
 

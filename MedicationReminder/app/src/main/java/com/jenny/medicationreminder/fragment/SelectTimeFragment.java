@@ -16,6 +16,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.codetroopers.betterpickers.calendardatepicker.CalendarDatePickerDialogFragment;
+import com.codetroopers.betterpickers.calendardatepicker.MonthAdapter;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -24,6 +25,8 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.jenny.medicationreminder.Model.Med_Record;
 import com.jenny.medicationreminder.R;
+
+import org.joda.time.DateTime;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -146,11 +149,15 @@ public class SelectTimeFragment extends Fragment implements CalendarDatePickerDi
                 mMonth = Integer.parseInt(dateSplit[1]);
                 mDay = Integer.parseInt(dateSplit[0]);
 
+                DateTime now = DateTime.now();
+                MonthAdapter.CalendarDay minDate = new MonthAdapter.CalendarDay(now.getYear(), now.getMonthOfYear()-1, now.getDayOfMonth());
+
                 // Show Calendar date picker dialog
                 CalendarDatePickerDialogFragment cdp = new CalendarDatePickerDialogFragment()
                         .setOnDateSetListener(SelectTimeFragment.this)
                         .setFirstDayOfWeek(Calendar.SUNDAY)
                         .setPreselectedDate(mYear, mMonth-1, mDay)
+                        .setDateRange(minDate, null)
                         .setDoneText("ตกลง")
                         .setCancelText("ยกเลิก");
                 cdp.show(getFragmentManager(), FRAG_TAG_DATE_PICKER);
@@ -187,6 +194,7 @@ public class SelectTimeFragment extends Fragment implements CalendarDatePickerDi
     private void checkMed(String date) {
         // Progress Dialog
         progressDialog = new ProgressDialog(getActivity());
+        progressDialog.setCancelable(false);
         progressDialog.setMessage("กรุณารอสักครู่");
         progressDialog.show();
 

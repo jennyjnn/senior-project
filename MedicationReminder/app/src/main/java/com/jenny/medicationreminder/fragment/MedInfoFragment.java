@@ -112,6 +112,7 @@ public class MedInfoFragment extends Fragment {
 
         // Progress Dialog
         progressDialog = new ProgressDialog(getContext());
+        progressDialog.setCancelable(false);
         progressDialog.setMessage("กรุณารอสักครู่");
         progressDialog.show();
 

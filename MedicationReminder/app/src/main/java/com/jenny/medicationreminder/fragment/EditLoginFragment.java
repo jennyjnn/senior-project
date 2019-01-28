@@ -92,6 +92,7 @@ public class EditLoginFragment extends Fragment {
             public void onClick(View v) {
                 // Progress Dialog
                 progressDialog = new ProgressDialog(getActivity());
+                progressDialog.setCancelable(false);
                 progressDialog.setMessage("กรุณารอสักครู่");
                 progressDialog.show();
 

@@ -225,6 +225,7 @@ public class RegisterFragment extends Fragment {
 
         // Progress Dialog
         progressDialog = new ProgressDialog(getActivity());
+        progressDialog.setCancelable(false);
         progressDialog.setMessage("กรุณารอสักครู่");
         progressDialog.show();
 

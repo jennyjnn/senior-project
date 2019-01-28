@@ -96,6 +96,10 @@ public class LoginFragment extends Fragment {
                         .commit();
             }
         });
+
+        progressDialog = new ProgressDialog(getActivity());
+        progressDialog.setCancelable(false);
+        progressDialog.setMessage("กรุณารอสักครู่");
     }
 
     public void loginTel() {
@@ -112,8 +116,6 @@ public class LoginFragment extends Fragment {
         loginTelRef = database.getReference("User");
 
         // Progress Dialog
-        progressDialog = new ProgressDialog(getActivity());
-        progressDialog.setMessage("กรุณารอสักครู่");
         progressDialog.show();
 
         // Alert Dialog
@@ -208,8 +210,6 @@ public class LoginFragment extends Fragment {
         final AlertDialog dialog = builder.create();
 
         // Progress Dialog
-        progressDialog = new ProgressDialog(getActivity());
-        progressDialog.setMessage("กรุณารอสักครู่");
         progressDialog.show();
 
         // Query database
