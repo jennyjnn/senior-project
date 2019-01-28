@@ -196,6 +196,7 @@ public class ListMedFragment extends Fragment implements RadialTimePickerDialogF
     private void getNotiTime() {
         // Progress Dialog
         progressDialog = new ProgressDialog(getActivity());
+        progressDialog.setCancelable(false);
         progressDialog.setMessage("กรุณารอสักครู่");
         progressDialog.show();
 
@@ -228,17 +229,30 @@ public class ListMedFragment extends Fragment implements RadialTimePickerDialogF
         queryMedList();
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        Log.e("onResume", "onResume");
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        Log.e("onPause", "onPause");
+    }
+
     private void queryMedList() {
         database = FirebaseDatabase.getInstance();
         medRecordRef = database.getReference("Med_Record");
         Query query = medRecordRef.orderByChild("user_id").equalTo(keyUser);
         medRef = database.getReference("Medicine");
-        query.addListenerForSingleValueEvent(new ValueEventListener() {
+        query.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 datasetBefore = new ArrayList<>();
                 datasetAfter= new ArrayList<>();
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    final String medRecordID = snapshot.getKey();
                     final Med_Record medRecord = snapshot.getValue(Med_Record.class);
                     String dateMed = medRecord.getMedRec_notiDate();
                     String timeMed = medRecord.getMedRec_notiTime();
@@ -262,6 +276,8 @@ public class ListMedFragment extends Fragment implements RadialTimePickerDialogF
                                         listMed.setProperties(properties);
                                         listMed.setDescriptions(descriptions);
                                         listMed.setMedID(medRecord.getMed_id());
+                                        listMed.setMedRecordID(medRecordID);
+                                        listMed.setDateMedList(date);
                                         if (medRecord.getMedRec_getTime().equals("none")) {
                                             listMed.setGetMed(false);
                                         } else {
@@ -373,13 +389,13 @@ public class ListMedFragment extends Fragment implements RadialTimePickerDialogF
             if (timeBefAft.equals("_bf")) {
                 if (hourOfDay == hourMorningAf) {
                     if (minute >= minuteMorningAf) {
-                        alertTimeNoti.setMessage("กรุณาตั้งเวลาไม่เกินเวลาแจ้งเตือนหลังอาหารเช้า");
+                        alertTimeNoti.setMessage("กรุณาตั้งเวลาก่อน " + String.format("%02d", hourMorningAf) + ":" + String.format("%02d", minuteMorningAf) + " น.");
                         alertTimeWrong(newTime);
                     } else {
                         updateNotificaction(newTime);
                     }
                 } else if (hourOfDay > hourMorningAf) {
-                    alertTimeNoti.setMessage("กรุณาตั้งเวลาไม่เกินเวลาแจ้งเตือนหลังอาหารเช้า");
+                    alertTimeNoti.setMessage("กรุณาตั้งเวลาก่อน " + String.format("%02d", hourMorningAf) + ":" + String.format("%02d", minuteMorningAf) + " น.");
                     alertTimeWrong(newTime);
                 } else if (hourOfDay < 4) {
                     alertTimeNoti.setMessage("กรุณาตั้งเวลาแจ้งเตือนตั้งแต่\n04:00 น. เป็นต้นไป");
@@ -390,23 +406,23 @@ public class ListMedFragment extends Fragment implements RadialTimePickerDialogF
             } else {
                 if (hourOfDay == hourNoonBf) {
                     if (minute >= minuteNoonBf) {
-                        alertTimeNoti.setMessage("กรุณาตั้งเวลาไม่เกินเวลาแจ้งเตือนก่อนอาหารกลางวัน");
+                        alertTimeNoti.setMessage("กรุณาตั้งเวลาก่อน " + String.format("%02d", hourNoonBf) + ":" + String.format("%02d", minuteNoonBf) + " น.");
                         alertTimeWrong(newTime);
                     } else {
                         updateNotificaction(newTime);
                     }
                 } else if (hourOfDay > hourNoonBf) {
-                    alertTimeNoti.setMessage("กรุณาตั้งเวลาไม่เกินเวลาแจ้งเตือนก่อนอาหารกลางวัน");
+                    alertTimeNoti.setMessage("กรุณาตั้งเวลาก่อน " + String.format("%02d", hourNoonBf) + ":" + String.format("%02d", minuteNoonBf) + " น.");
                     alertTimeWrong(newTime);
                 } else if (hourOfDay == hourMorningBf) {
                     if (minute <= minuteMorningBf) {
-                        alertTimeNoti.setMessage("กรุณาตั้งเวลาหลังจากเวลาแจ้งเตือนก่อนอาหารเช้า");
+                        alertTimeNoti.setMessage("กรุณาตั้งเวลาหลัง "  + String.format("%02d", hourMorningBf) + ":" + String.format("%02d", minuteMorningBf) + " น.");
                         alertTimeWrong(newTime);
                     } else {
                         updateNotificaction(newTime);
                     }
                 } else if (hourOfDay < hourMorningBf) {
-                    alertTimeNoti.setMessage("กรุณาตั้งเวลาหลังจากเวลาแจ้งเตือนก่อนอาหารเช้า");
+                    alertTimeNoti.setMessage("กรุณาตั้งเวลาหลัง "  + String.format("%02d", hourMorningBf) + ":" + String.format("%02d", minuteMorningBf) + " น.");
                     alertTimeWrong(newTime);
                 }
                 else {
@@ -417,23 +433,23 @@ public class ListMedFragment extends Fragment implements RadialTimePickerDialogF
             if (timeBefAft.equals("_bf")) {
                 if (hourOfDay == hourNoonAf) {
                     if (minute >= minuteNoonAf) {
-                        alertTimeNoti.setMessage("กรุณาตั้งเวลาไม่เกินเวลาแจ้งเตือนหลังอาหารกลางวัน");
+                        alertTimeNoti.setMessage("กรุณาตั้งเวลาก่อน " + String.format("%02d", hourNoonAf) + ":" + String.format("%02d", minuteNoonAf) + " น.");
                         alertTimeWrong(newTime);
                     } else {
                         updateNotificaction(newTime);
                     }
                 } else if (hourOfDay > hourNoonAf) {
-                    alertTimeNoti.setMessage("กรุณาตั้งเวลาไม่เกินเวลาแจ้งเตือนหลังอาหารกลางวัน");
+                    alertTimeNoti.setMessage("กรุณาตั้งเวลาก่อน " + String.format("%02d", hourNoonAf) + ":" + String.format("%02d", minuteNoonAf) + " น.");
                     alertTimeWrong(newTime);
                 } else if (hourOfDay == hourMorningAf) {
                     if (minute <= minuteMorningAf) {
-                        alertTimeNoti.setMessage("กรุณาตั้งเวลาหลังจากเวลาแจ้งเตือนหลังอาหารเช้า");
+                        alertTimeNoti.setMessage("กรุณาตั้งเวลาหลัง " + String.format("%02d", hourMorningAf) + ":" + String.format("%02d", minuteMorningAf) + " น.");
                         alertTimeWrong(newTime);
                     } else {
                         updateNotificaction(newTime);
                     }
                 } else if (hourOfDay < hourMorningBf) {
-                    alertTimeNoti.setMessage("กรุณาตั้งเวลาหลังจากเวลาแจ้งเตือนหลังอาหารเช้า");
+                    alertTimeNoti.setMessage("กรุณาตั้งเวลาหลัง " + String.format("%02d", hourMorningAf) + ":" + String.format("%02d", minuteMorningAf) + " น.");
                     alertTimeWrong(newTime);
                 }
                 else {
@@ -442,23 +458,23 @@ public class ListMedFragment extends Fragment implements RadialTimePickerDialogF
             } else {
                 if (hourOfDay == hourEveningBf) {
                     if (minute >= minuteEveningBf) {
-                        alertTimeNoti.setMessage("เกรุณาตั้งเวลาไม่เกินเวลาแจ้งเตือนก่อนอาหารเย็น");
+                        alertTimeNoti.setMessage("เกรุณาตั้งเวลาก่อน " + String.format("%02d", hourEveningBf) + ":" + String.format("%02d", minuteEveningBf) + " น.");
                         alertTimeWrong(newTime);
                     } else {
                         updateNotificaction(newTime);
                     }
                 } else if (hourOfDay > hourEveningBf) {
-                    alertTimeNoti.setMessage("กรุณาตั้งเวลาไม่เกินเวลาแจ้งเตือนก่อนอาหารเย็น");
+                    alertTimeNoti.setMessage("เกรุณาตั้งเวลาก่อน " + String.format("%02d", hourEveningBf) + ":" + String.format("%02d", minuteEveningBf) + " น.");
                     alertTimeWrong(newTime);
                 } else if (hourOfDay == hourNoonBf) {
                     if (minute <= minuteNoonBf) {
-                        alertTimeNoti.setMessage("กรุณาตั้งเวลาหลังจากเวลาแจ้งเตือนก่อนอาหารกลางวัน");
+                        alertTimeNoti.setMessage("กรุณาตั้งเวลาหลัง " + String.format("%02d", hourNoonBf) + ":" + String.format("%02d", minuteNoonBf) + " น.");
                         alertTimeWrong(newTime);
                     } else {
                         updateNotificaction(newTime);
                     }
                 } else if (hourOfDay < hourNoonBf) {
-                    alertTimeNoti.setMessage("กรุณาตั้งเวลาหลังจากเวลาแจ้งเตือนก่อนอาหารกลางวัน");
+                    alertTimeNoti.setMessage("กรุณาตั้งเวลาหลัง " + String.format("%02d", hourNoonBf) + ":" + String.format("%02d", minuteNoonBf) + " น.");
                     alertTimeWrong(newTime);
                 }
                 else {
@@ -469,23 +485,23 @@ public class ListMedFragment extends Fragment implements RadialTimePickerDialogF
             if (timeBefAft.equals("_bf")) {
                 if (hourOfDay == hourEveningAf) {
                     if (minute >= minuteEveningAf) {
-                        alertTimeNoti.setMessage("กรุณาตั้งเวลาไม่เกินเวลาแจ้งเตือนหลังอาหารเย็น");
+                        alertTimeNoti.setMessage("กรุณาตั้งเวลาก่อน " + String.format("%02d", hourEveningAf) + ":" + String.format("%02d", minuteEveningAf) + " น.");
                         alertTimeWrong(newTime);
                     } else {
                         updateNotificaction(newTime);
                     }
                 } else if (hourOfDay > hourEveningAf) {
-                    alertTimeNoti.setMessage("กรุณาตั้งเวลาไม่เกินเวลาแจ้งเตือนหลังอาหารเย็น");
+                    alertTimeNoti.setMessage("กรุณาตั้งเวลาก่อน " + String.format("%02d", hourEveningAf) + ":" + String.format("%02d", minuteEveningAf) + " น.");
                     alertTimeWrong(newTime);
                 } else if (hourOfDay == hourNoonAf) {
                     if (minute <= minuteNoonAf) {
-                        alertTimeNoti.setMessage("กรุณาตั้งเวลาหลังจากเวลาแจ้งเตือนหลังอาหารกลางวัน");
+                        alertTimeNoti.setMessage("กรุณาตั้งเวลาหลัง " + String.format("%02d", hourNoonAf) + ":" + String.format("%02d", minuteNoonAf) + " น.");
                         alertTimeWrong(newTime);
                     } else {
                         updateNotificaction(newTime);
                     }
                 } else if (hourOfDay < hourNoonAf) {
-                    alertTimeNoti.setMessage("กรุณาตั้งเวลาหลังจากเวลาแจ้งเตือนหลังอาหารกลางวัน");
+                    alertTimeNoti.setMessage("กรุณาตั้งเวลาหลัง " + String.format("%02d", hourNoonAf) + ":" + String.format("%02d", minuteNoonAf) + " น.");
                     alertTimeWrong(newTime);
                 }
                 else {
@@ -494,23 +510,23 @@ public class ListMedFragment extends Fragment implements RadialTimePickerDialogF
             } else {
                 if (hourOfDay == hourBedBf) {
                     if (minute >= minuteBedBf) {
-                        alertTimeNoti.setMessage("กรุณาตั้งเวลาไม่เกินเวลาแจ้งเตือนก่อนนอน");
+                        alertTimeNoti.setMessage("กรุณาตั้งเวลาก่อน " + String.format("%02d", hourBedBf) + ":" + String.format("%02d", minuteBedBf) + " น.");
                         alertTimeWrong(newTime);
                     } else {
                         updateNotificaction(newTime);
                     }
                 } else if (hourOfDay > hourBedBf) {
-                    alertTimeNoti.setMessage("กรุณาตั้งเวลาไม่เกินเวลาแจ้งเตือนก่อนนอน");
+                    alertTimeNoti.setMessage("กรุณาตั้งเวลาก่อน " + String.format("%02d", hourBedBf) + ":" + String.format("%02d", minuteBedBf) + " น.");
                     alertTimeWrong(newTime);
                 } else if (hourOfDay == hourEveningBf) {
                     if (minute <= minuteEveningBf) {
-                        alertTimeNoti.setMessage("กรุณาตั้งเวลาจากเวลาแจ้งเตือนก่อนอาหารเย็น");
+                        alertTimeNoti.setMessage("กรุณาตั้งเวลาหลัง " + String.format("%02d", hourEveningBf) + ":" + String.format("%02d", minuteEveningBf) + " น.");
                         alertTimeWrong(newTime);
                     } else {
                         updateNotificaction(newTime);
                     }
                 } else if (hourOfDay < hourEveningBf) {
-                    alertTimeNoti.setMessage("กรุณาตั้งเวลาหลังจากเวลาแจ้งเตือนก่อนอาหารเย็น");
+                    alertTimeNoti.setMessage("กรุณาตั้งเวลาหลัง " + String.format("%02d", hourEveningBf) + ":" + String.format("%02d", minuteEveningBf) + " น.");
                     alertTimeWrong(newTime);
                 }
                 else {
@@ -520,13 +536,13 @@ public class ListMedFragment extends Fragment implements RadialTimePickerDialogF
         } else {
             if (hourOfDay == hourEveningAf) {
                 if (minute <= minuteEveningAf) {
-                    alertTimeNoti.setMessage("กรุณาตั้งเวลาหลังจากเวลาแจ้งเตือนหลังอาหารเย็น");
+                    alertTimeNoti.setMessage("กรุณาตั้งเวลาหลัง " + String.format("%02d", hourEveningAf) + ":" + String.format("%02d", minuteEveningAf) + " น.");
                     alertTimeWrong(newTime);
                 } else {
                     updateNotificaction(newTime);
                 }
             } else if (hourOfDay < hourEveningAf) {
-                alertTimeNoti.setMessage("กรุณาตั้งเวลาหลังจากเวลาแจ้งเตือนหลังอาหารเย็น");
+                alertTimeNoti.setMessage("กรุณาตั้งเวลาหลัง " + String.format("%02d", hourEveningAf) + ":" + String.format("%02d", minuteEveningAf) + " น.");
                 alertTimeWrong(newTime);
             } else {
                 updateNotificaction(newTime);
