@@ -81,10 +81,14 @@
         <item name="android:textColor">@color/colorDarkGreen</item>
     </style>
     <style name="ListMedInfo">
-        <item name="android:textSize">20sp</item>
+        <item name="android:textSize">22sp</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textColor">@color/colorTextGrayBrown</item>
     </style>
+    <style name="TextRegular22">
+        <item name="android:textSize">22sp</item>
+    </style>
+
 
 
 

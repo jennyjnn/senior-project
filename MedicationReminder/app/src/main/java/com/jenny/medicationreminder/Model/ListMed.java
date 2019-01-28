@@ -6,16 +6,20 @@ public class ListMed {
     private String descriptions;
     private Boolean getMed;
     private String medID;
+    private String medRecordID;
+    private String dateMedList;
 
     public ListMed() {
     }
 
-    public ListMed(String nameMed, String properties, String descriptions, Boolean getMed, String medID) {
+    public ListMed(String nameMed, String properties, String descriptions, Boolean getMed, String medID, String medRecordID, String dateMedList) {
         this.nameMed = nameMed;
         this.properties = properties;
         this.descriptions = descriptions;
         this.getMed = getMed;
         this.medID = medID;
+        this.medRecordID = medRecordID;
+        this.dateMedList = dateMedList;
     }
 
     public String getNameMed() {
@@ -56,5 +60,21 @@ public class ListMed {
 
     public void setMedID(String medID) {
         this.medID = medID;
+    }
+
+    public String getMedRecordID() {
+        return medRecordID;
+    }
+
+    public void setMedRecordID(String medRecordID) {
+        this.medRecordID = medRecordID;
+    }
+
+    public String getDateMedList() {
+        return dateMedList;
+    }
+
+    public void setDateMedList(String dateMedList) {
+        this.dateMedList = dateMedList;
     }
 }

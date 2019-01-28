@@ -77,8 +77,6 @@
                     style="@style/ListMedInfo"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:drawableRight="@drawable/before_meal"
-                    android:drawablePadding="6dp"
                     android:gravity="center_vertical"
                     android:text="ก่อนอาหาร" />
 
@@ -88,11 +86,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@drawable/textview_border"
-                    android:layout_marginLeft="-2dp"
                     android:paddingLeft="10dp"
                     android:paddingTop="1dp"
                     android:paddingRight="10dp"
-                    android:text="08:00"
+                    android:layout_marginLeft="8dp"
                     android:textColor="@color/colorBtnBlue" />
 
             </LinearLayout>
@@ -124,8 +121,6 @@
                     style="@style/ListMedInfo"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:drawableRight="@drawable/after_meal"
-                    android:drawablePadding="6dp"
                     android:gravity="center_vertical"
                     android:text="หลังอาหาร" />
 
@@ -135,11 +130,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@drawable/textview_border"
-                    android:layout_marginLeft="-2dp"
                     android:paddingLeft="10dp"
                     android:paddingTop="1dp"
                     android:paddingRight="10dp"
-                    android:text="08:30"
+                    android:layout_marginLeft="8dp"
                     android:textColor="@color/colorBtnBlue"
                     android:elevation="4dp"/>
 

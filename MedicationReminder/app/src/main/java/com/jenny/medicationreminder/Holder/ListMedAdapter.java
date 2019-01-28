@@ -1,5 +1,6 @@
 package com.jenny.medicationreminder.Holder;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -9,12 +10,14 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.QuickContactBadge;
 import android.widget.TextView;
 
 import com.google.firebase.database.DataSnapshot;
@@ -32,7 +35,15 @@ import com.jenny.medicationreminder.Model.Med_Record;
 import com.jenny.medicationreminder.R;
 import com.jenny.medicationreminder.fragment.ListMedFragment;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.logging.Handler;
+import java.util.logging.LogRecord;
+
+import mehdi.sakout.fancybuttons.FancyButton;
 
 public class ListMedAdapter extends RecyclerView.Adapter<ListMedAdapter.ViewHolder> {
 
@@ -50,6 +61,7 @@ public class ListMedAdapter extends RecyclerView.Adapter<ListMedAdapter.ViewHold
         public Button btnViewMed, btnEditMed, btnDelMed;
         public ImageView imgStatus;
         public LinearLayout linearListMed;
+        public FancyButton btnTakeMed;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -64,6 +76,7 @@ public class ListMedAdapter extends RecyclerView.Adapter<ListMedAdapter.ViewHold
             btnViewMed = itemView.findViewById(R.id.btnViewMed);
             btnEditMed = itemView.findViewById(R.id.btnEditMed);
             btnDelMed = itemView.findViewById(R.id.btnDelMed);
+            btnTakeMed = itemView.findViewById(R.id.btnTakeMed);
         }
     }
 
@@ -77,20 +90,70 @@ public class ListMedAdapter extends RecyclerView.Adapter<ListMedAdapter.ViewHold
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
         final ListMed med = mMeds.get(position);
 
         final String medName = med.getNameMed();
         final String medID = med.getMedID();
+        final String medRecordID = med.getMedRecordID();
+        String dateMedList = med.getDateMedList();
+
+        final Date currentTime = Calendar.getInstance().getTime();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        String today = dateFormat.format(currentTime);
 
         holder.tvMedName_list.setText(medName);
         holder.tvMedProp_list.setText(med.getProperties());
         holder.tvMedDes_list.setText(med.getDescriptions());
         if (med.getGetMed() == true) {
-            holder.imgStatus.setImageResource(R.drawable.circle_status_green);
-            holder.tvMedStatus_list.setText("รับยาแล้ว");
+            holder.btnTakeMed.setVisibility(View.GONE);
             holder.linearListMed.setBackgroundResource(R.drawable.taked_med_border);
+        } else {
+            if (!dateMedList.equals(today)) {
+                holder.imgStatus.setImageResource(R.drawable.circle_status_red);
+                holder.tvMedStatus_list.setText("ยังไม่ได้รับยา");
+                holder.btnTakeMed.setVisibility(View.GONE);
+            } else {
+                holder.imgStatus.setVisibility(View.GONE);
+                holder.tvMedStatus_list.setVisibility(View.GONE);
+            }
         }
+
+        holder.btnTakeMed.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DateFormat timeFormat = new SimpleDateFormat("HH:mm");
+                final String timeNow = timeFormat.format(currentTime);
+
+                AlertDialog.Builder alertTakeMed = new AlertDialog.Builder(v.getContext());
+                alertTakeMed.setMessage("คุณรับยา " + medName + " แล้วใช่หรือไม่ ?");
+                alertTakeMed.setPositiveButton("ใช่", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        FirebaseDatabase database = FirebaseDatabase.getInstance();
+                        final DatabaseReference medRef = database.getReference("Med_Record");
+                        medRef.orderByKey().equalTo(medRecordID).addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                medRef.child(medRecordID).child("medRec_getTime").setValue(timeNow);
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                            }
+                        });
+                    }
+                });
+                alertTakeMed.setNeutralButton("ไม่ใช่", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                    }
+                });
+                AlertDialog alertDialog = alertTakeMed.create();
+                alertDialog.show();
+            }
+        });
 
         holder.btnViewMed.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -107,6 +170,8 @@ public class ListMedAdapter extends RecyclerView.Adapter<ListMedAdapter.ViewHold
                 Intent intentEdit = new Intent(v.getContext(), EditMedActivity.class);
                 intentEdit.putExtra("medName", medName);
                 intentEdit.putExtra("topic", "แก้ไขแจ้งเตือน");
+                intentEdit.putExtra("medID", medID);
+                intentEdit.putExtra("medProperty", holder.tvMedProp_list.getText());
                 context.startActivity(intentEdit);
             }
         });
@@ -117,11 +182,17 @@ public class ListMedAdapter extends RecyclerView.Adapter<ListMedAdapter.ViewHold
                  SharedPreferences prefUser = v.getContext().getSharedPreferences(USER_PREFS, Context.MODE_PRIVATE);;
                  final String keyUser = prefUser.getString("keyUser", "no user");
 
-                 AlertDialog.Builder alertLogout = new AlertDialog.Builder(v.getContext());
-                 alertLogout.setMessage("คุณต้องการลบการแจ้งเตือนสำหรับ " + medName + " ใช่หรือไม่ ?");
-                 alertLogout.setPositiveButton("ใช่", new DialogInterface.OnClickListener() {
+                 AlertDialog.Builder alertDelete = new AlertDialog.Builder(v.getContext());
+                 alertDelete.setMessage("คุณต้องการลบการแจ้งเตือนสำหรับ " + medName + " ใช่หรือไม่ ?");
+                 alertDelete.setPositiveButton("ใช่", new DialogInterface.OnClickListener() {
                      @Override
                      public void onClick(DialogInterface dialog, int which) {
+                         // progress dialog
+                         final ProgressDialog progressDialog = new ProgressDialog(v.getContext());
+                         progressDialog.setCancelable(false);
+                         progressDialog.setMessage("กรุณารอสักครู่");
+                         progressDialog.show();
+
                          FirebaseDatabase database = FirebaseDatabase.getInstance();
                          final DatabaseReference medRef = database.getReference("Med_Record");
                          medRef.orderByChild("user_id").equalTo(keyUser).addListenerForSingleValueEvent(new ValueEventListener() {
@@ -134,6 +205,7 @@ public class ListMedAdapter extends RecyclerView.Adapter<ListMedAdapter.ViewHold
                                          medRef.child(mrID).child("medRec_getTime").setValue("false");
                                      }
                                  }
+                                 progressDialog.dismiss();
                              }
 
                              @Override
@@ -144,13 +216,13 @@ public class ListMedAdapter extends RecyclerView.Adapter<ListMedAdapter.ViewHold
                      }
                  });
 
-                 alertLogout.setNeutralButton("ไม่ใช่", new DialogInterface.OnClickListener() {
+                 alertDelete.setNeutralButton("ไม่ใช่", new DialogInterface.OnClickListener() {
                      @Override
                      public void onClick(DialogInterface dialog, int which) {
                      }
                  });
 
-                 AlertDialog alertDialog = alertLogout.create();
+                 AlertDialog alertDialog = alertDelete.create();
                  alertDialog.show();
 
              }
