@@ -103,7 +103,11 @@ public class ListMedAdapter extends RecyclerView.Adapter<ListMedAdapter.ViewHold
         String today = dateFormat.format(currentTime);
 
         holder.tvMedName_list.setText(medName);
-        holder.tvMedProp_list.setText(med.getProperties());
+        if (med.getProperties() == null) {
+            holder.tvMedProp_list.setVisibility(View.GONE);
+        } else {
+            holder.tvMedProp_list.setText(med.getProperties());
+        }
         holder.tvMedDes_list.setText(med.getDescriptions());
         if (med.getGetMed() == true) {
             holder.btnTakeMed.setVisibility(View.GONE);

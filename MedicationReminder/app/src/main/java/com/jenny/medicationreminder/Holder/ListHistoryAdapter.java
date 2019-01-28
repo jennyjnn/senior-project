@@ -26,6 +26,7 @@ import com.jenny.medicationreminder.MedInfoActivity;
 import com.jenny.medicationreminder.Model.ListMed;
 import com.jenny.medicationreminder.Model.ListMedHistory;
 import com.jenny.medicationreminder.Model.Med_Record;
+import com.jenny.medicationreminder.Model.Medicine;
 import com.jenny.medicationreminder.R;
 
 import java.text.DateFormat;
@@ -50,6 +51,7 @@ public class ListHistoryAdapter extends RecyclerView.Adapter<ListHistoryAdapter.
     public class ViewHolder extends RecyclerView.ViewHolder {
         public TextView tvMedNameHist, tvMedPropertyHist, tvMedDoseHist;
         public Button btnHistWeeks, btnHistMonths;
+        public ProgressDialog progressDialog;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -58,6 +60,12 @@ public class ListHistoryAdapter extends RecyclerView.Adapter<ListHistoryAdapter.
             tvMedDoseHist = itemView.findViewById(R.id.tvMedDoseHist);
             btnHistWeeks = itemView.findViewById(R.id.btnHistWeeks);
             btnHistMonths = itemView.findViewById(R.id.btnHistMonths);
+
+            // progress dialog
+            progressDialog = new ProgressDialog(itemView.getContext());
+            progressDialog.setCancelable(false);
+            progressDialog.setMessage("กรุณารอสักครู่");
+            progressDialog.show();
         }
     }
 
@@ -71,15 +79,52 @@ public class ListHistoryAdapter extends RecyclerView.Adapter<ListHistoryAdapter.
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        ListMedHistory medHistory = mHistory.get(position);
-        String medName = medHistory.getMedName();
-        String medProperty = medHistory.getMedProperty();
-        String medDose = medHistory.getMedDose();
+    public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
 
-        holder.tvMedNameHist.setText(medName);
-        holder.tvMedPropertyHist.setText(medProperty);
-        holder.tvMedDoseHist.setText(medDose);
+        final ListMedHistory medHistory = mHistory.get(position);
+        String medID = medHistory.getMedID();
+
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference medRef = database.getReference("Medicine");
+        medRef.orderByKey().equalTo(medID).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    Medicine medicine = snapshot.getValue(Medicine.class);
+                    String medName = medicine.getMed_name();
+                    String medProperty = medicine.getMed_property();
+                    holder.tvMedNameHist.setText(medName);
+                    if (medProperty == null) {
+                        holder.tvMedPropertyHist.setVisibility(View.GONE);
+                    } else {
+                        holder.tvMedPropertyHist.setText(medProperty);
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+        DatabaseReference recordRef = database.getReference("Med_Record");
+        recordRef.orderByChild("med_id").equalTo(medID).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    Med_Record med_record = snapshot.getValue(Med_Record.class);
+                    String medDose = med_record.getMedRec_dose();
+                    holder.tvMedDoseHist.setText(medDose);
+                }
+                holder.progressDialog.dismiss();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
 
     }
 
