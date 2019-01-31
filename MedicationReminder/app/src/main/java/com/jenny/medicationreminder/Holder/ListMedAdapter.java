@@ -9,6 +9,7 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -96,7 +97,8 @@ public class ListMedAdapter extends RecyclerView.Adapter<ListMedAdapter.ViewHold
         final String medName = med.getNameMed();
         final String medID = med.getMedID();
         final String medRecordID = med.getMedRecordID();
-        String dateMedList = med.getDateMedList();
+        final String dateMedList = med.getDateMedList();
+        final String timeMedList = med.getTimeMedList();
 
         final Date currentTime = Calendar.getInstance().getTime();
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
@@ -125,7 +127,7 @@ public class ListMedAdapter extends RecyclerView.Adapter<ListMedAdapter.ViewHold
 
         holder.btnTakeMed.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(final View v) {
                 DateFormat timeFormat = new SimpleDateFormat("HH:mm");
                 final String timeNow = timeFormat.format(currentTime);
 
@@ -140,6 +142,12 @@ public class ListMedAdapter extends RecyclerView.Adapter<ListMedAdapter.ViewHold
                             @Override
                             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                                 medRef.child(medRecordID).child("medRec_getTime").setValue(timeNow);
+                                AppCompatActivity activity = (AppCompatActivity) v.getContext();
+                                activity.getSupportFragmentManager().beginTransaction()
+                                        .replace(R.id.contentContainerListMed, ListMedFragment.newInstance(dateMedList, timeMedList))
+                                        .addToBackStack(null)
+                                        .commit();
+                                activity.getSupportFragmentManager().popBackStack();
                             }
 
                             @Override
@@ -210,6 +218,12 @@ public class ListMedAdapter extends RecyclerView.Adapter<ListMedAdapter.ViewHold
                                      }
                                  }
                                  progressDialog.dismiss();
+                                 AppCompatActivity activity = (AppCompatActivity) v.getContext();
+                                 activity.getSupportFragmentManager().beginTransaction()
+                                         .replace(R.id.contentContainerListMed, ListMedFragment.newInstance(dateMedList, timeMedList))
+                                         .addToBackStack(null)
+                                         .commit();
+                                 activity.getSupportFragmentManager().popBackStack();
                              }
 
                              @Override

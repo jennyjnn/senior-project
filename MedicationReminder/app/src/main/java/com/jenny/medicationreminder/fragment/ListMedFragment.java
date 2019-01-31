@@ -245,7 +245,7 @@ public class ListMedFragment extends Fragment implements RadialTimePickerDialogF
         medRecordRef = database.getReference("Med_Record");
         Query query = medRecordRef.orderByChild("user_id").equalTo(keyUser);
         medRef = database.getReference("Medicine");
-        query.addValueEventListener(new ValueEventListener() {
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 datasetBefore = new ArrayList<>();
@@ -277,6 +277,7 @@ public class ListMedFragment extends Fragment implements RadialTimePickerDialogF
                                         listMed.setMedID(medRecord.getMed_id());
                                         listMed.setMedRecordID(medRecordID);
                                         listMed.setDateMedList(date);
+                                        listMed.setTimeMedList(time);
                                         if (medRecord.getMedRec_getTime().equals("none")) {
                                             listMed.setGetMed(false);
                                         } else {

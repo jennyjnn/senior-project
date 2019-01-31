@@ -8,11 +8,12 @@ public class ListMed {
     private String medID;
     private String medRecordID;
     private String dateMedList;
+    private String timeMedList;
 
     public ListMed() {
     }
 
-    public ListMed(String nameMed, String properties, String descriptions, Boolean getMed, String medID, String medRecordID, String dateMedList) {
+    public ListMed(String nameMed, String properties, String descriptions, Boolean getMed, String medID, String medRecordID, String dateMedList, String timeMedList) {
         this.nameMed = nameMed;
         this.properties = properties;
         this.descriptions = descriptions;
@@ -20,6 +21,7 @@ public class ListMed {
         this.medID = medID;
         this.medRecordID = medRecordID;
         this.dateMedList = dateMedList;
+        this.timeMedList = timeMedList;
     }
 
     public String getNameMed() {
@@ -76,5 +78,13 @@ public class ListMed {
 
     public void setDateMedList(String dateMedList) {
         this.dateMedList = dateMedList;
+    }
+
+    public String getTimeMedList() {
+        return timeMedList;
+    }
+
+    public void setTimeMedList(String timeMedList) {
+        this.timeMedList = timeMedList;
     }
 }
